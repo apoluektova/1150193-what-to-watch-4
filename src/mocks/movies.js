@@ -1,4 +1,4 @@
-export const MOVIES = [
+export const movies = [
   {
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -16,7 +16,7 @@ export const MOVIES = [
     title: `Aviator`,
   },
   {
-    previewImage: `mg/we-need-to-talk-about-kevin.jpg`,
+    previewImage: `img/we-need-to-talk-about-kevin.jpg`,
     title: `We need to talk about Kevin`,
   },
   {

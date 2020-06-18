@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import MoviesList from "../movies-list/movies-list.jsx";
 
 const Main = (props) => {
-  const {title, genre, releaseDate, movieCardTitles, onMovieCardTitleClick} = props;
+  const {title, genre, releaseDate, movies, onMovieCardTitleClick, onMovieCardHover} = props;
 
   return (
     <React.Fragment>
@@ -98,24 +99,11 @@ const Main = (props) => {
             </li>
           </ul>
 
-          <div className="catalog__movies-list">
-            {movieCardTitles.map((movieCardTitle, index) => {
-              return (
-                <article key={index} className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={movieCardTitle} width="280" height="175" />
-                  </div>
-                  <h3 className="small-movie-card__title">
-                    <a
-                      onClick={onMovieCardTitleClick}
-                      className="small-movie-card__link"
-                      href="movie-page.html">{movieCardTitle}
-                    </a>
-                  </h3>
-                </article>
-              );
-            })}
-          </div>
+          <MoviesList
+            movies={movies}
+            onMovieCardTitleClick={onMovieCardTitleClick}
+            onMovieCardHover={onMovieCardHover}
+          />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -144,9 +132,12 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
-  movieCardTitles: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        previewImage: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+      })).isRequired,
+  onMovieCardHover: PropTypes.func.isRequired,
   onMovieCardTitleClick: PropTypes.func.isRequired,
 };
 
