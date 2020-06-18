@@ -22,7 +22,7 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
+  movie: PropTypes.exact({
     previewImage: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   }),

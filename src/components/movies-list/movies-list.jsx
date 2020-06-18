@@ -23,7 +23,7 @@ const MoviesList = (props) => {
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
-      PropTypes.shape({
+      PropTypes.exact({
         previewImage: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       })).isRequired,

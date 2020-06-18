@@ -25,7 +25,7 @@ App.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
-      PropTypes.shape({
+      PropTypes.exact({
         previewImage: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       })).isRequired,
