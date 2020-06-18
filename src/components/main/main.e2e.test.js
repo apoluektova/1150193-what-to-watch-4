@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main";
 
@@ -9,13 +9,39 @@ const Movie = {
   RELEASE_DATE: 2009,
 };
 
-const MOVIE_TITLES = [
-  `Made for Each Other`,
-  `The Dance of Life`,
-  `Sagebrush Trail`,
-  `The Man with the Golden Arm`,
-  `Santa Claus Conquers the Martians`,
-  `Popeye the Sailor Meets Sindbad the Sailor`,
+const movies = [
+  {
+    previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    title: `Fantastic Beasts: The Crimes of Grindelwald`,
+  },
+  {
+    previewImage: `img/bohemian-rhapsody.jpg`,
+    title: `Bohemian Rhapsody`,
+  },
+  {
+    previewImage: `img/macbeth.jpg`,
+    title: `Macbeth`,
+  },
+  {
+    previewImage: `img/aviator.jpg`,
+    title: `Aviator`,
+  },
+  {
+    previewImage: `img/we-need-to-talk-about-kevin.jpg`,
+    title: `We need to talk about Kevin`,
+  },
+  {
+    previewImage: `img/what-we-do-in-the-shadows.jpg`,
+    title: `What We Do in the Shadows`,
+  },
+  {
+    previewImage: `img/revenant.jpg`,
+    title: `Revenant`,
+  },
+  {
+    previewImage: `img/johnny-english.jpg`,
+    title: `Johnny English`,
+  },
 ];
 
 Enzyme.configure({
@@ -24,14 +50,17 @@ Enzyme.configure({
 
 it(`Movie card title is clicked`, () => {
   const onMovieCardTitleClick = jest.fn();
+  const onMovieCardHover = jest.fn();
 
-  const main = shallow(
+  const main = mount(
       <Main
         title={Movie.TITLE}
         genre={Movie.GENRE}
         releaseDate={Movie.RELEASE_DATE}
-        movieCardTitles={MOVIE_TITLES}
+        movies={movies}
         onMovieCardTitleClick={onMovieCardTitleClick}
+        onMovieCardHover={onMovieCardHover}
+
       />
   );
 

@@ -1,12 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-
-const Movie = {
-  TITLE: `Harry Potter`,
-  GENRE: `Comedy`,
-  RELEASE_DATE: 2009,
-};
+import MoviesList from "./movies-list.jsx";
 
 const movies = [
   {
@@ -43,12 +37,9 @@ const movies = [
   },
 ];
 
-it(`Main renders correctly`, () => {
+it(`MoviesList should render correctly`, () => {
   const tree = renderer
-     .create(<Main
-       title={Movie.TITLE}
-       genre={Movie.GENRE}
-       releaseDate={Movie.RELEASE_DATE}
+     .create(<MoviesList
        movies={movies}
        onMovieCardTitleClick={() => {}}
        onMovieCardHover={() => {}}
