@@ -1,25 +1,62 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 
-const MoviesList = (props) => {
-  const {movies, onMovieCardTitleClick, onMovieCardHover} = props;
+class MoviesList extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="catalog__movies-list">
-      {movies.map((movie, index) => {
-        return (
-          <MovieCard
-            key={index}
-            movie={movie}
-            onMovieCardHover={onMovieCardHover}
-            onMovieCardTitleClick={onMovieCardTitleClick}
-          />
-        );
-      })}
-    </div>
-  );
-};
+    this.state = {
+      activeMovieCard: null,
+    };
+
+    // this._handleMovieCardHover = this._handleMovieCardHover.bind(this);
+  }
+
+  // _handleMovieCardHover(movie) {
+  //   this.setState({
+  //     activeMovieCard: movie,
+  //   });
+  // }
+
+  // _getMoviesList() {
+  //   const {movies, onMovieCardTitleClick} = this.props;
+
+  //   movies.map((movie, index) => {
+  //     return (
+  //       <MovieCard
+  //         key={index}
+  //         movie={movie}
+  //         onMovieCardHover={this._handleMovieCardHover(movie)}
+  //         onMovieCardTitleClick={onMovieCardTitleClick}
+  //       />
+  //     );
+  //   });
+  // }
+
+  render() {
+    const {movies, onMovieCardTitleClick} = this.props;
+
+    return (
+      <div className="catalog__movies-list">
+        {movies.map((movie, index) => {
+          return (
+            <MovieCard
+              key={index}
+              movie={movie}
+              onMovieCardHover={(currentMovie) => {
+                this.setState({
+                  activeMovieCard: currentMovie,
+                });
+              }}
+              onMovieCardTitleClick={onMovieCardTitleClick}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+}
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
@@ -27,7 +64,6 @@ MoviesList.propTypes = {
         previewImage: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       })).isRequired,
-  onMovieCardHover: PropTypes.func.isRequired,
   onMovieCardTitleClick: PropTypes.func.isRequired,
 };
 

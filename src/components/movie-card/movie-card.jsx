@@ -7,7 +7,7 @@ const MovieCard = (props) => {
   return (
     <article
       className="small-movie-card catalog__movies-card"
-      onMouseEnter={onMovieCardHover}>
+      onMouseEnter={() => onMovieCardHover(movie)}>
       <div className="small-movie-card__image">
         <img src={movie.previewImage} alt={movie.title} width="280" height="175" />
       </div>
