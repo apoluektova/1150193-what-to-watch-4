@@ -23,9 +23,11 @@ it(`Movie card should be hovered`, () => {
       />
   );
 
-  const smallMovieCards = movieCard.find(`.small-movie-card`);
+  const smallMovieCard = movieCard.find(`.small-movie-card`);
 
-  smallMovieCards.forEach((card) => card.props().onMouseEnter());
+  // smallMovieCard.props().onMouseEnter();
+  smallMovieCard.simulate(`mouseenter`, movie);
 
   expect(onMovieCardHover).toHaveBeenCalledTimes(1);
+  expect(onMovieCardHover.mock.calls[0][0]).toMatchObject(movie);
 });
