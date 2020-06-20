@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
+import MovieDetails from "../movie-details/movie-details.jsx";
 
 const movieCardTitleHandler = () => {};
 const movieCardHoverHandler = () => {};
@@ -9,14 +11,23 @@ const App = (props) => {
   const {title, genre, releaseDate, movies} = props;
 
   return (
-    <Main
-      title={title}
-      genre={genre}
-      releaseDate={releaseDate}
-      movies={movies}
-      onMovieCardTitleClick={movieCardTitleHandler}
-      onMovieCardHover={movieCardHoverHandler}
-    />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main
+            title={title}
+            genre={genre}
+            releaseDate={releaseDate}
+            movies={movies}
+            onMovieCardTitleClick={movieCardTitleHandler}
+            onMovieCardHover={movieCardHoverHandler}
+          />
+        </Route>
+        <Route exact path="/movie-details">
+          <MovieDetails />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 };
 
