@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 const MovieCard = (props) => {
   const {movie, onMovieCardHover, onMovieCardTitleClick} = props;
 
+  const handleMoviecardTitleClick = (evt) => {
+    evt.preventDefault();
+    onMovieCardTitleClick(movie);
+  };
+
   return (
     <article
       className="small-movie-card catalog__movies-card"
@@ -13,7 +18,7 @@ const MovieCard = (props) => {
       </div>
       <h3 className="small-movie-card__title">
         <a
-          onClick={onMovieCardTitleClick}
+          onClick={handleMoviecardTitleClick}
           className="small-movie-card__link"
           href="movie-page.html">{movie.title}</a>
       </h3>
@@ -22,10 +27,10 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  movie: PropTypes.exact({
-    previewImage: PropTypes.string.isRequired,
+  movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
-  }),
+    previewImage: PropTypes.string.isRequired,
+  }).isRequired,
   onMovieCardHover: PropTypes.func.isRequired,
   onMovieCardTitleClick: PropTypes.func.isRequired,
 };

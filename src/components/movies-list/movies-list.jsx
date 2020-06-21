@@ -9,30 +9,7 @@ class MoviesList extends PureComponent {
     this.state = {
       activeMovieCard: null,
     };
-
-    // this._handleMovieCardHover = this._handleMovieCardHover.bind(this);
   }
-
-  // _handleMovieCardHover(movie) {
-  //   this.setState({
-  //     activeMovieCard: movie,
-  //   });
-  // }
-
-  // _getMoviesList() {
-  //   const {movies, onMovieCardTitleClick} = this.props;
-
-  //   movies.map((movie, index) => {
-  //     return (
-  //       <MovieCard
-  //         key={index}
-  //         movie={movie}
-  //         onMovieCardHover={this._handleMovieCardHover(movie)}
-  //         onMovieCardTitleClick={onMovieCardTitleClick}
-  //       />
-  //     );
-  //   });
-  // }
 
   render() {
     const {movies, onMovieCardTitleClick} = this.props;
@@ -63,6 +40,18 @@ MoviesList.propTypes = {
       PropTypes.exact({
         previewImage: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        rating: PropTypes.exact({
+          score: PropTypes.number.isRequired,
+          level: PropTypes.string.isRequired,
+          count: PropTypes.number.isRequired,
+        }),
+        director: PropTypes.string.isRequired,
+        actors: PropTypes.string.isRequired,
       })).isRequired,
   onMovieCardTitleClick: PropTypes.func.isRequired,
 };
