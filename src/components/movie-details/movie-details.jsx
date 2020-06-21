@@ -60,7 +60,7 @@ const MovieDetails = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={poster} alt={title} width="218" height="327" />
+              <img src={poster} alt={`${title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -82,7 +82,7 @@ const MovieDetails = (props) => {
                 <div className="movie-rating__score">{rating.score}</div>
                 <p className="movie-rating__meta">
                   <span className="movie-rating__level">{rating.level}</span>
-                  <span className="movie-rating__count">{rating.count}</span>
+                  <span className="movie-rating__count">{rating.count} ratings</span>
                 </p>
               </div>
 
