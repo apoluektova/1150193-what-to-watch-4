@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import Main from '../main/main.jsx';
 import MovieDetails from '../movie-details/movie-details.jsx';
 
@@ -32,7 +31,7 @@ class App extends PureComponent {
       <Main
         promoMovie={promoMovie}
         movies={movies}
-        onMovieCardTitleClick={this._handleMovieCardClick}
+        onMovieCardClick={this._handleMovieCardClick}
       />
     );
   }
