@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 
 const Main = (props) => {
-  const {title, genre, releaseDate, movies, onMovieCardTitleClick, onMovieCardHover} = props;
+  const {promoMovie, movies, onMovieCardClick} = props;
 
   return (
     <React.Fragment>
@@ -37,10 +37,10 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{promoMovie.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{releaseDate}</span>
+                <span className="movie-card__genre">{promoMovie.genre}</span>
+                <span className="movie-card__year">{promoMovie.releaseDate}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -101,8 +101,7 @@ const Main = (props) => {
 
           <MoviesList
             movies={movies}
-            onMovieCardTitleClick={onMovieCardTitleClick}
-            onMovieCardHover={onMovieCardHover}
+            onMovieCardClick={onMovieCardClick}
           />
 
           <div className="catalog__more">
@@ -129,16 +128,13 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
-  movies: PropTypes.arrayOf(
-      PropTypes.exact({
-        previewImage: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-      })).isRequired,
-  onMovieCardHover: PropTypes.func.isRequired,
-  onMovieCardTitleClick: PropTypes.func.isRequired,
+  promoMovie: PropTypes.exact({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
+  }).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
 };
 
 export default Main;
