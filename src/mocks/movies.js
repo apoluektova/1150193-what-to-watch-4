@@ -7,6 +7,7 @@ export const PROMO_MOVIE = {
 export const movies = [
   {
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -23,6 +24,7 @@ export const movies = [
   },
   {
     previewImage: `img/bohemian-rhapsody.jpg`,
+    previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Bohemian Rhapsody`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -39,6 +41,7 @@ export const movies = [
   },
   {
     previewImage: `img/macbeth.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Macbeth`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -55,6 +58,7 @@ export const movies = [
   },
   {
     previewImage: `img/aviator.jpg`,
+    previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Aviator`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -71,6 +75,7 @@ export const movies = [
   },
   {
     previewImage: `img/we-need-to-talk-about-kevin.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `We need to talk about Kevin`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -87,6 +92,7 @@ export const movies = [
   },
   {
     previewImage: `img/what-we-do-in-the-shadows.jpg`,
+    previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `What We Do in the Shadows`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -103,6 +109,7 @@ export const movies = [
   },
   {
     previewImage: `img/revenant.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Revenant`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -119,6 +126,7 @@ export const movies = [
   },
   {
     previewImage: `img/johnny-english.jpg`,
+    previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Johnny English`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
