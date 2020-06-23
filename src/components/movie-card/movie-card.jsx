@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
 
 const MovieCard = (props) => {
   const {movie, onMovieCardHover, onMovieCardClick} = props;
