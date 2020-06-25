@@ -25,6 +25,12 @@ export default class VideoPlayer extends PureComponent {
         isPlaying: true,
       });
     };
+
+    video.onpause = () => {
+      this.setState({
+        isPlaying: false,
+      });
+    };
   }
 
   componentWillUnmount() {
@@ -33,6 +39,7 @@ export default class VideoPlayer extends PureComponent {
     video.src = ``;
     video.poster = ``;
     video.onplay = null;
+    video.onpause = null;
   }
 
   render() {

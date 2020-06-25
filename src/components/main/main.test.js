@@ -11,6 +11,7 @@ const PROMO_MOVIE = {
 const movies = [
   {
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -27,6 +28,7 @@ const movies = [
   },
   {
     previewImage: `img/bohemian-rhapsody.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Bohemian Rhapsody`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
