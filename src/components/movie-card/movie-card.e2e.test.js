@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {shallow, mount} from "enzyme";
+import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MovieCard from "./movie-card.jsx";
 
@@ -16,7 +16,7 @@ Enzyme.configure({
 it(`Movie card should be hovered`, () => {
   const onMovieCardHover = jest.fn();
 
-  const movieCard = shallow(
+  const movieCard = mount(
       <MovieCard
         movie={movie}
         onMovieCardClick={() => {}}

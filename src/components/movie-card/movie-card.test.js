@@ -14,7 +14,11 @@ it(`MovieCard should render correctly`, () => {
        movie={movie}
        onMovieCardClick={() => {}}
        onMovieCardHover={() => {}}
-     />)
+     />, {
+       createNodeMock: () => {
+         return {};
+       }
+     })
      .toJSON();
 
   expect(tree).toMatchSnapshot();

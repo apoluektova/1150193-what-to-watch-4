@@ -10,9 +10,10 @@ const movie = {
 it(`VideoPlayer should render correctly`, () => {
   const tree = renderer
      .create(<VideoPlayer
-       previewVideo={movie.previewVideo}
-       previewImage={movie.previewImage}
+       src={movie.previewVideo}
+       poster={movie.previewImage}
        isPlaying={true}
+       muted={true}
      />, {
        createNodeMock: () => {
          return {

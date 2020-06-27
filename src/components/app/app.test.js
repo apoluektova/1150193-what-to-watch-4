@@ -50,7 +50,11 @@ it(`App should render correctly`, () => {
      .create(<App
        promoMovie={PROMO_MOVIE}
        movies={movies}
-     />)
+     />, {
+       createNodeMock: () => {
+         return {};
+       }
+     })
      .toJSON();
 
   expect(tree).toMatchSnapshot();
