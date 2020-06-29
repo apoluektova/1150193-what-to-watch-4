@@ -1,10 +1,11 @@
 import React from "react";
-import Enzyme, {shallow, mount} from "enzyme";
+import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MovieCard from "./movie-card.jsx";
 
 const movie = {
   previewImage: `img/moonrise-kingdom.jpg`,
+  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   title: `Moonrise Kingdom`,
 };
 
@@ -15,7 +16,7 @@ Enzyme.configure({
 it(`Movie card should be hovered`, () => {
   const onMovieCardHover = jest.fn();
 
-  const movieCard = shallow(
+  const movieCard = mount(
       <MovieCard
         movie={movie}
         onMovieCardClick={() => {}}
