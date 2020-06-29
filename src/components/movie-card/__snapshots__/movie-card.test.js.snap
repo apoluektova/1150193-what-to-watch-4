@@ -4,16 +4,17 @@ exports[`MovieCard should render correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
   onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <div
     className="small-movie-card__image"
     onClick={[Function]}
   >
-    <img
-      alt="Moonrise Kingdom"
-      height="175"
-      src="img/moonrise-kingdom.jpg"
-      width="280"
+    <video
+      className="player__video"
+      muted={true}
+      poster="img/moonrise-kingdom.jpg"
+      src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
     />
   </div>
   <h3

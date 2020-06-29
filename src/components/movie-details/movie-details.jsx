@@ -160,6 +160,7 @@ const MovieDetails = (props) => {
 
 MovieDetails.propTypes = {
   movie: PropTypes.exact({
+    previewVideo: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
