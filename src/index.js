@@ -8,7 +8,7 @@ ReactDOM.render(
     <App
       promoMovie={PROMO_MOVIE}
       movies={movies}
-      // reviews={reviews}
+      reviews={reviews}
     />,
     document.querySelector(`#root`)
 );

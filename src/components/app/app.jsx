@@ -48,6 +48,7 @@ class App extends PureComponent {
           <Route exact path="/movie-page">
             <MoviePage
               movie={this.state.currentMovieCard === null ? this.props.movies[0] : this.state.currentMovieCard}
+              reviews={reviews}
             />
           </Route>
         </Switch>
@@ -63,7 +64,7 @@ App.propTypes = {
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  // reviews: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default App;
