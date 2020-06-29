@@ -69,6 +69,12 @@ class MovieCard extends PureComponent {
       </article>
     );
   }
+
+  componentWillUnmount() {
+    if (this._timeout) {
+      clearTimeout(this._timeout);
+    }
+  }
 }
 
 

@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
-import MovieDetails from '../movie-details/movie-details.jsx';
+import MoviePage from '../movie-page/movie-page.jsx';
 
 class App extends PureComponent {
   constructor(props) {
@@ -24,7 +24,7 @@ class App extends PureComponent {
     const {currentMovieCard} = this.state;
 
     if (currentMovieCard) {
-      return <MovieDetails movie={currentMovieCard} />;
+      return <MoviePage movie={currentMovieCard} />;
     }
 
     return (
@@ -37,14 +37,16 @@ class App extends PureComponent {
   }
 
   render() {
+    const {reviews} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/movie-details">
-            <MovieDetails
+          <Route exact path="/movie-page">
+            <MoviePage
               movie={this.state.currentMovieCard === null ? this.props.movies[0] : this.state.currentMovieCard}
             />
           </Route>
@@ -61,6 +63,7 @@ App.propTypes = {
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  // reviews: PropTypes.array.isRequired,
 };
 
 export default App;
