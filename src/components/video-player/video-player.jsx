@@ -27,15 +27,10 @@ export default class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {poster, src, muted} = this.props;
-
     return (
       <video
         className="player__video"
         ref={this._videoRef}
-        poster={poster}
-        src={src}
-        muted={muted}
       />
     );
   }
