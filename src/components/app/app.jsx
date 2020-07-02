@@ -24,7 +24,7 @@ class App extends PureComponent {
     const {currentMovieCard} = this.state;
 
     if (currentMovieCard) {
-      return <MoviePage movie={currentMovieCard} reviews={reviews} />;
+      return <MoviePage movies={movies} movie={currentMovieCard} reviews={reviews} onMovieCardClick={this._handleMovieCardClick} />;
     }
 
     return (
@@ -37,7 +37,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {reviews} = this.props;
+    const {reviews, movies} = this.props;
 
     return (
       <BrowserRouter>
@@ -49,6 +49,8 @@ class App extends PureComponent {
             <MoviePage
               movie={this.state.currentMovieCard === null ? this.props.movies[0] : this.state.currentMovieCard}
               reviews={reviews}
+              movies={movies}
+              onMovieCardClick={this._handleMovieCardClick}
             />
           </Route>
         </Switch>
