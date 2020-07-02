@@ -63,8 +63,8 @@ MovieDetails.propTypes = {
     }),
     director: PropTypes.string.isRequired,
     actors: PropTypes.string.isRequired,
+    runtime: PropTypes.string.isRequired,
   }).isRequired,
-  reviews: PropTypes.array.isRequired,
 };
 
 export default MovieDetails;
