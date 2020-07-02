@@ -21,6 +21,7 @@ export const movies = [
     },
     director: `David Yates`,
     actors: `Eddie Redmayne, Katherine Waterston, Dan Fogler, Alison Sudol, Ezra Miller, Zoë Kravitz`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/bohemian-rhapsody.jpg`,
@@ -38,6 +39,7 @@ export const movies = [
     },
     director: `Bryan Singer`,
     actors: `Rami Malek, Lucy Boynton, Gwilym Lee, Ben Hardy, Joe Mazzello, Aidan Gillen, Tom Hollander`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/macbeth.jpg`,
@@ -55,6 +57,7 @@ export const movies = [
     },
     director: `Justin Kurzel`,
     actors: `Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/aviator.jpg`,
@@ -72,6 +75,7 @@ export const movies = [
     },
     director: `Martin Scorsese`,
     actors: `Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/we-need-to-talk-about-kevin.jpg`,
@@ -89,6 +93,7 @@ export const movies = [
     },
     director: `Lynne Ramsay`,
     actors: `Tilda Swinton, John C. Reilly, Ezra Miller`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/what-we-do-in-the-shadows.jpg`,
@@ -106,6 +111,7 @@ export const movies = [
     },
     director: `Jemaine Clement`,
     actors: `Kayvan Novak, Matt Berry, Natasia Demetriou`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/revenant.jpg`,
@@ -123,6 +129,7 @@ export const movies = [
     },
     director: `Alejandro González Iñárritu`,
     actors: `Leonardo DiCaprio, Tom Hardy, Domhnall Gleeson, Will Poulter`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/johnny-english.jpg`,
@@ -140,5 +147,6 @@ export const movies = [
     },
     director: `Peter Howitt`,
     actors: `Rowan Atkinson, Natalie Imbruglia, Ben Miller, John Malkovich`,
+    runtime: `1h 39m`,
   },
 ];

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import TabsList from "../tabs-list/tabs-list.jsx";
 
 const MoviePage = (props) => {
-  const {movie} = props;
+  const {movie, reviews} = props;
 
   return (
     <React.Fragment>
@@ -64,7 +64,7 @@ const MoviePage = (props) => {
               <img src={movie.poster} alt={movie.title} width="218" height="327" />
             </div>
 
-            {<TabsList movie={movie} />}
+            {<TabsList movie={movie} reviews={reviews} />}
 
           </div>
         </div>
@@ -149,8 +149,9 @@ MoviePage.propTypes = {
     }),
     director: PropTypes.string.isRequired,
     actors: PropTypes.string.isRequired,
+    runtime: PropTypes.string.isRequired,
   }).isRequired,
-  // reviews: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default MoviePage;

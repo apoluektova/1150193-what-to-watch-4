@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const MovieDetails = (props) => {
   const {movie: {genre, releaseDate, director, actors, runtime}} = props;
+  const movieActors = actors.split(`, `);
 
   return (
     <React.Fragment>
@@ -15,10 +16,10 @@ const MovieDetails = (props) => {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value">
-              {actors.map((actor, index) => {
+              {movieActors.map((actor, index) => {
                 return (
-                  <React.Fragment key={actor}>
-                    {actor}{index < actors.length - 1 && <>, <br /></>}
+                  <React.Fragment key={`${actor}-${index}`}>
+                    {actor}<br />
                   </React.Fragment>
                 );
               })}
@@ -47,12 +48,23 @@ const MovieDetails = (props) => {
 
 MovieDetails.propTypes = {
   movie: PropTypes.exact({
+    previewImage: PropTypes.string.isRequired,
+    previewVideo: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.exact({
+      score: PropTypes.number.isRequired,
+      level: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    }),
     director: PropTypes.string.isRequired,
     actors: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
   }).isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default MovieDetails;

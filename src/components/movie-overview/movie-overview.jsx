@@ -26,6 +26,13 @@ const MovieOverview = (props) => {
 
 MovieOverview.propTypes = {
   movie: PropTypes.exact({
+    previewImage: PropTypes.string.isRequired,
+    previewVideo: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.exact({
       score: PropTypes.number.isRequired,
@@ -35,6 +42,7 @@ MovieOverview.propTypes = {
     director: PropTypes.string.isRequired,
     actors: PropTypes.string.isRequired,
   }).isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default MovieOverview;

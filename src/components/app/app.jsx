@@ -20,11 +20,11 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoMovie, movies} = this.props;
+    const {promoMovie, movies, reviews} = this.props;
     const {currentMovieCard} = this.state;
 
     if (currentMovieCard) {
-      return <MoviePage movie={currentMovieCard} />;
+      return <MoviePage movie={currentMovieCard} reviews={reviews} />;
     }
 
     return (

@@ -17,7 +17,7 @@ class TabsList extends PureComponent {
   }
 
   _renderActiveTab() {
-    const activeTab = this.state;
+    const {activeTab} = this.state;
     const {movie, reviews} = this.props;
 
     switch (activeTab) {
@@ -37,9 +37,13 @@ class TabsList extends PureComponent {
           <MovieReviews
             reviews={reviews}/>
         );
+      default:
+        return (
+          <MovieOverview
+            movie={movie}
+          />
+        );
     }
-
-    return null;
   }
 
   render() {
