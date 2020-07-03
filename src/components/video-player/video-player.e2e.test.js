@@ -16,8 +16,6 @@ it(`Video Player should have a play state`, () => {
   const videoPlayer = mount(
       <VideoPlayer
         className="player__video"
-        width="280"
-        height="175"
         muted={true}
         src={movie.previewVideo}
         poster={movie.previewImage}
@@ -25,15 +23,13 @@ it(`Video Player should have a play state`, () => {
       />
   );
 
-  expect(videoPlayer.props().isPlaying).toBe(true);
+  expect(videoPlayer.props().isPlaying).toEqual(true);
 });
 
 it(`Video Player should have a pause state`, () => {
   const videoPlayer = mount(
       <VideoPlayer
         className="player__video"
-        width="280"
-        height="175"
         muted={true}
         src={movie.previewVideo}
         poster={movie.previewImage}
@@ -41,5 +37,5 @@ it(`Video Player should have a pause state`, () => {
       />
   );
 
-  expect(videoPlayer.props().isPlaying).toBe(false);
+  expect(videoPlayer.props().isPlaying).toEqual(false);
 });

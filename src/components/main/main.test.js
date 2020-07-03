@@ -25,6 +25,7 @@ const movies = [
     },
     director: `David Yates`,
     actors: `Eddie Redmayne, Katherine Waterston, Dan Fogler, Alison Sudol, Ezra Miller, Zoë Kravitz`,
+    runtime: `1h 39m`,
   },
   {
     previewImage: `img/bohemian-rhapsody.jpg`,
@@ -42,6 +43,7 @@ const movies = [
     },
     director: `Bryan Singer`,
     actors: `Rami Malek, Lucy Boynton, Gwilym Lee, Ben Hardy, Joe Mazzello, Aidan Gillen, Tom Hollander`,
+    runtime: `1h 39m`,
   },
 ];
 

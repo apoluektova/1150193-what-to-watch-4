@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MovieDetails from "./movie-details.jsx";
+import MovieOverview from "./movie-overview.jsx";
 
 const movie = {
   previewImage: `img/bohemian-rhapsody.jpg`,
@@ -21,9 +21,9 @@ const movie = {
   runtime: `1h 39m`,
 };
 
-it(`MovieCard should render correctly`, () => {
+it(`MovieOverview should render correctly`, () => {
   const tree = renderer
-     .create(<MovieDetails
+     .create(<MovieOverview
        movie={movie}
      />)
      .toJSON();

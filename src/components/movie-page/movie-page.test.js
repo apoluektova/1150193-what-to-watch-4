@@ -1,12 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
-
-const PROMO_MOVIE = {
-  title: `Harry Potter`,
-  genre: `Comedy`,
-  releaseDate: 2009,
-};
+import MoviePage from "./movie-page.jsx";
 
 const movies = [
   {
@@ -29,7 +23,7 @@ const movies = [
   },
   {
     previewImage: `img/bohemian-rhapsody.jpg`,
-    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Bohemian Rhapsody`,
     backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
     poster: `img/the-grand-budapest-hotel-poster.jpg`,
@@ -43,6 +37,24 @@ const movies = [
     },
     director: `Bryan Singer`,
     actors: `Rami Malek, Lucy Boynton, Gwilym Lee, Ben Hardy, Joe Mazzello, Aidan Gillen, Tom Hollander`,
+    runtime: `1h 39m`,
+  },
+  {
+    previewImage: `img/macbeth.jpg`,
+    previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    title: `Macbeth`,
+    backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
+    poster: `img/the-grand-budapest-hotel-poster.jpg`,
+    genre: `Drama`,
+    releaseDate: 2015,
+    description: `The story follows a Scottish general's rise to power after receiving a prophecy from a trio of witches that one day he will become King of Scotland. Like the play it was adapted from, the film dramatises the damaging physical and psychological effects of political ambition on those who seek power for its own sake.`,
+    rating: {
+      score: 8.0,
+      level: `Very good`,
+      count: 234,
+    },
+    director: `Justin Kurzel`,
+    actors: `Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris`,
     runtime: `1h 39m`,
   },
 ];
@@ -64,17 +76,14 @@ const reviews = [
   },
 ];
 
-it(`App should render correctly`, () => {
+it(`MoviePage should render correctly`, () => {
   const tree = renderer
-     .create(<App
-       promoMovie={PROMO_MOVIE}
+     .create(<MoviePage
+       movie={movies[0]}
        movies={movies}
        reviews={reviews}
-     />, {
-       createNodeMock: () => {
-         return {};
-       }
-     })
+       onMovieCardClick={() => {}}
+     />)
      .toJSON();
 
   expect(tree).toMatchSnapshot();
