@@ -3,6 +3,8 @@ import {PROMO_MOVIE, movies} from "./mocks/movies.js";
 import {reviews} from "./mocks/reviews.js";
 import {ALL_GENRES} from "./const.js";
 
+const getMoviesListByGenre = (genre) => movies.filter((movie) => movie.genre === genre);
+
 const initialState = {
   genre: ALL_GENRES,
   genresList: getGenresList(movies),
@@ -16,15 +18,13 @@ const ActionType = {
   GET_MOVIES_BY_GENRE: `GET_MOVIES_BY_GENRE`,
 };
 
-const getFilteredMovies = (genre) => movies.filter((movie) => movie.genre === genre);
-
 const ActionCreator = {
   changeGenre: (genre) => ({
     type: ActionType.CHANGE_GENRE,
     payload: genre,
   }),
   getMoviesByGenre: (genre) => {
-    const moviesByGenre = (genre === ALL_GENRES) ? movies : getFilteredMovies(genre);
+    const moviesByGenre = (genre === ALL_GENRES) ? movies : getMoviesListByGenre(genre);
 
     return {
       type: ActionType.GET_MOVIES_BY_GENRE,

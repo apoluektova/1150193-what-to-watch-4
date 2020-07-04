@@ -47,12 +47,17 @@ const movies = [
   },
 ];
 
+const genresList = [`All genres`, `Drama`, `Comedy`, `Thriller`];
+
 it(`Main renders correctly`, () => {
   const tree = renderer
      .create(<Main
        promoMovie={PROMO_MOVIE}
        movies={movies}
        onMovieCardClick={() => {}}
+       onGenreClick={() => {}}
+       activeGenre={`All genres`}
+       genresList={genresList}
      />, {
        createNodeMock: () => {
          return {};
