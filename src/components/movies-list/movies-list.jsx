@@ -19,7 +19,7 @@ class MoviesList extends PureComponent {
         {movies.map((movie, index) => {
           return (
             <MovieCard
-              key={index}
+              key={movie.title + index}
               movie={movie}
               onMovieCardClick={onMovieCardClick}
               onMovieCardHover={(currentMovie) => {
