@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const PROMO_MOVIE = {
   title: `Harry Potter`,
@@ -50,15 +54,22 @@ const movies = [
 const genresList = [`All genres`, `Drama`, `Comedy`, `Thriller`];
 
 it(`Main renders correctly`, () => {
+  const store = mockStore({
+    genre: `All genres`,
+    movies,
+  });
+
   const tree = renderer
-     .create(<Main
-       promoMovie={PROMO_MOVIE}
-       movies={movies}
-       onMovieCardClick={() => {}}
-       onGenreClick={() => {}}
-       activeGenre={`All genres`}
-       genresList={genresList}
-     />, {
+     .create(<Provider store={store}>
+       <Main
+         promoMovie={PROMO_MOVIE}
+         movies={movies}
+         onMovieCardClick={() => {}}
+         onGenreClick={() => {}}
+         activeGenre={`All genres`}
+         genresList={genresList}
+       />
+     </Provider>, {
        createNodeMock: () => {
          return {};
        }

@@ -73,6 +73,7 @@ const genresList = [`All genres`, `Drama`, `Comedy`, `Thriller`];
 it(`App should render correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
+    movies,
   });
 
   const tree = renderer

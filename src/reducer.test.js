@@ -203,8 +203,6 @@ const getGenresList = (moviesList) => {
   return [ALL_GENRES, ...new Set(moviesList.map((movie) => movie.genre))];
 };
 
-const getMoviesListByGenre = (genre) => movies.filter((movie) => movie.genre === genre);
-
 const Genres = {
   DRAMA: `Drama`,
   COMEDY: `Comedy`,
@@ -241,38 +239,11 @@ it(`Reducer should change current genre`, () => {
   });
 });
 
-it(`Reducer should change current movies list by a given genre`, () => {
-  expect(reducer({
-    movies,
-  }, {
-    type: ActionType.GET_MOVIES_BY_GENRE,
-    payload: getMoviesListByGenre(Genres.DRAMA),
-  })).toEqual({
-    movies: getMoviesListByGenre(Genres.DRAMA)
-  });
-
-  expect(reducer({
-    movies,
-  }, {
-    type: ActionType.GET_MOVIES_BY_GENRE,
-    payload: getMoviesListByGenre(Genres.THRILLER),
-  })).toEqual({
-    movies: getMoviesListByGenre(Genres.THRILLER)
-  });
-});
-
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changing genre returns correct genre`, () => {
     expect(ActionCreator.changeGenre(Genres.COMEDY)).toEqual({
       type: ActionType.CHANGE_GENRE,
       payload: Genres.COMEDY,
-    });
-  });
-
-  it(`Action creator for getting movies by chosen genre returns correct movies list`, () => {
-    expect(ActionCreator.getMoviesByGenre(Genres.THRILLER)).toEqual({
-      type: ActionType.GET_MOVIES_BY_GENRE,
-      payload: getMoviesListByGenre(Genres.THRILLER),
     });
   });
 });
