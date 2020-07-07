@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import {connect} from "react-redux";
+import {ALL_GENRES} from "../../const.js";
+
+const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
 const Main = (props) => {
   const {
@@ -14,6 +18,8 @@ const Main = (props) => {
     genresList,
     handleShowMoreButtonClick,
     shownMovieCards} = props;
+
+  const shownMovies = movies.slice(0, shownMovieCards);
 
   return (
     <React.Fragment>
@@ -82,9 +88,8 @@ const Main = (props) => {
           />
 
           <MoviesList
-            movies={movies}
+            movies={shownMovies}
             onMovieCardClick={onMovieCardClick}
-            shownMovieCards={shownMovieCards}
           />
 
           <div className="catalog__more">
@@ -127,4 +132,9 @@ Main.propTypes = {
   shownMovieCards: PropTypes.number.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  movies: (state.genre === ALL_GENRES) ? state.movies : getMoviesListByGenre(state.movies, state.genre),
+});
+
+export {Main};
+export default connect(mapStateToProps)(Main);

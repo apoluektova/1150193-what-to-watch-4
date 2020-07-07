@@ -1,10 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
-import {connect} from "react-redux";
-import {ALL_GENRES} from "../../const.js";
-
-const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -16,11 +12,11 @@ class MoviesList extends PureComponent {
   }
 
   render() {
-    const {movies, onMovieCardClick, shownMovieCards} = this.props;
+    const {movies, onMovieCardClick} = this.props;
 
     return (
       <div className="catalog__movies-list">
-        {movies.slice(0, shownMovieCards).map((movie, index) => {
+        {movies.map((movie, index) => {
           return (
             <MovieCard
               key={movie.title + index}
@@ -42,14 +38,8 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   movies: PropTypes.array.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
-  shownMovieCards: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  movies: (state.genre === ALL_GENRES) ? state.movies : getMoviesListByGenre(state.movies, state.genre),
-  shownMovieCards: state.shownMovieCards,
-});
+export default MoviesList;
 
-export {MoviesList};
-export default connect(mapStateToProps)(MoviesList);
 

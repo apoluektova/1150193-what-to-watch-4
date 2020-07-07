@@ -6,7 +6,7 @@ import MoviesList from "../movies-list/movies-list.jsx";
 const SIMILAR_MOVIES_COUNT = 4;
 
 const MoviePage = (props) => {
-  const {movies, movie, reviews, onMovieCardClick, shownMovieCards} = props;
+  const {movies, movie, reviews, onMovieCardClick} = props;
 
   const filteredMovies = movies.filter((currentMovie) => currentMovie.genre === movie.genre && currentMovie.title !== movie.title);
   const similarMovies = filteredMovies.slice(0, SIMILAR_MOVIES_COUNT);
@@ -82,7 +82,7 @@ const MoviePage = (props) => {
           <MoviesList
             movies={similarMovies}
             onMovieCardClick={onMovieCardClick}
-            shownMovieCards={shownMovieCards} />
+          />
         </section>
 
         <footer className="page-footer">
@@ -125,7 +125,6 @@ MoviePage.propTypes = {
   reviews: PropTypes.array.isRequired,
   movies: PropTypes.array.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
-  shownMovieCards: PropTypes.number.isRequired,
 };
 
 export default MoviePage;

@@ -467,6 +467,17 @@ it(`Reducer should show more movie cards by butoon click`, () => {
   });
 });
 
+it(`Reducer should should reset shown movie cards count by genre change`, () => {
+  expect(reducer({
+    shownMovieCards: 16,
+  }, {
+    type: ActionType.RESET_SHOWN_MOVIE_CARDS_COUNT,
+    payload: 8,
+  })).toEqual({
+    shownMovieCards: 8,
+  });
+});
+
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changing genre returns correct genre`, () => {
     expect(ActionCreator.changeGenre(Genres.COMEDY)).toEqual({
@@ -477,6 +488,12 @@ describe(`Action creators work correctly`, () => {
   it(`Action creator for showing more movie cards returns correct movie cards number`, () => {
     expect(ActionCreator.showMoreMovies()).toEqual({
       type: ActionType.SHOW_MORE_MOVIES,
+      payload: 8,
+    });
+  });
+  it(`Action creator for resetting shown movie cards number returns correct movie cards number`, () => {
+    expect(ActionCreator.resetShownMovieCardsCount()).toEqual({
+      type: ActionType.RESET_SHOWN_MOVIE_CARDS_COUNT,
       payload: 8,
     });
   });

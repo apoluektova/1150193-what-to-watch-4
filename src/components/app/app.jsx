@@ -23,7 +23,15 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoMovie, movies, reviews, onGenreClick, activeGenre, genresList, shownMovieCards, handleShowMoreButtonClick} = this.props;
+    const {
+      promoMovie,
+      movies,
+      reviews,
+      onGenreClick,
+      activeGenre,
+      genresList,
+      shownMovieCards,
+      handleShowMoreButtonClick} = this.props;
     const {currentMovieCard} = this.state;
 
     if (currentMovieCard) {
@@ -32,7 +40,6 @@ class App extends PureComponent {
         movie={currentMovieCard}
         reviews={reviews}
         onMovieCardClick={this._handleMovieCardClick}
-        shownMovieCards={shownMovieCards}
       />;
     }
 
@@ -51,7 +58,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {reviews, movies, shownMovieCards} = this.props;
+    const {reviews, movies} = this.props;
 
     return (
       <BrowserRouter>
@@ -65,7 +72,6 @@ class App extends PureComponent {
               reviews={reviews}
               movies={movies}
               onMovieCardClick={this._handleMovieCardClick}
-              shownMovieCards={shownMovieCards}
             />
           </Route>
         </Switch>

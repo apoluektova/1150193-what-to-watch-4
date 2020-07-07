@@ -1,10 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MoviePage from "./movie-page.jsx";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-
-const mockStore = configureStore([]);
 
 const movies = [
   {
@@ -81,26 +77,19 @@ const reviews = [
 ];
 
 it(`MoviePage should render correctly`, () => {
-  const store = mockStore({
-    genre: `All genres`,
-    movies,
-    shownMovieCards: 8,
-  });
 
   const tree = renderer
-     .create(<Provider store={store}>
-       <MoviePage
-         movie={movies[0]}
-         movies={movies}
-         reviews={reviews}
-         onMovieCardClick={() => {}}
-         shownMovieCards={8}
-       />
-     </Provider>, {
-       createNodeMock: () => {
-         return {};
-       }
-     })
+     .create(
+         <MoviePage
+           movie={movies[0]}
+           movies={movies}
+           reviews={reviews}
+           onMovieCardClick={() => {}}
+         />, {
+           createNodeMock: () => {
+             return {};
+           }
+         })
      .toJSON();
 
   expect(tree).toMatchSnapshot();
