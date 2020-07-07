@@ -1,6 +1,10 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
+import {connect} from "react-redux";
+import {ALL_GENRES} from "../../const.js";
+
+const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -19,7 +23,7 @@ class MoviesList extends PureComponent {
         {movies.map((movie, index) => {
           return (
             <MovieCard
-              key={index}
+              key={movie.title + index}
               movie={movie}
               onMovieCardClick={onMovieCardClick}
               onMovieCardHover={(currentMovie) => {
@@ -40,4 +44,10 @@ MoviesList.propTypes = {
   onMovieCardClick: PropTypes.func.isRequired,
 };
 
-export default MoviesList;
+const mapStateToProps = (state) => ({
+  movies: (state.genre === ALL_GENRES) ? state.movies : getMoviesListByGenre(state.movies, state.genre),
+});
+
+export {MoviesList};
+export default connect(mapStateToProps)(MoviesList);
+

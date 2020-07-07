@@ -1,8 +1,11 @@
 import React, {PureComponent} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
 import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
+
 
 class App extends PureComponent {
   constructor(props) {
@@ -20,7 +23,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoMovie, movies, reviews} = this.props;
+    const {promoMovie, movies, reviews, onGenreClick, activeGenre, genresList} = this.props;
     const {currentMovieCard} = this.state;
 
     if (currentMovieCard) {
@@ -31,7 +34,10 @@ class App extends PureComponent {
       <Main
         promoMovie={promoMovie}
         movies={movies}
+        genresList={genresList}
         onMovieCardClick={this._handleMovieCardClick}
+        onGenreClick={onGenreClick}
+        activeGenre={activeGenre}
       />
     );
   }
@@ -67,6 +73,24 @@ App.propTypes = {
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   reviews: PropTypes.array.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
+  activeGenre: PropTypes.string.isRequired,
+  genresList: PropTypes.array.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  promoMovie: state.promoMovie,
+  movies: state.movies,
+  reviews: state.reviews,
+  activeGenre: state.genre,
+  genresList: state.genresList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreClick(genre) {
+    dispatch(ActionCreator.changeGenre(genre));
+  },
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
