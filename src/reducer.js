@@ -20,6 +20,7 @@ const initialState = {
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE_MOVIES: `SHOW_MORE_MOVIES`,
+  RESET_SHOWN_MOVIE_CARDS_COUNT: `RESET_SHOWN_MOVIE_CARDS_COUNT`,
 };
 
 const ActionCreator = {
@@ -30,6 +31,10 @@ const ActionCreator = {
   showMoreMovies: () => ({
     type: ActionType.SHOW_MORE_MOVIES,
     payload: MovieCards.BY_BUTTON,
+  }),
+  resetShownMovieCardsCount: () => ({
+    type: ActionType.RESET_SHOWN_MOVIE_CARDS_COUNT,
+    payload: MovieCards.SHOWN,
   }),
 };
 
@@ -44,6 +49,10 @@ const reducer = (state = initialState, action) => {
     case (ActionType.SHOW_MORE_MOVIES):
       return extend(state, {
         shownMovieCards: state.shownMovieCards + action.payload,
+      });
+    case (ActionType.RESET_SHOWN_MOVIE_CARDS_COUNT):
+      return extend(state, {
+        shownMovieCards: action.payload,
       });
   }
   return state;

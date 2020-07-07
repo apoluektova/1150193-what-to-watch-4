@@ -101,6 +101,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
+    dispatch(ActionCreator.resetShownMovieCardsCount());
   },
   handleShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
