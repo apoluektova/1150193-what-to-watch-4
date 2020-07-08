@@ -23,11 +23,24 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {promoMovie, movies, reviews, onGenreClick, activeGenre, genresList} = this.props;
+    const {
+      promoMovie,
+      movies,
+      reviews,
+      onGenreClick,
+      activeGenre,
+      genresList,
+      shownMovieCards,
+      handleShowMoreButtonClick} = this.props;
     const {currentMovieCard} = this.state;
 
     if (currentMovieCard) {
-      return <MoviePage movies={movies} movie={currentMovieCard} reviews={reviews} onMovieCardClick={this._handleMovieCardClick} />;
+      return <MoviePage
+        movies={movies}
+        movie={currentMovieCard}
+        reviews={reviews}
+        onMovieCardClick={this._handleMovieCardClick}
+      />;
     }
 
     return (
@@ -38,6 +51,8 @@ class App extends PureComponent {
         onMovieCardClick={this._handleMovieCardClick}
         onGenreClick={onGenreClick}
         activeGenre={activeGenre}
+        handleShowMoreButtonClick={handleShowMoreButtonClick}
+        shownMovieCards={shownMovieCards}
       />
     );
   }
@@ -76,6 +91,8 @@ App.propTypes = {
   onGenreClick: PropTypes.func.isRequired,
   activeGenre: PropTypes.string.isRequired,
   genresList: PropTypes.array.isRequired,
+  shownMovieCards: PropTypes.number.isRequired,
+  handleShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -84,12 +101,17 @@ const mapStateToProps = (state) => ({
   reviews: state.reviews,
   activeGenre: state.genre,
   genresList: state.genresList,
+  shownMovieCards: state.shownMovieCards,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
+    dispatch(ActionCreator.resetShownMovieCardsCount());
   },
+  handleShowMoreButtonClick() {
+    dispatch(ActionCreator.showMoreMovies());
+  }
 });
 
 export {App};

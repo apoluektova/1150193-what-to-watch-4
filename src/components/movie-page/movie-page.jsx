@@ -79,7 +79,10 @@ const MoviePage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList movies={similarMovies} onMovieCardClick={onMovieCardClick} />
+          <MoviesList
+            movies={similarMovies}
+            onMovieCardClick={onMovieCardClick}
+          />
         </section>
 
         <footer className="page-footer">

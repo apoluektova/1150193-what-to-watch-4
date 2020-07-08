@@ -74,6 +74,7 @@ it(`App should render correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
     movies,
+    shownMovieCards: 8,
   });
 
   const tree = renderer
@@ -86,6 +87,8 @@ it(`App should render correctly`, () => {
              onGenreClick={() => {}}
              activeGenre={genresList[0]}
              genresList={genresList}
+             shownMovieCards={8}
+             handleShowMoreButtonClick={() => {}}
            />
          </Provider>, {
            createNodeMock: () => {
