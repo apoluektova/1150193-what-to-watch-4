@@ -68,8 +68,6 @@ const reviews = [
   },
 ];
 
-const genresList = [`All genres`, `Drama`, `Comedy`, `Thriller`];
-
 it(`App should render correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
@@ -85,8 +83,7 @@ it(`App should render correctly`, () => {
              movies={movies}
              reviews={reviews}
              onGenreClick={() => {}}
-             activeGenre={genresList[0]}
-             genresList={genresList}
+             activeGenre={`All genres`}
              shownMovieCards={8}
              handleShowMoreButtonClick={() => {}}
            />

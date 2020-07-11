@@ -5,7 +5,11 @@ import {ActionCreator} from "../../reducer.js";
 import PropTypes from 'prop-types';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
+import {ALL_GENRES} from "../../const.js";
 
+const getGenresList = (movies) => {
+  return [ALL_GENRES, ...new Set(movies.map((movie) => movie.genre))];
+};
 
 class App extends PureComponent {
   constructor(props) {
@@ -29,10 +33,12 @@ class App extends PureComponent {
       reviews,
       onGenreClick,
       activeGenre,
-      genresList,
       shownMovieCards,
       handleShowMoreButtonClick} = this.props;
+
     const {currentMovieCard} = this.state;
+
+    const genresList = getGenresList(movies);
 
     if (currentMovieCard) {
       return <MoviePage
@@ -90,7 +96,6 @@ App.propTypes = {
   reviews: PropTypes.array.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   activeGenre: PropTypes.string.isRequired,
-  genresList: PropTypes.array.isRequired,
   shownMovieCards: PropTypes.number.isRequired,
   handleShowMoreButtonClick: PropTypes.func.isRequired,
 };
@@ -100,7 +105,6 @@ const mapStateToProps = (state) => ({
   movies: state.movies,
   reviews: state.reviews,
   activeGenre: state.genre,
-  genresList: state.genresList,
   shownMovieCards: state.shownMovieCards,
 });
 

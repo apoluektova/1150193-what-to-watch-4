@@ -1,4 +1,4 @@
-import {extend, getGenresList} from "./utils.js";
+import {extend} from "./utils.js";
 import {PROMO_MOVIE, movies} from "./mocks/movies.js";
 import {reviews} from "./mocks/reviews.js";
 import {ALL_GENRES} from "./const.js";
@@ -10,7 +10,6 @@ const MovieCards = {
 
 const initialState = {
   genre: ALL_GENRES,
-  genresList: getGenresList(movies),
   promoMovie: PROMO_MOVIE,
   movies,
   reviews,

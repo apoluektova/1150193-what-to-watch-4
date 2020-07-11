@@ -415,10 +415,6 @@ const reviews = [
   },
 ];
 
-const getGenresList = (moviesList) => {
-  return [ALL_GENRES, ...new Set(moviesList.map((movie) => movie.genre))];
-};
-
 const Genres = {
   DRAMA: `Drama`,
   COMEDY: `Comedy`,
@@ -428,7 +424,6 @@ const Genres = {
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: ALL_GENRES,
-    genresList: getGenresList(movies),
     promoMovie: PROMO_MOVIE,
     movies,
     reviews,
