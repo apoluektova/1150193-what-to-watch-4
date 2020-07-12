@@ -86,6 +86,8 @@ it(`App should render correctly`, () => {
              activeGenre={`All genres`}
              shownMovieCards={8}
              handleShowMoreButtonClick={() => {}}
+             currentMovieCard={movies[0]}
+             handleMovieCardClick={() => {}}
            />
          </Provider>, {
            createNodeMock: () => {

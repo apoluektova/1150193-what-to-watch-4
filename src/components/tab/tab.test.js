@@ -8,8 +8,8 @@ it(`Tab should render correctly`, () => {
   const tree = renderer
      .create(<Tab
        tabTitle={tabTitles[0]}
-       onClick={() => {}}
-       activeTab={true}
+       onTabClick={() => {}}
+       activeTab={tabTitles[0]}
      />)
      .toJSON();
 

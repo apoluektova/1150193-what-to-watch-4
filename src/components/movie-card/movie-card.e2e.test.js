@@ -21,6 +21,9 @@ it(`Movie card should be hovered`, () => {
         movie={movie}
         onMovieCardClick={() => {}}
         onMovieCardHover={onMovieCardHover}
+        isPlaying={false}
+        onVideoPlay={() => {}}
+        onVideoStop={() => {}}
       />
   );
 
@@ -40,6 +43,9 @@ it(`Movie card image should be clicked`, () => {
         movie={movie}
         onMovieCardClick={onMovieCardClick}
         onMovieCardHover={() => {}}
+        isPlaying={false}
+        onVideoPlay={() => {}}
+        onVideoStop={() => {}}
       />
   );
 
@@ -57,6 +63,9 @@ it(`Movie card title should be clicked`, () => {
         movie={movie}
         onMovieCardClick={onMovieCardClick}
         onMovieCardHover={() => {}}
+        isPlaying={false}
+        onVideoPlay={() => {}}
+        onVideoStop={() => {}}
       />
   );
 

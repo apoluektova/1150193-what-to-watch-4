@@ -428,6 +428,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     movies,
     reviews,
     shownMovieCards: 8,
+    currentMovieCard: null,
   });
 });
 
@@ -451,7 +452,7 @@ it(`Reducer should change current genre`, () => {
   });
 });
 
-it(`Reducer should show more movie cards by butoon click`, () => {
+it(`Reducer should show more movie cards by button click`, () => {
   expect(reducer({
     shownMovieCards: 8,
   }, {
@@ -462,7 +463,7 @@ it(`Reducer should show more movie cards by butoon click`, () => {
   });
 });
 
-it(`Reducer should should reset shown movie cards count by genre change`, () => {
+it(`Reducer should reset shown movie cards count by genre change`, () => {
   expect(reducer({
     shownMovieCards: 16,
   }, {
@@ -470,6 +471,17 @@ it(`Reducer should should reset shown movie cards count by genre change`, () => 
     payload: 8,
   })).toEqual({
     shownMovieCards: 8,
+  });
+});
+
+it(`Reducer should change current movie card`, () => {
+  expect(reducer({
+    currentMovieCard: null,
+  }, {
+    type: ActionType.CHANGE_MOVIE_CARD,
+    payload: movies[0],
+  })).toEqual({
+    currentMovieCard: movies[0],
   });
 });
 
@@ -490,6 +502,12 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.resetShownMovieCardsCount()).toEqual({
       type: ActionType.RESET_SHOWN_MOVIE_CARDS_COUNT,
       payload: 8,
+    });
+  });
+  it(`Action creator for changing current movie card returns correct object`, () => {
+    expect(ActionCreator.changeMovieCard(movies[0])).toEqual({
+      type: ActionType.CHANGE_MOVIE_CARD,
+      payload: movies[0],
     });
   });
 });
