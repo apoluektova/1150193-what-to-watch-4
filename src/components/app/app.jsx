@@ -14,16 +14,6 @@ const getGenresList = (movies) => {
 class App extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentMovieCard: null,
-    };
-
-    this._handleMovieCardClick = this._handleMovieCardClick.bind(this);
-  }
-
-  _handleMovieCardClick(currentMovieCard) {
-    this.setState({currentMovieCard});
   }
 
   _renderApp() {
@@ -34,9 +24,9 @@ class App extends PureComponent {
       onGenreClick,
       activeGenre,
       shownMovieCards,
-      handleShowMoreButtonClick} = this.props;
-
-    const {currentMovieCard} = this.state;
+      handleShowMoreButtonClick,
+      currentMovieCard,
+      handleMovieCardClick} = this.props;
 
     const genresList = getGenresList(movies);
 
@@ -45,7 +35,7 @@ class App extends PureComponent {
         movies={movies}
         movie={currentMovieCard}
         reviews={reviews}
-        onMovieCardClick={this._handleMovieCardClick}
+        onMovieCardClick={handleMovieCardClick}
       />;
     }
 
@@ -54,7 +44,7 @@ class App extends PureComponent {
         promoMovie={promoMovie}
         movies={movies}
         genresList={genresList}
-        onMovieCardClick={this._handleMovieCardClick}
+        onMovieCardClick={handleMovieCardClick}
         onGenreClick={onGenreClick}
         activeGenre={activeGenre}
         handleShowMoreButtonClick={handleShowMoreButtonClick}
@@ -64,7 +54,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {reviews, movies} = this.props;
+    const {reviews, movies, currentMovieCard, handleMovieCardClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -74,10 +64,10 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/movie-page">
             <MoviePage
-              movie={this.state.currentMovieCard === null ? this.props.movies[0] : this.state.currentMovieCard}
+              movie={currentMovieCard === null ? this.props.movies[0] : currentMovieCard}
               reviews={reviews}
               movies={movies}
-              onMovieCardClick={this._handleMovieCardClick}
+              onMovieCardClick={handleMovieCardClick}
             />
           </Route>
         </Switch>
@@ -98,6 +88,8 @@ App.propTypes = {
   activeGenre: PropTypes.string.isRequired,
   shownMovieCards: PropTypes.number.isRequired,
   handleShowMoreButtonClick: PropTypes.func.isRequired,
+  currentMovieCard: PropTypes.object,
+  handleMovieCardClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -106,6 +98,7 @@ const mapStateToProps = (state) => ({
   reviews: state.reviews,
   activeGenre: state.genre,
   shownMovieCards: state.shownMovieCards,
+  currentMovieCard: state.currentMovieCard,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -115,6 +108,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
+  },
+  handleMovieCardClick(movie) {
+    dispatch(ActionCreator.changeMovieCard(movie));
   }
 });
 

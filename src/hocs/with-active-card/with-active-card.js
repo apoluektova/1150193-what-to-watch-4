@@ -19,8 +19,11 @@ const withActiveCard = (Component) => {
     }
 
     render() {
+      const {activeCard} = this.state;
+
       return (<Component
         {...this.props}
+        activeCard={activeCard}
         onActiveCardChange={this._handleActiveCardChange}
       />);
     }
