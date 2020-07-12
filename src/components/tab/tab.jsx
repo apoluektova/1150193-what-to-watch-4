@@ -2,23 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Tab = (props) => {
-  const {tabTitle, onClick, activeTab} = props;
-  const activeClass = `movie-nav__item ${activeTab ? `movie-nav__item--active` : ``}`;
+  const {tabTitle, onTabClick, activeTab} = props;
+  const activeClass = `movie-nav__item ${tabTitle === activeTab ? `movie-nav__item--active` : ``}`;
+
+  const handleTabClick = () => {
+    return (evt) => {
+      evt.preventDefault();
+      onTabClick(tabTitle);
+    };
+  };
 
   return (
     <li className={activeClass}>
       <a
         href="#"
         className="movie-nav__link"
-        onClick={onClick}>{tabTitle}</a>
+        onClick={handleTabClick()}>{tabTitle}</a>
     </li>
   );
 };
 
 Tab.propTypes = {
   tabTitle: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  activeTab: PropTypes.bool.isRequired,
+  onTabClick: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default Tab;

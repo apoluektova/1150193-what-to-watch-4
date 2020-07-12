@@ -2,15 +2,13 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
+const TIMEOUT_DELAY = 1000;
+
 class MovieCard extends PureComponent {
   constructor(props) {
     super(props);
 
     this._timeout = null;
-
-    this.state = {
-      isPlaying: false,
-    };
 
     this._handleMoviecardElementClick = this._handleMoviecardElementClick.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
@@ -25,24 +23,22 @@ class MovieCard extends PureComponent {
   }
 
   _handleMouseEnter() {
-    const {onMovieCardHover, movie} = this.props;
+    const {onMovieCardHover, movie, onVideoPlay} = this.props;
 
     onMovieCardHover(movie);
-
     clearTimeout(this._timeout);
-    this._timeout = setTimeout(() => {
-      this.setState({isPlaying: true});
-    }, 1000);
+    this._timeout = setTimeout(onVideoPlay, TIMEOUT_DELAY);
   }
 
   _handleMouseLeave() {
+    const {onVideoStop} = this.props;
+
     clearTimeout(this._timeout);
-    this.setState({isPlaying: false});
+    onVideoStop();
   }
 
   render() {
-    const {movie} = this.props;
-    const {isPlaying} = this.state;
+    const {movie, isPlaying} = this.props;
 
     return (
       <article
@@ -86,6 +82,9 @@ MovieCard.propTypes = {
   }).isRequired,
   onMovieCardHover: PropTypes.func.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  onVideoPlay: PropTypes.func.isRequired,
+  onVideoStop: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

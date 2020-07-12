@@ -5,6 +5,9 @@ import GenresList from "../genres-list/genres-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import {connect} from "react-redux";
 import {ALL_GENRES} from "../../const.js";
+import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
+
+const MoviesListWrapped = withActiveCard(MoviesList);
 
 const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
@@ -87,7 +90,7 @@ const Main = (props) => {
             activeGenre={activeGenre}
           />
 
-          <MoviesList
+          <MoviesListWrapped
             movies={shownMovies}
             onMovieCardClick={onMovieCardClick}
           />

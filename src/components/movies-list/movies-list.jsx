@@ -1,32 +1,27 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
+import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
+
+const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeMovieCard: null,
-    };
   }
 
   render() {
-    const {movies, onMovieCardClick} = this.props;
+    const {movies, onMovieCardClick, onActiveCardChange} = this.props;
 
     return (
       <div className="catalog__movies-list">
         {movies.map((movie, index) => {
           return (
-            <MovieCard
+            <MovieCardWrapped
               key={movie.title + index}
               movie={movie}
               onMovieCardClick={onMovieCardClick}
-              onMovieCardHover={(currentMovie) => {
-                this.setState({
-                  activeMovieCard: currentMovie,
-                });
-              }}
+              onMovieCardHover={onActiveCardChange}
             />
           );
         })}
@@ -38,6 +33,7 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   movies: PropTypes.array.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
+  onActiveCardChange: PropTypes.func.isRequired,
 };
 
 export default MoviesList;
