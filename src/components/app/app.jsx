@@ -21,8 +21,6 @@ class App extends PureComponent {
       promoMovie,
       movies,
       reviews,
-      onGenreClick,
-      activeGenre,
       shownMovieCards,
       handleShowMoreButtonClick,
       currentMovieCard,
@@ -45,8 +43,6 @@ class App extends PureComponent {
         movies={movies}
         genresList={genresList}
         onMovieCardClick={handleMovieCardClick}
-        onGenreClick={onGenreClick}
-        activeGenre={activeGenre}
         handleShowMoreButtonClick={handleShowMoreButtonClick}
         shownMovieCards={shownMovieCards}
       />
@@ -84,8 +80,6 @@ App.propTypes = {
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   reviews: PropTypes.array.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
-  activeGenre: PropTypes.string.isRequired,
   shownMovieCards: PropTypes.number.isRequired,
   handleShowMoreButtonClick: PropTypes.func.isRequired,
   currentMovieCard: PropTypes.object,
@@ -96,16 +90,11 @@ const mapStateToProps = (state) => ({
   promoMovie: state.promoMovie,
   movies: state.movies,
   reviews: state.reviews,
-  activeGenre: state.genre,
   shownMovieCards: state.shownMovieCards,
   currentMovieCard: state.currentMovieCard,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.resetShownMovieCardsCount());
-  },
   handleShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
   },

@@ -82,8 +82,6 @@ it(`App should render correctly`, () => {
              promoMovie={PROMO_MOVIE}
              movies={movies}
              reviews={reviews}
-             onGenreClick={() => {}}
-             activeGenre={`All genres`}
              shownMovieCards={8}
              handleShowMoreButtonClick={() => {}}
              currentMovieCard={movies[0]}
