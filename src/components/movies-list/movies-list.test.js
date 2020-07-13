@@ -45,7 +45,7 @@ it(`MoviesList should render correctly`, () => {
          <MoviesList
            movies={movies}
            onMovieCardClick={() => {}}
-           shownMovieCards={8}
+           onActiveCardChange={() => {}}
          />, {
            createNodeMock: () => {
              return {};

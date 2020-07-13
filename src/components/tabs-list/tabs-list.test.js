@@ -44,6 +44,8 @@ it(`TabsList should render correctly`, () => {
      .create(<TabsList
        movie={movie}
        reviews={reviews}
+       activeTab={`Overview`}
+       onTabClick={() => {}}
      />)
      .toJSON();
 

@@ -2,6 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import TabsList from "../tabs-list/tabs-list.jsx";
 import MoviesList from "../movies-list/movies-list.jsx";
+import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
+
+const MoviesListWrapped = withActiveCard(MoviesList);
+const TabsListWrapped = withActiveTab(TabsList);
 
 const SIMILAR_MOVIES_COUNT = 4;
 
@@ -70,7 +75,7 @@ const MoviePage = (props) => {
               <img src={movie.poster} alt={movie.title} width="218" height="327" />
             </div>
 
-            {<TabsList movie={movie} reviews={reviews} />}
+            {<TabsListWrapped movie={movie} reviews={reviews} />}
 
           </div>
         </div>
@@ -79,7 +84,7 @@ const MoviePage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList
+          <MoviesListWrapped
             movies={similarMovies}
             onMovieCardClick={onMovieCardClick}
           />

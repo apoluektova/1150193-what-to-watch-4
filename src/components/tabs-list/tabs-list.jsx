@@ -4,35 +4,29 @@ import Tab from "../tab/tab.jsx";
 import MovieOverview from "../movie-overview/movie-overview.jsx";
 import MovieDetails from "../movie-details/movie-details.jsx";
 import MovieReviews from "../movie-reviews/movie-reviews.jsx";
-
-const tabTitles = [`Overview`, `Details`, `Reviews`];
+import {Tabs} from "../../const.js";
 
 class TabsList extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeTab: 0,
-    };
   }
 
   _renderActiveTab() {
-    const {activeTab} = this.state;
-    const {movie, reviews} = this.props;
+    const {movie, reviews, activeTab} = this.props;
 
     switch (activeTab) {
-      case 0:
+      case Tabs.OVERVIEW:
         return (
           <MovieOverview
             movie={movie}
           />
         );
-      case 1:
+      case Tabs.DETAILS:
         return (
           <MovieDetails
             movie={movie}/>
         );
-      case 2:
+      case Tabs.REVIEWS:
         return (
           <MovieReviews
             reviews={reviews}/>
@@ -47,6 +41,9 @@ class TabsList extends PureComponent {
   }
 
   render() {
+    const tabTitles = Object.values(Tabs);
+    const {activeTab, onTabClick} = this.props;
+
     return (
       <div className="movie-card__desc">
         <nav className="movie-nav movie-card__nav">
@@ -56,10 +53,8 @@ class TabsList extends PureComponent {
                 <Tab
                   key={`${title}-${index}`}
                   tabTitle={title}
-                  onClick={() => {
-                    this.setState({activeTab: index});
-                  }}
-                  activeTab={index === this.state.activeTab}
+                  onTabClick={onTabClick}
+                  activeTab={activeTab}
                 />
               );
             })}
@@ -83,6 +78,8 @@ TabsList.propTypes = {
     actors: PropTypes.string.isRequired,
   }).isRequired,
   reviews: PropTypes.array.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  onTabClick: PropTypes.func.isRequired,
 };
 
 export default TabsList;

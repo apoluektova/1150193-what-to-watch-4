@@ -14,6 +14,9 @@ it(`MovieCard should render correctly`, () => {
        movie={movie}
        onMovieCardClick={() => {}}
        onMovieCardHover={() => {}}
+       isPlaying={false}
+       onVideoPlay={() => {}}
+       onVideoStop={() => {}}
      />, {
        createNodeMock: () => {
          return {};

@@ -68,8 +68,6 @@ const reviews = [
   },
 ];
 
-const genresList = [`All genres`, `Drama`, `Comedy`, `Thriller`];
-
 it(`App should render correctly`, () => {
   const store = mockStore({
     genre: `All genres`,
@@ -84,11 +82,10 @@ it(`App should render correctly`, () => {
              promoMovie={PROMO_MOVIE}
              movies={movies}
              reviews={reviews}
-             onGenreClick={() => {}}
-             activeGenre={genresList[0]}
-             genresList={genresList}
              shownMovieCards={8}
              handleShowMoreButtonClick={() => {}}
+             currentMovieCard={movies[0]}
+             handleMovieCardClick={() => {}}
            />
          </Provider>, {
            createNodeMock: () => {
