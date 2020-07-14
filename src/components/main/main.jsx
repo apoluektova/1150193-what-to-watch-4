@@ -2,15 +2,9 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
-import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import {connect} from "react-redux";
-import {ALL_GENRES} from "../../const.js";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
-import {ActionCreator} from "../../reducer.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
-
-const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
 class Main extends PureComponent {
   constructor(props) {
@@ -20,15 +14,8 @@ class Main extends PureComponent {
   render() {
     const {
       promoMovie,
-      movies,
       onMovieCardClick,
-      onGenreClick,
-      activeGenre,
-      genresList,
-      handleShowMoreButtonClick,
-      shownMovieCards} = this. props;
-
-    const shownMovies = movies.slice(0, shownMovieCards);
+    } = this. props;
 
     return (
       <React.Fragment>
@@ -90,22 +77,10 @@ class Main extends PureComponent {
         <div className="page-content">
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
-            <GenresList
-              genresList={genresList}
-              onGenreClick={onGenreClick}
-              activeGenre={activeGenre}
-            />
+            <GenresList/>
 
-            <MoviesListWrapped
-              movies={shownMovies}
-              onMovieCardClick={onMovieCardClick}
+            <MoviesListWrapped onMovieCardClick={onMovieCardClick}
             />
-
-            <div className="catalog__more">
-              {shownMovieCards < movies.length && <ShowMoreButton
-                handleShowMoreButtonClick={handleShowMoreButtonClick}
-              />}
-            </div>
           </section>
 
           <footer className="page-footer">
@@ -133,26 +108,7 @@ Main.propTypes = {
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
-  movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
-  onGenreClick: PropTypes.func.isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  genresList: PropTypes.array.isRequired,
-  handleShowMoreButtonClick: PropTypes.func.isRequired,
-  shownMovieCards: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  movies: (state.genre === ALL_GENRES) ? state.movies : getMoviesListByGenre(state.movies, state.genre),
-  activeGenre: state.genre,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.resetShownMovieCardsCount());
-  }
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

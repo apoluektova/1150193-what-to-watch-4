@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TabsList from "../tabs-list/tabs-list.jsx";
-import MoviesList from "../movies-list/movies-list.jsx";
+import MoreLikeThis from "../more-like-this/more-like-this.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
+import {connect} from "react-redux";
 
-const MoviesListWrapped = withActiveCard(MoviesList);
+const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
 
 const SIMILAR_MOVIES_COUNT = 4;
@@ -84,7 +85,7 @@ const MoviePage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesListWrapped
+          <MoreLikeThisWrapped
             movies={similarMovies}
             onMovieCardClick={onMovieCardClick}
           />
@@ -132,4 +133,9 @@ MoviePage.propTypes = {
   onMovieCardClick: PropTypes.func.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+});
+
+export {MoviePage};
+export default connect(mapStateToProps)(MoviePage);
