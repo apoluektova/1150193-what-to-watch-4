@@ -51,26 +51,18 @@ const movies = [
   },
 ];
 
-const genresList = [`All genres`, `Drama`, `Comedy`, `Thriller`];
-
 it(`Main renders correctly`, () => {
   const store = mockStore({
-    genre: `All genres`,
     movies,
     shownMovieCards: 8,
+    genre: `All genres`,
   });
 
   const tree = renderer
      .create(<Provider store={store}>
        <Main
          promoMovie={PROMO_MOVIE}
-         movies={movies}
          onMovieCardClick={() => {}}
-         onGenreClick={() => {}}
-         activeGenre={`All genres`}
-         genresList={genresList}
-         handleShowMoreButtonClick={() => {}}
-         shownMovieCards={8}
        />
      </Provider>, {
        createNodeMock: () => {
