@@ -15,6 +15,7 @@ const initialState = {
   reviews,
   shownMovieCards: MovieCards.SHOWN,
   currentMovieCard: null,
+  isFullScreenOn: false,
 };
 
 const ActionType = {
@@ -22,6 +23,7 @@ const ActionType = {
   SHOW_MORE_MOVIES: `SHOW_MORE_MOVIES`,
   RESET_SHOWN_MOVIE_CARDS_COUNT: `RESET_SHOWN_MOVIE_CARDS_COUNT`,
   CHANGE_MOVIE_CARD: `CHANGE_MOVIE_CARD`,
+  TOGGLE_FULL_SCREEN_PLAYER: `TOGGLE_FULL_SCREEN_PLAYER`,
 };
 
 const ActionCreator = {
@@ -40,6 +42,10 @@ const ActionCreator = {
   changeMovieCard: (movie) => ({
     type: ActionType.CHANGE_MOVIE_CARD,
     payload: movie,
+  }),
+  toggleFullScreenPlayer: (flag) => ({
+    type: ActionType.TOGGLE_FULL_SCREEN_PLAYER,
+    payload: flag,
   }),
 };
 
@@ -61,6 +67,10 @@ const reducer = (state = initialState, action) => {
     case (ActionType.CHANGE_MOVIE_CARD):
       return extend(state, {
         currentMovieCard: action.payload,
+      });
+    case (ActionType.TOGGLE_FULL_SCREEN_PLAYER):
+      return extend(state, {
+        isFullScreenOn: action.payload,
       });
   }
   return state;

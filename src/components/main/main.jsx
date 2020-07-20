@@ -15,6 +15,7 @@ class Main extends PureComponent {
     const {
       promoMovie,
       onMovieCardClick,
+      onPlayButtonClick,
     } = this. props;
 
     return (
@@ -56,7 +57,10 @@ class Main extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button">
+                  <button
+                    onClick={onPlayButtonClick}
+                    className="btn btn--play movie-card__button"
+                    type="button">
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
                     </svg>
@@ -104,11 +108,26 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   promoMovie: PropTypes.exact({
+    previewImage: PropTypes.string.isRequired,
+    previewVideo: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.exact({
+      score: PropTypes.number.isRequired,
+      level: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+    }).isRequired,
+    director: PropTypes.string.isRequired,
+    actors: PropTypes.string.isRequired,
+    runtime: PropTypes.string.isRequired,
   }).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
 };
 
 export default Main;

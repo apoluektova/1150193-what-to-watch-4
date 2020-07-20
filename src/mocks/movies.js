@@ -1,13 +1,28 @@
 export const PROMO_MOVIE = {
+  previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  videoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   title: `The Grand Budapest Hotel`,
+  backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
+  poster: `https://loremflickr.com/cache/resized/65535_49824720108_18907b74af_z_273_410_nofilter.jpg`,
   genre: `Drama`,
   releaseDate: 2014,
+  description: `The Grand Budapest Hotel is a 2014 comedy-drama film written and directed by Wes Anderson, which explores tragedy, war, fascism, nostalgia, friendship, and loyalty.`,
+  rating: {
+    score: 9.3,
+    level: `Awesome`,
+    count: 250,
+  },
+  director: `Wes Anderson`,
+  actors: `Ralph Fiennes, Tony Revolori, F. Murray Abraham, Mathieu Amalric, Adrien Brody, Willem Dafoe`,
+  runtime: `1h 39m`,
 };
 
 export const movies = [
   {
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    videoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49876816733_f1ba86707f_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49824720108_18907b74af_z_273_410_nofilter.jpg`,
@@ -26,6 +41,7 @@ export const movies = [
   {
     previewImage: `img/bohemian-rhapsody.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Bohemian Rhapsody`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49768198796_957c97bc00_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_50001660108_922f0950ea_z_273_410_nofilter.jpg`,
@@ -62,6 +78,7 @@ export const movies = [
   {
     previewImage: `img/aviator.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Aviator`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49800111821_ae7805f489_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_50063687282_2595a7661e_z_273_410_nofilter.jpg`,
@@ -98,6 +115,7 @@ export const movies = [
   {
     previewImage: `img/what-we-do-in-the-shadows.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `What We Do in the Shadows`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_50025217883_22ddf75ead_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49772471181_9e8e665242_z_273_410_nofilter.jpg`,
@@ -134,6 +152,7 @@ export const movies = [
   {
     previewImage: `img/johnny-english.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Johnny English`,
     backgroundImage: `https://loremflickr.com/cache/resized/1293_988680611_baf31fb71f_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49780216106_64a2df886f_273_410_nofilter.jpg`,
@@ -152,6 +171,7 @@ export const movies = [
   {
     previewImage: `img/shutter-island.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Shutter Island`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49805957881_02861e1b87_k_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49893876713_6f84caeef0_z_273_410_nofilter.jpg`,
@@ -170,6 +190,7 @@ export const movies = [
   {
     previewImage: `img/pulp-fiction.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Pulp Fiction`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49579232627_490b447655_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49956829783_580584fe83_z_273_410_nofilter.jpg`,
@@ -188,6 +209,7 @@ export const movies = [
   {
     previewImage: `img/no-country-for-old-men.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `No Country for Old Men`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49845303721_0bd458d515_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/6122_5965544405_3258efc860_z_273_410_nofilter.jpg`,
@@ -206,6 +228,7 @@ export const movies = [
   {
     previewImage: `img/snatch.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Snatch`,
     backgroundImage: `https://loremflickr.com/cache/resized/276_18146902003_f7fbc1d6ef_k_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/6139_5968403489_d02879dc88_z_273_410_nofilter.jpg`,
@@ -224,6 +247,7 @@ export const movies = [
   {
     previewImage: `img/moonrise-kingdom.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Moonrise Kingdom`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49922774342_5f0b92962c_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49788248126_670251524a_z_273_410_nofilter.jpg`,
@@ -242,6 +266,7 @@ export const movies = [
   {
     previewImage: `img/seven-years-in-tibet.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Seven Years in Tibet`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49934499233_86266d8ef8_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49768198796_56e05cbfcb_z_273_410_nofilter.jpg`,
@@ -260,6 +285,7 @@ export const movies = [
   {
     previewImage: `img/midnight-special.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Midnight Special`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_50010186487_0233b87cf9_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49815343191_bf494f7cc0_z_273_410_nofilter.jpg`,
@@ -278,6 +304,7 @@ export const movies = [
   {
     previewImage: `img/war-of-the-worlds.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `War of the Worlds`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49876826728_bc735163d7_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49824725871_4f538759aa_z_273_410_nofilter.jpg`,
@@ -296,6 +323,7 @@ export const movies = [
   {
     previewImage: `img/dardjeeling-limited.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Dardjeeling Limited`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49816477696_5d540d284d_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49824715478_c4ce4dcc45_z_273_410_nofilter.jpg`,
@@ -314,6 +342,7 @@ export const movies = [
   {
     previewImage: `img/orlando.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Orlando`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_49718325341_005cb7f8da_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_49914512997_82d29e719a_z_273_410_nofilter.jpg`,
@@ -332,6 +361,7 @@ export const movies = [
   {
     previewImage: `img/mindhunter.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Mindhunter`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_50009600911_ad11c074d2_h_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_50010186487_6ab2127184_z_273_410_nofilter.jpg`,
@@ -350,6 +380,7 @@ export const movies = [
   {
     previewImage: `img/midnight-special.jpg`,
     previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     title: `Midnight Special`,
     backgroundImage: `https://loremflickr.com/cache/resized/65535_50050741233_e3876968ac_k_1280_543_nofilter.jpg`,
     poster: `https://loremflickr.com/cache/resized/65535_50057389481_0fea595cb5_z_273_410_nofilter.jpg`,
