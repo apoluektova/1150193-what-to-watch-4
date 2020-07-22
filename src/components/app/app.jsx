@@ -31,13 +31,14 @@ class App extends PureComponent {
         movie={currentMovieCard}
         reviews={reviews}
         onMovieCardClick={handleMovieCardClick}
+        onPlayButtonClick={handlePlayButtonClick}
       />;
     }
 
     if (isFullScreenOn) {
       return (
         <FullScreenPlayerWrapped
-          movie={promoMovie}
+          movie={currentMovieCard ? currentMovieCard : promoMovie}
           onExitButtonClick={handleExitButtonClick}
         />
       );
@@ -53,7 +54,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {reviews, currentMovieCard, handleMovieCardClick} = this.props;
+    const {reviews, currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -66,6 +67,7 @@ class App extends PureComponent {
               movie={currentMovieCard}
               reviews={reviews}
               onMovieCardClick={handleMovieCardClick}
+              onPlayButtonClick={handlePlayButtonClick}
             />
           </Route>
         </Switch>

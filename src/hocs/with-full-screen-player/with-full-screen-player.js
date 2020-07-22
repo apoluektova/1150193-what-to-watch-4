@@ -8,9 +8,8 @@ const withFullScreenPlayer = (Component) => {
 
       this.state = {
         isPlaying: false,
-        progress: null,
-        duration: null,
-        timeElapsed: null,
+        progress: 0,
+        duration: 0,
       };
 
       this._videoRef = createRef();
@@ -25,28 +24,35 @@ const withFullScreenPlayer = (Component) => {
 
       video.src = movie.videoLink;
       video.poster = movie.backgroundImage;
-      // video.play();
+      video.play();
 
-      video.oncanplaythrough = () => this.setState({
-        isPlaying: true,
-      });
-
-      video.onplay = () => this.setState({
-        isPlaying: true,
-      });
-
-      video.onpause = () => this.setState({
-        isPlaying: false,
-      });
-
-      video.ontimeupdate = () => this.setState({
-        progress: Math.floor(video.currentTime),
-        timeElapsed: Math.floor(video.duration - video.currentTime),
-      });
+      video.oncanplaythrough = () => {
+        this.setState({
+          duration: video.duration,
+        });
+      };
 
       video.onloadedmetadata = () => this.setState({
-        duration: Math.floor(video.duration),
+        duration: Math.floor(video.duration)
       });
+
+      video.onplay = () => {
+        this.setState({
+          isPlaying: true,
+        });
+      };
+
+      video.onpause = () => {
+        this.setState({
+          isPlaying: false,
+        });
+      };
+
+      video.ontimeupdate = () => {
+        this.setState({
+          progress: Math.floor(video.currentTime)
+        });
+      };
     }
 
     componentWillUnmount() {
@@ -55,11 +61,11 @@ const withFullScreenPlayer = (Component) => {
       video.src = ``;
       video.poster = ``;
 
-      // video.oncanplaythrough = null;
+      video.oncanplaythrough = null;
+      video.onloadedmetadata = null;
       video.onplay = null;
       video.onpause = null;
       video.ontimeupdate = null;
-      video.onloadmetadata = null;
     }
 
     componentDidUpdate() {
@@ -73,11 +79,7 @@ const withFullScreenPlayer = (Component) => {
     }
 
     _handlePlayButtonClick() {
-      this.setState((prevState) => {
-        return {
-          isPlaying: !prevState.isPlaying,
-        };
-      });
+      return this.setState({isPlaying: !this.state.isPlaying});
     }
 
     _handleFullScreenButtonClick() {
@@ -96,7 +98,9 @@ const withFullScreenPlayer = (Component) => {
           progress={progress}
           duration={duration}
           timeElapsed={timeElapsed}
-          onPlayButtonCick={this._handlePlayButtonClick}
+          onPlayButtonClick={() => {
+            this._handlePlayButtonClick();
+          }}
           onFullScreenButtonClick={this._handleFullScreenButtonClick}
           onExitButtonClick={onExitButtonClick}
         >

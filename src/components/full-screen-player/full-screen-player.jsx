@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {getTimeLeft} from "../../utils.js";
 
 const FullScreenPlayer = (props) => {
   const {
     isPlaying,
     progress,
     duration,
-    timeElapsed,
     onPlayButtonClick,
     onFullScreenButtonClick,
     onExitButtonClick,
     movie: {title},
     children} = props;
+
+  const timeLeft = getTimeLeft(duration - progress);
 
   return (
     <React.Fragment>
@@ -26,7 +28,7 @@ const FullScreenPlayer = (props) => {
               <progress className="player__progress" value={progress} max={duration}></progress>
               <div className="player__toggler" style={{left: ((progress * 100) / duration) + `%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">{timeElapsed}</div>
+            <div className="player__time-value">{timeLeft}</div>
           </div>
 
           <div className="player__controls-row">
@@ -65,7 +67,6 @@ FullScreenPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   progress: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
-  timeElapsed: PropTypes.number.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,

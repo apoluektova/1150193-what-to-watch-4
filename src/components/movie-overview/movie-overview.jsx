@@ -28,6 +28,7 @@ MovieOverview.propTypes = {
   movie: PropTypes.exact({
     previewImage: PropTypes.string.isRequired,
     previewVideo: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
@@ -38,7 +39,7 @@ MovieOverview.propTypes = {
       score: PropTypes.number.isRequired,
       level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
-    }),
+    }).isRequired,
     director: PropTypes.string.isRequired,
     actors: PropTypes.string.isRequired,
     runtime: PropTypes.string.isRequired,
