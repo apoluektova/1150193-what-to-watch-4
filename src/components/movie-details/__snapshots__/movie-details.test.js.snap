@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieCard should render correctly 1`] = `
+exports[`MovieDetails should render correctly 1`] = `
 <div
   className="movie-card__text movie-card__row"
 >
@@ -18,7 +18,7 @@ exports[`MovieCard should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Bryan Singer
+        Martin Scorsese
       </span>
     </p>
     <p
@@ -32,19 +32,11 @@ exports[`MovieCard should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Rami Malek
+        Leonardo DiCaprio
         <br />
-        Lucy Boynton
+        Cate Blanchett
         <br />
-        Gwilym Lee
-        <br />
-        Ben Hardy
-        <br />
-        Joe Mazzello
-        <br />
-        Aidan Gillen
-        <br />
-        Tom Hollander
+        and Kate Beckinsale
         <br />
       </span>
     </p>
@@ -91,7 +83,7 @@ exports[`MovieCard should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        2018
+        2004
       </span>
     </p>
   </div>

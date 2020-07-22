@@ -88,7 +88,7 @@ const withFullScreenPlayer = (Component) => {
     }
 
     render() {
-      const {isPlaying, progress, duration, timeElapsed} = this.state;
+      const {isPlaying, progress, duration} = this.state;
       const {onExitButtonClick} = this.props;
 
       return (
@@ -97,7 +97,6 @@ const withFullScreenPlayer = (Component) => {
           isPlaying={isPlaying}
           progress={progress}
           duration={duration}
-          timeElapsed={timeElapsed}
           onPlayButtonClick={() => {
             this._handlePlayButtonClick();
           }}
