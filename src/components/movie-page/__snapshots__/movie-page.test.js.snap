@@ -13,7 +13,7 @@ Array [
       >
         <img
           alt="Fantastic Beasts: The Crimes of Grindelwald"
-          src="img/bg-the-grand-budapest-hotel.jpg"
+          src="https://loremflickr.com/cache/resized/65535_49876816733_f1ba86707f_h_1280_543_nofilter.jpg"
         />
       </div>
       <h1
@@ -93,6 +93,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -147,7 +148,7 @@ Array [
           <img
             alt="Fantastic Beasts: The Crimes of Grindelwald"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="https://loremflickr.com/cache/resized/65535_49824720108_18907b74af_z_273_410_nofilter.jpg"
             width="218"
           />
         </div>

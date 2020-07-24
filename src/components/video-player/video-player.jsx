@@ -26,15 +26,6 @@ export default class VideoPlayer extends PureComponent {
     video.onpause = null;
   }
 
-  render() {
-    return (
-      <video
-        className="player__video"
-        ref={this._videoRef}
-      />
-    );
-  }
-
   componentDidUpdate() {
     const video = this._videoRef.current;
 
@@ -43,6 +34,15 @@ export default class VideoPlayer extends PureComponent {
     } else {
       video.load();
     }
+  }
+
+  render() {
+    return (
+      <video
+        className="player__video"
+        ref={this._videoRef}
+      />
+    );
   }
 }
 

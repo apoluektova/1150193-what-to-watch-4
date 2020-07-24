@@ -3,25 +3,26 @@ import renderer from "react-test-renderer";
 import MovieDetails from "./movie-details.jsx";
 
 const movie = {
-  previewImage: `img/bohemian-rhapsody.jpg`,
-  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  title: `Bohemian Rhapsody`,
-  backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
-  poster: `img/the-grand-budapest-hotel-poster.jpg`,
+  previewImage: `img/aviator.jpg`,
+  previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  title: `Aviator`,
+  backgroundImage: `https://loremflickr.com/cache/resized/65535_49800111821_ae7805f489_h_1280_543_nofilter.jpg`,
+  poster: `https://loremflickr.com/cache/resized/65535_50063687282_2595a7661e_z_273_410_nofilter.jpg`,
   genre: `Drama`,
-  releaseDate: 2018,
-  description: `A British-American venture, the film was produced by 20th Century Fox, Regency Enterprises, GK Films, and Queen Films, with Fox serving as distributor. The film follows the singer's life from the formation of the band up to their 1985 Live Aid performance at the original Wembley Stadium.`,
+  releaseDate: 2004,
+  description: `Based on the 1993 non-fiction book Howard Hughes: The Secret Life by Charles Higham, the film depicts the life of Howard Hughes, an aviation pioneer and director of Hell's Angels. The film portrays his life from 1927–1947 during which time Hughes became a successful film producer and an aviation magnate while simultaneously growing more unstable due to severe obsessive–compulsive disorder (OCD).`,
   rating: {
-    score: 9.0,
-    level: `Awesome`,
-    count: 250,
+    score: 8.7,
+    level: `Very good`,
+    count: 241,
   },
-  director: `Bryan Singer`,
-  actors: `Rami Malek, Lucy Boynton, Gwilym Lee, Ben Hardy, Joe Mazzello, Aidan Gillen, Tom Hollander`,
+  director: `Martin Scorsese`,
+  actors: `Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale`,
   runtime: `1h 39m`,
 };
 
-it(`MovieCard should render correctly`, () => {
+it(`MovieDetails should render correctly`, () => {
   const tree = renderer
      .create(<MovieDetails
        movie={movie}

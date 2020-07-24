@@ -10,7 +10,8 @@ const Genre = (props) => {
       <a
         href="#"
         className="catalog__genres-link"
-        onClick={() => {
+        onClick={(evt) => {
+          evt.preventDefault();
           onGenreClick(genreName);
         }}>
         {genreName}
