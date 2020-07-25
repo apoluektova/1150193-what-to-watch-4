@@ -1,5 +1,5 @@
-import {extend} from "./utils.js";
-import {ALL_GENRES} from "./const.js";
+import {extend} from "../../utils.js";
+import {ALL_GENRES} from "../../const.js";
 
 const MovieCards = {
   SHOWN: 8,

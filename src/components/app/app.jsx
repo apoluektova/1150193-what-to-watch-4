@@ -1,12 +1,14 @@
 import React, {PureComponent} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/app/app.js";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
+import {getPromoMovie, getReviews} from "../../reducer/data/selectors.js";
+import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -105,10 +107,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  promoMovie: state.promoMovie,
-  reviews: state.reviews,
-  currentMovieCard: state.currentMovieCard,
-  isFullScreenOn: state.isFullScreenOn,
+  promoMovie: getPromoMovie(state),
+  reviews: getReviews(state),
+  currentMovieCard: getCurrentMovieCard(state),
+  isFullScreenOn: getIsFullScreenOn(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

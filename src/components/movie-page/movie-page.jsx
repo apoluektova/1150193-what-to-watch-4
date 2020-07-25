@@ -5,6 +5,7 @@ import MoreLikeThis from "../more-like-this/more-like-this.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
+import {getMovies} from "../../reducer/data/selectors.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -136,7 +137,7 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getMovies(state),
 });
 
 export {MoviePage};

@@ -15,10 +15,10 @@ class MoreLikeThis extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map((movie, index) => {
+        {movies.map((movie) => {
           return (
             <MovieCardWrapped
-              key={movie.title + index}
+              key={movie.id}
               movie={movie}
               onMovieCardClick={onMovieCardClick}
               onMovieCardHover={onActiveCardChange}

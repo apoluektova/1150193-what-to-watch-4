@@ -1,4 +1,10 @@
-export const PROMO_MOVIE = {
+import MockAdapter from "axios-mock-adapter";
+import {createAPI} from "../../api.js";
+import {reducer, ActionType, Operation} from "./data.js";
+
+const api = createAPI(() => {});
+
+const PROMO_MOVIE = {
   previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   videoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
@@ -18,7 +24,7 @@ export const PROMO_MOVIE = {
   runtime: `1h 39m`,
 };
 
-export const movies = [
+const movies = [
   {
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
@@ -397,3 +403,107 @@ export const movies = [
     runtime: `1h 39m`,
   },
 ];
+
+const reviews = [
+  {
+    id: 1,
+    text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+    author: `Kate Muir`,
+    date: `December 24, 2016`,
+    rating: 8.9,
+  },
+  {
+    id: 2,
+    text: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+    author: `Bill Goodykoontz`,
+    date: `November 18, 2015`,
+    rating: 8.0,
+  },
+  {
+    id: 3,
+    text: `I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.`,
+    author: `Amanda Greever`,
+    date: `November 18, 2015`,
+    rating: 8.0,
+  },
+  {
+    id: 4,
+    text: `The mannered, madcap proceedings are often delightful, occasionally silly, and here and there, gruesome and/or heartbreaking.`,
+    author: `Matthew Lickona`,
+    date: `December 20, 2016`,
+    rating: 7.2,
+  },
+  {
+    id: 5,
+    text: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+    author: `Paula Fleri-Soler`,
+    date: `December 20, 2016`,
+    rating: 7.6,
+  },
+  {
+    id: 6,
+    text: `It is certainly a magical and childlike way of storytelling, even if the content is a little more adult.`,
+    author: `Paula Fleri-Soler`,
+    date: `December 20, 2016`,
+    rating: 7.0,
+  },
+];
+
+describe(`Operation works correctly`, () => {
+  it(`Should make a correct API call to /films`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const moviesLoader = Operation.loadMovies();
+
+    apiMock
+    .onGet(`/films`)
+    .reply(200, [{fake: true}]);
+
+    return moviesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_MOVIES,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /films/promo`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const moviesLoader = Operation.loadPromoMovie();
+
+    apiMock
+    .onGet(`/films/promo`)
+    .reply(200, [{fake: true}]);
+
+    return moviesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_PROMO_MOVIE,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /comments/42`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const moviesLoader = Operation.loadReviews();
+
+    apiMock
+    .onGet(`/comments/42`)
+    .reply(200, [{fake: true}]);
+
+    return moviesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+});
