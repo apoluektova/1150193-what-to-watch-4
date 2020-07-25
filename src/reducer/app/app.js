@@ -1,6 +1,4 @@
 import {extend} from "./utils.js";
-import {PROMO_MOVIE, movies} from "./mocks/movies.js";
-import {reviews} from "./mocks/reviews.js";
 import {ALL_GENRES} from "./const.js";
 
 const MovieCards = {
@@ -10,9 +8,6 @@ const MovieCards = {
 
 const initialState = {
   genre: ALL_GENRES,
-  promoMovie: PROMO_MOVIE,
-  movies,
-  reviews,
   shownMovieCards: MovieCards.SHOWN,
   currentMovieCard: null,
   isFullScreenOn: false,
