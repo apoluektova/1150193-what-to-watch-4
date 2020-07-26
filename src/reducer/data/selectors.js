@@ -11,3 +11,8 @@ export const getPromoMovie = (state) => {
 export const getReviews = (state) => {
   return state[NameSpace.DATA].reviews;
 };
+
+export const getIsError = (state) => {
+  return state[NameSpace.DATA].isError;
+};
+

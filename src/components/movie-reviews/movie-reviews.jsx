@@ -27,8 +27,11 @@ MovieReviews.propTypes = {
   reviews: PropTypes.arrayOf(
       PropTypes.exact({
         id: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-        author: PropTypes.string.isRequired,
+        comment: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+        }).isRequired,
         date: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
       }).isRequired

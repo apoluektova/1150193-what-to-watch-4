@@ -112,23 +112,25 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   movie: PropTypes.exact({
+    id: PropTypes.number.isRequired,
     previewImage: PropTypes.string.isRequired,
     previewVideo: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.exact({
       score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
     }).isRequired,
     director: PropTypes.string.isRequired,
-    actors: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
+    runtime: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   reviews: PropTypes.array.isRequired,
   movies: PropTypes.array.isRequired,

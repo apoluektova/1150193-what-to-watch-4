@@ -18,7 +18,7 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Martin Scorsese
+        Justin Kurzel
       </span>
     </p>
     <p
@@ -32,11 +32,13 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Leonardo DiCaprio
+        Michael Fassbender
         <br />
-        Cate Blanchett
+        Marion Cotillard
         <br />
-        and Kate Beckinsale
+        Paddy Considine
+        <br />
+        Sean Harris
         <br />
       </span>
     </p>
@@ -55,7 +57,7 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        1h 39m
+        NaNh NaNm
       </span>
     </p>
     <p
@@ -83,7 +85,7 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        2004
+        2015
       </span>
     </p>
   </div>

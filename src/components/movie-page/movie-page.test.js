@@ -23,7 +23,7 @@ const movies = [
       count: 240,
     },
     director: `David Yates`,
-    actors: `Eddie Redmayne, Katherine Waterston, Dan Fogler, Alison Sudol, Ezra Miller, Zoë Kravitz`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
   },
   {
@@ -42,7 +42,7 @@ const movies = [
       count: 250,
     },
     director: `Bryan Singer`,
-    actors: `Rami Malek, Lucy Boynton, Gwilym Lee, Ben Hardy, Joe Mazzello, Aidan Gillen, Tom Hollander`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
   },
   {
@@ -60,7 +60,7 @@ const movies = [
       count: 234,
     },
     director: `Justin Kurzel`,
-    actors: `Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
   },
 ];
@@ -68,15 +68,21 @@ const movies = [
 const reviews = [
   {
     id: 1,
-    text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-    author: `Kate Muir`,
+    user: {
+      id: 1,
+      name: `Kate Muir`,
+    },
+    comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
     date: `December 24, 2016`,
     rating: 8.9,
   },
   {
     id: 2,
-    text: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
-    author: `Bill Goodykoontz`,
+    user: {
+      id: 2,
+      name: `Bill Goodykoontz`,
+    },
+    comment: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
     date: `November 18, 2015`,
     rating: 8.0,
   },
@@ -85,6 +91,7 @@ const reviews = [
 it(`MoviePage should render correctly`, () => {
   const store = mockStore({
     movies,
+    reviews,
   });
 
   const tree = renderer

@@ -71,11 +71,10 @@ TabsList.propTypes = {
     description: PropTypes.string.isRequired,
     rating: PropTypes.exact({
       score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
     }),
     director: PropTypes.string.isRequired,
-    actors: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
   }).isRequired,
   reviews: PropTypes.array.isRequired,
   activeTab: PropTypes.string.isRequired,

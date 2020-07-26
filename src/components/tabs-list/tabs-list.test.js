@@ -18,7 +18,7 @@ const movie = {
     count: 241,
   },
   director: `Martin Scorsese`,
-  actors: `Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale`,
+  actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
   runtime: `1h 39m`,
 };
 

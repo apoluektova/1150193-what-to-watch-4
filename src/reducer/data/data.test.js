@@ -1,6 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
-import {reducer, ActionType, Operation} from "./data.js";
+import {initialState, reducer, ActionType, Operation} from "./data.js";
+import {createMovie, createMovies} from "../../adapter/movies.js";
 
 const api = createAPI(() => {});
 
@@ -21,7 +22,7 @@ const PROMO_MOVIE = {
     count: 250,
   },
   director: `Wes Anderson`,
-  actors: `Ralph Fiennes, Tony Revolori, F. Murray Abraham, Mathieu Amalric, Adrien Brody, Willem Dafoe`,
+  actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
   runtime: `1h 39m`,
   isFavorite: false,
 };
@@ -44,7 +45,7 @@ const testMovies = [
       count: 240,
     },
     director: `David Yates`,
-    actors: `Eddie Redmayne, Katherine Waterston, Dan Fogler, Alison Sudol, Ezra Miller, Zoë Kravitz`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -65,7 +66,7 @@ const testMovies = [
       count: 250,
     },
     director: `Bryan Singer`,
-    actors: `Rami Malek, Lucy Boynton, Gwilym Lee, Ben Hardy, Joe Mazzello, Aidan Gillen, Tom Hollander`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -85,7 +86,7 @@ const testMovies = [
       count: 234,
     },
     director: `Justin Kurzel`,
-    actors: `Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -106,7 +107,7 @@ const testMovies = [
       count: 241,
     },
     director: `Martin Scorsese`,
-    actors: `Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -126,7 +127,7 @@ const testMovies = [
       count: 222,
     },
     director: `Lynne Ramsay`,
-    actors: `Tilda Swinton, John C. Reilly, Ezra Miller`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -147,7 +148,7 @@ const testMovies = [
       count: 198,
     },
     director: `Jemaine Clement`,
-    actors: `Kayvan Novak, Matt Berry, Natasia Demetriou`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -167,7 +168,7 @@ const testMovies = [
       count: 259,
     },
     director: `Alejandro González Iñárritu`,
-    actors: `Leonardo DiCaprio, Tom Hardy, Domhnall Gleeson, Will Poulter`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -188,7 +189,7 @@ const testMovies = [
       count: 150,
     },
     director: `Peter Howitt`,
-    actors: `Rowan Atkinson, Natalie Imbruglia, Ben Miller, John Malkovich`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -209,7 +210,7 @@ const testMovies = [
       count: 189,
     },
     director: `Martin Scorsese`,
-    actors: `Leonardo DiCaprio, Mark Ruffalo, Ben Kingsley, Max von Sydow`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 45m`,
     isFavorite: false,
   },
@@ -230,7 +231,7 @@ const testMovies = [
       count: 276,
     },
     director: `Quentin Tarantino`,
-    actors: `John Travolta, Samuel L. Jackson, Bruce Willis, Tim Roth, Ving Rhames, Uma Thurman`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 19m`,
     isFavorite: false,
   },
@@ -251,7 +252,7 @@ const testMovies = [
       count: 145,
     },
     director: `Joel and Ethan Coen`,
-    actors: `Tommy Lee Jones, Javier Bardem, Josh Brolin`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `2h 39m`,
     isFavorite: false,
   },
@@ -272,7 +273,7 @@ const testMovies = [
       count: 189,
     },
     director: `Guy Ritchie`,
-    actors: `Benicio del Toro, Dennis Farina, Jason Flemyng, Vinnie Jones, Brad Pitt, Rade Sherbedgia, Jason Statham`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 23m`,
     isFavorite: false,
   },
@@ -293,7 +294,7 @@ const testMovies = [
       count: 109,
     },
     director: `Wes Anderson`,
-    actors: `Bruce Willis, Edward Norton, Bill Murray, Frances McDormand, Tilda Swinton, Jason Schwartzman, Bob Balaban, Harvey Keitel`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 42m`,
     isFavorite: false,
   },
@@ -314,7 +315,7 @@ const testMovies = [
       count: 167,
     },
     director: `Heinrich Harrer`,
-    actors: `Brad Pitt, David Thewlis`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -335,7 +336,7 @@ const testMovies = [
       count: 164,
     },
     director: `Jeff Nichols`,
-    actors: `Michael Shannon, Joel Edgerton, Kirsten Dunst, Adam Driver, Jaeden Martell, Sam Shepard`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 34m`,
     isFavorite: false,
   },
@@ -356,7 +357,7 @@ const testMovies = [
       count: 256,
     },
     director: `Steven Spielberg`,
-    actors: `Tom Cruise, Dakota Fanning, Justin Chatwin, Miranda Otto, Tim Robbins`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 20m`,
     isFavorite: false,
   },
@@ -377,7 +378,7 @@ const testMovies = [
       count: 300,
     },
     director: `Wes Anderson`,
-    actors: `Owen Wilson, Adrien Brody`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 15m`,
     isFavorite: false,
   },
@@ -398,7 +399,7 @@ const testMovies = [
       count: 134,
     },
     director: `Sally Potter`,
-    actors: `Tilda Swinton, Billy Zane, Lothaire Bluteau, John Wood, Charlotte Valandrey, Heathcote Williams, Quentin Crisp`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 25m`,
     isFavorite: false,
   },
@@ -419,7 +420,7 @@ const testMovies = [
       count: 166,
     },
     director: `Joe Penhall`,
-    actors: `Jonathan Groff, Holt McCallany, Anna Torv`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -440,7 +441,7 @@ const testMovies = [
       count: 199,
     },
     director: `Jeff Nichols`,
-    actors: ` Michael Shannon, Joel Edgerton, Kirsten Dunst, Adam Driver, Jaeden Martell`,
+    actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
     runtime: `1h 39m`,
     isFavorite: false,
   },
@@ -510,11 +511,7 @@ const testReviews = [
 ];
 
 it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(void 0, {})).toEqual({
-    promoMovie: PROMO_MOVIE,
-    movies: testMovies,
-    reviews: testReviews,
-  });
+  expect(reducer(void 0, {})).toEqual(initialState);
 });
 
 describe(`Operation works correctly`, () => {
@@ -530,9 +527,9 @@ describe(`Operation works correctly`, () => {
     return moviesLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_MOVIES,
-          payload: [{fake: true}],
+          payload: createMovies([{fake: true}]),
         });
       });
   });
@@ -549,26 +546,26 @@ describe(`Operation works correctly`, () => {
     return moviesLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_PROMO_MOVIE,
-          payload: [{fake: true}],
+          payload: createMovie([{fake: true}]),
         });
       });
   });
 
-  it(`Should make a correct API call to /comments/42`, function () {
+  it(`Should make a correct API call to /comments/1`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const moviesLoader = Operation.loadReviews();
 
     apiMock
-    .onGet(`/comments/42`)
+    .onGet(`/comments/1`)
     .reply(200, [{fake: true}]);
 
     return moviesLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
         });

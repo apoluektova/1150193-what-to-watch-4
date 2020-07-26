@@ -7,9 +7,10 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
-import {getPromoMovie} from "../../reducer/data/selectors.js";
+import {getPromoMovie, getIsError} from "../../reducer/data/selectors.js";
 import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+import ErrorMessage from "../error-message/error-message.jsx";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -25,8 +26,15 @@ class App extends PureComponent {
       handleMovieCardClick,
       isFullScreenOn,
       handlePlayButtonClick,
-      handleExitButtonClick
+      handleExitButtonClick,
+      isError
     } = this.props;
+
+    if (isError) {
+      return (
+        <ErrorMessage />
+      );
+    }
 
     if (currentMovieCard && !isFullScreenOn) {
       return <MoviePage
@@ -103,12 +111,14 @@ App.propTypes = {
   handlePlayButtonClick: PropTypes.func.isRequired,
   handleExitButtonClick: PropTypes.func.isRequired,
   isFullScreenOn: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
   currentMovieCard: getCurrentMovieCard(state),
   isFullScreenOn: getIsFullScreenOn(state),
+  isError: getIsError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

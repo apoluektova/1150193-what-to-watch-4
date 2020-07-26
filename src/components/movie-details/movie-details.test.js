@@ -3,23 +3,24 @@ import renderer from "react-test-renderer";
 import MovieDetails from "./movie-details.jsx";
 
 const movie = {
-  previewImage: `img/aviator.jpg`,
-  previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  title: `Aviator`,
-  backgroundImage: `https://loremflickr.com/cache/resized/65535_49800111821_ae7805f489_h_1280_543_nofilter.jpg`,
-  poster: `https://loremflickr.com/cache/resized/65535_50063687282_2595a7661e_z_273_410_nofilter.jpg`,
+  id: 3,
+  previewImage: `img/macbeth.jpg`,
+  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  title: `Macbeth`,
+  backgroundImage: `https://loremflickr.com/cache/resized/65535_49757902562_3b737630e4_h_1280_543_nofilter.jpg`,
+  backgroundColor: `#A6B7AC`,
+  poster: `https://loremflickr.com/cache/resized/65535_49816709832_c9df27e040_z_273_410_nofilter.jpg`,
   genre: `Drama`,
-  releaseDate: 2004,
-  description: `Based on the 1993 non-fiction book Howard Hughes: The Secret Life by Charles Higham, the film depicts the life of Howard Hughes, an aviation pioneer and director of Hell's Angels. The film portrays his life from 1927–1947 during which time Hughes became a successful film producer and an aviation magnate while simultaneously growing more unstable due to severe obsessive–compulsive disorder (OCD).`,
+  releaseDate: 2015,
+  description: `The story follows a Scottish general's rise to power after receiving a prophecy from a trio of witches that one day he will become King of Scotland. Like the play it was adapted from, the film dramatises the damaging physical and psychological effects of political ambition on those who seek power for its own sake.`,
   rating: {
-    score: 8.7,
-    level: `Very good`,
-    count: 241,
+    score: 8.0,
+    count: 234,
   },
-  director: `Martin Scorsese`,
-  actors: `Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale`,
+  director: `Justin Kurzel`,
+  actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
   runtime: `1h 39m`,
+  isFavorite: false,
 };
 
 it(`MovieDetails should render correctly`, () => {

@@ -51,7 +51,7 @@ exports[`TabsList should render correctly 1`] = `
     <div
       className="movie-rating__score"
     >
-      8.7
+      8,7
     </div>
     <p
       className="movie-rating__meta"
@@ -86,7 +86,7 @@ exports[`TabsList should render correctly 1`] = `
     >
       <strong>
         Starring: 
-        Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale
+        Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris
          and other
       </strong>
     </p>
