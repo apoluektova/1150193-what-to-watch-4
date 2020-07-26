@@ -34,4 +34,11 @@ export const getRatingLevel = (count) => {
   return ``;
 };
 
+export const formatRuntime = (runtime) => {
+  const hours = Math.floor(runtime / 60);
+  const minutes = runtime % 60;
+  const filmRuntime = `${hours}h ${minutes}m`;
+  return filmRuntime;
+};
+
 
