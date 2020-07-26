@@ -6,6 +6,7 @@ const movie = {
   id: 3,
   previewImage: `img/macbeth.jpg`,
   previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   title: `Macbeth`,
   backgroundImage: `https://loremflickr.com/cache/resized/65535_49757902562_3b737630e4_h_1280_543_nofilter.jpg`,
   backgroundColor: `#A6B7AC`,

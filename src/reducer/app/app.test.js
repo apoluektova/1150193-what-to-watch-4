@@ -31,7 +31,7 @@ const Genres = {
 };
 
 it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(undefined, {})).toEqual(initialState);
+  expect(reducer(void 0, {})).toEqual(initialState);
 });
 
 it(`Reducer should change current genre`, () => {

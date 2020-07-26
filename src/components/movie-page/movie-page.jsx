@@ -5,18 +5,19 @@ import MoreLikeThis from "../more-like-this/more-like-this.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
-import {getMovies, getReviews} from "../../reducer/data/selectors.js";
+import {getReviews, getMoviesLikeThis} from "../../reducer/data/selectors.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
 
-const SIMILAR_MOVIES_COUNT = 4;
-
 const MoviePage = (props) => {
-  const {movies, movie, reviews, onMovieCardClick, onPlayButtonClick} = props;
-
-  const filteredMovies = movies.filter((currentMovie) => currentMovie.genre === movie.genre && currentMovie.title !== movie.title);
-  const similarMovies = filteredMovies.slice(0, SIMILAR_MOVIES_COUNT);
+  const {
+    movies,
+    movie,
+    reviews,
+    onMovieCardClick,
+    onPlayButtonClick
+  } = props;
 
   return (
     <React.Fragment>
@@ -87,7 +88,7 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoreLikeThisWrapped
-            movies={similarMovies}
+            movies={movies}
             onMovieCardClick={onMovieCardClick}
           />
         </section>
@@ -139,7 +140,7 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
+  movies: getMoviesLikeThis(state),
   reviews: getReviews(state),
 });
 

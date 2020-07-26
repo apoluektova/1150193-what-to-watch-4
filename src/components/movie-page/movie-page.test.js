@@ -3,10 +3,11 @@ import renderer from "react-test-renderer";
 import {MoviePage} from "./movie-page.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import NameSpace from '../../reducer/name-space.js';
 
 const mockStore = configureStore([]);
 
-const movies = [
+const testMovies = [
   {
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
@@ -65,7 +66,7 @@ const movies = [
   },
 ];
 
-const reviews = [
+const testReviews = [
   {
     id: 1,
     user: {
@@ -90,17 +91,19 @@ const reviews = [
 
 it(`MoviePage should render correctly`, () => {
   const store = mockStore({
-    movies,
-    reviews,
+    [NameSpace.DATA]: {
+      movies: testMovies,
+      reviews: testReviews,
+    },
   });
 
   const tree = renderer
      .create(
          <Provider store={store}>
            <MoviePage
-             movie={movies[0]}
-             movies={movies}
-             reviews={reviews}
+             movie={testMovies[0]}
+             movies={testMovies}
+             reviews={testReviews}
              onMovieCardClick={() => {}}
              onPlayButtonClick={() => {}}
            />

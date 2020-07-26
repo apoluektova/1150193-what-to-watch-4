@@ -514,6 +514,50 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual(initialState);
 });
 
+it(`Reducer should load movies`, () => {
+  expect(reducer({
+    movies: [],
+  }, {
+    type: ActionType.LOAD_MOVIES,
+    payload: testMovies,
+  })).toEqual({
+    movies: testMovies,
+  });
+});
+
+it(`Reducer should load promo movie`, () => {
+  expect(reducer({
+    promoMovie: {},
+  }, {
+    type: ActionType.LOAD_PROMO_MOVIE,
+    payload: PROMO_MOVIE,
+  })).toEqual({
+    promoMovie: PROMO_MOVIE,
+  });
+});
+
+it(`Reducer should load reviews`, () => {
+  expect(reducer({
+    reviews: [],
+  }, {
+    type: ActionType.LOAD_REVIEWS,
+    payload: testReviews,
+  })).toEqual({
+    reviews: testReviews,
+  });
+});
+
+it(`Reducer should catch errors`, () => {
+  expect(reducer({
+    isError: false,
+  }, {
+    type: ActionType.CATCH_ERROR,
+    payload: true,
+  })).toEqual({
+    isError: true,
+  });
+});
+
 describe(`Operation works correctly`, () => {
   it(`Should make a correct API call to /films`, function () {
     const apiMock = new MockAdapter(api);
@@ -556,7 +600,7 @@ describe(`Operation works correctly`, () => {
   it(`Should make a correct API call to /comments/1`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const moviesLoader = Operation.loadReviews();
+    const moviesLoader = Operation.loadReviews(1);
 
     apiMock
     .onGet(`/comments/1`)
@@ -572,3 +616,4 @@ describe(`Operation works correctly`, () => {
       });
   });
 });
+

@@ -3,38 +3,46 @@ import renderer from "react-test-renderer";
 import TabsList from "./tabs-list.jsx";
 
 const movie = {
-  previewImage: `img/aviator.jpg`,
-  previewVideo: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  title: `Aviator`,
-  backgroundImage: `https://loremflickr.com/cache/resized/65535_49800111821_ae7805f489_h_1280_543_nofilter.jpg`,
-  poster: `https://loremflickr.com/cache/resized/65535_50063687282_2595a7661e_z_273_410_nofilter.jpg`,
+  id: 1,
+  previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  videoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  title: `The Grand Budapest Hotel`,
+  backgroundImage: `img/bg-the-grand-budapest-hotel.jpg`,
+  backgroundColor: `#A6B7AC`,
+  poster: `https://loremflickr.com/cache/resized/65535_49824720108_18907b74af_z_273_410_nofilter.jpg`,
   genre: `Drama`,
-  releaseDate: 2004,
-  description: `Based on the 1993 non-fiction book Howard Hughes: The Secret Life by Charles Higham, the film depicts the life of Howard Hughes, an aviation pioneer and director of Hell's Angels. The film portrays his life from 1927–1947 during which time Hughes became a successful film producer and an aviation magnate while simultaneously growing more unstable due to severe obsessive–compulsive disorder (OCD).`,
+  releaseDate: 2014,
+  description: `The Grand Budapest Hotel is a 2014 comedy-drama film written and directed by Wes Anderson, which explores tragedy, war, fascism, nostalgia, friendship, and loyalty.`,
   rating: {
-    score: 8.7,
-    level: `Very good`,
-    count: 241,
+    score: 9.3,
+    count: 250,
   },
-  director: `Martin Scorsese`,
+  director: `Wes Anderson`,
   actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
-  runtime: `1h 39m`,
+  runtime: 99,
+  isFavorite: false,
 };
 
 const reviews = [
   {
-    id: 1,
-    text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-    author: `Kate Muir`,
-    date: `December 24, 2016`,
-    rating: 8.9,
+    id: 2,
+    user: {
+      id: 2,
+      name: `Bill Goodykoontz`,
+    },
+    comment: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+    date: `2020-07-19T16:06:01.831Z`,
+    rating: 8.0,
   },
   {
-    id: 2,
-    text: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
-    author: `Bill Goodykoontz`,
-    date: `November 18, 2015`,
+    id: 3,
+    user: {
+      id: 3,
+      name: `Bill`,
+    },
+    comment: `Anderson's films are too precious for some`,
+    date: `2020-07-19T16:06:01.831Z`,
     rating: 8.0,
   },
 ];

@@ -1,7 +1,7 @@
 import NameSpace from "../name-space.js";
 import {createSelector} from 'reselect';
-import {ALL_GENRES} from "../../const.js";
-import {getGenre} from "../app/selectors.js";
+import {ALL_GENRES, SIMILAR_MOVIES_COUNT} from "../../const.js";
+import {getGenre, getCurrentMovieCard} from "../app/selectors.js";
 
 export const getMovies = (state) => {
   return state[NameSpace.DATA].movies;
@@ -38,3 +38,13 @@ export const getFilteredMovies = createSelector(
     }
 );
 
+export const getMoviesLikeThis = createSelector(
+    getFilteredMovies,
+    getCurrentMovieCard,
+    (filteredMovies, currentMovieCard) => {
+      return (filteredMovies
+        .filter((movie) => movie.id !== currentMovieCard.id)
+        .slice(0, SIMILAR_MOVIES_COUNT)
+      );
+    }
+);
