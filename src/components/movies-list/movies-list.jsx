@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
 import {connect} from "react-redux";
-import {ALL_GENRES} from "../../const.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import {ActionCreator} from "../../reducer/app/app.js";
-import {getMovies} from "../../reducer/data/selectors.js";
-import {getShownMovieCards, getGenre} from "../../reducer/app/selectors.js";
+import {getFilteredMovies} from "../../reducer/data/selectors.js";
+import {getShownMovieCards} from "../../reducer/app/selectors.js";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
-
-const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -55,7 +52,7 @@ MoviesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: (getGenre(state) === ALL_GENRES) ? getMovies(state) : getMoviesListByGenre(getMovies(state), getGenre(state)),
+  movies: getFilteredMovies(state),
   shownMovieCards: getShownMovieCards(state),
 });
 
