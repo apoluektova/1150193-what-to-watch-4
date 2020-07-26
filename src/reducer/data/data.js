@@ -47,8 +47,8 @@ const Operation = {
       dispatch(ActionCreator.loadPromoMovie(createMovie(response.data)));
     });
   },
-  loadReviews: (movieID) => (dispatch, getState, api) => {
-    return api.get(`/comments/${movieID}`)
+  loadReviews: (movieId) => (dispatch, getState, api) => {
+    return api.get(`/comments/${movieId}`)
     .then((response) => {
       dispatch(ActionCreator.loadReviews(response.data));
     });

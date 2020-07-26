@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const MovieDetails = (props) => {
   const {movie: {genre, releaseDate, director, actors, runtime}} = props;
-  const movieActors = actors.split(`, `);
+  // const movieActors = actors.split(`, `);
 
   return (
     <React.Fragment>
@@ -16,7 +16,7 @@ const MovieDetails = (props) => {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value">
-              {movieActors.map((actor, index) => {
+              {actors.map((actor, index) => {
                 return (
                   <React.Fragment key={`${actor}-${index}`}>
                     {actor}<br />

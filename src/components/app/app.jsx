@@ -7,8 +7,9 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
-import {getPromoMovie, getReviews} from "../../reducer/data/selectors.js";
+import {getPromoMovie} from "../../reducer/data/selectors.js";
 import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -20,7 +21,6 @@ class App extends PureComponent {
   _renderApp() {
     const {
       promoMovie,
-      reviews,
       currentMovieCard,
       handleMovieCardClick,
       isFullScreenOn,
@@ -31,7 +31,6 @@ class App extends PureComponent {
     if (currentMovieCard && !isFullScreenOn) {
       return <MoviePage
         movie={currentMovieCard}
-        reviews={reviews}
         onMovieCardClick={handleMovieCardClick}
         onPlayButtonClick={handlePlayButtonClick}
       />;
@@ -56,7 +55,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {reviews, currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
+    const {currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -67,7 +66,6 @@ class App extends PureComponent {
           <Route exact path="/movie-page">
             <MoviePage
               movie={currentMovieCard}
-              reviews={reviews}
               onMovieCardClick={handleMovieCardClick}
               onPlayButtonClick={handlePlayButtonClick}
             />
@@ -98,7 +96,6 @@ App.propTypes = {
     actors: PropTypes.string.isRequired,
     runtime: PropTypes.string.isRequired,
   }).isRequired,
-  reviews: PropTypes.array.isRequired,
   currentMovieCard: PropTypes.object,
   handleMovieCardClick: PropTypes.func.isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,
@@ -108,7 +105,6 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
-  reviews: getReviews(state),
   currentMovieCard: getCurrentMovieCard(state),
   isFullScreenOn: getIsFullScreenOn(state),
 });
@@ -116,6 +112,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleMovieCardClick(movie) {
     dispatch(ActionCreator.changeMovieCard(movie));
+    dispatch(DataOperation.loadReviews(movie.id));
   },
   handlePlayButtonClick() {
     dispatch(ActionCreator.toggleFullScreenPlayer(true));

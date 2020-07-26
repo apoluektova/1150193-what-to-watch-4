@@ -21,8 +21,8 @@ class Main extends PureComponent {
     return (
       <React.Fragment>
         <section className="movie-card">
-          <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <div className="movie-card__bg" style={{background: promoMovie.backgroundColor}}>
+            <img src={promoMovie.backgroundImage} alt={promoMovie.title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -46,7 +46,7 @@ class Main extends PureComponent {
           <div className="movie-card__wrap">
             <div className="movie-card__info">
               <div className="movie-card__poster">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+                <img src={promoMovie.poster} alt={`${promoMovie.title} poster`} width="218" height="327" />
               </div>
 
               <div className="movie-card__desc">

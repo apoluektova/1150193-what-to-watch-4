@@ -5,7 +5,7 @@ import MoreLikeThis from "../more-like-this/more-like-this.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
-import {getMovies} from "../../reducer/data/selectors.js";
+import {getMovies, getReviews} from "../../reducer/data/selectors.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -22,7 +22,7 @@ const MoviePage = (props) => {
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
-          <div className="movie-card__bg">
+          <div className="movie-card__bg" style={{background: movie.backgroundColor}}>
             <img src={movie.backgroundImage} alt={movie.title} />
           </div>
 
@@ -74,7 +74,7 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={movie.poster} alt={movie.title} width="218" height="327" />
+              <img src={movie.poster} alt={`${movie.title} poster`} width="218" height="327" />
             </div>
 
             {<TabsListWrapped movie={movie} reviews={reviews} />}
@@ -138,6 +138,7 @@ MoviePage.propTypes = {
 
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
+  reviews: getReviews(state),
 });
 
 export {MoviePage};
