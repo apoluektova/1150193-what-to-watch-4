@@ -18,16 +18,16 @@ export const getRatingLevel = (count) => {
   if (count >= 0 && count < 3) {
     return `Bad`;
   }
-  if (count <= 3 && count < 5) {
+  if (count >= 3 && count < 5) {
     return `Normal`;
   }
-  if (count <= 5 && count < 8) {
+  if (count >= 5 && count < 8) {
     return `Good`;
   }
-  if (count <= 8 && count < 10) {
+  if (count >= 8 && count < 10) {
     return `Very good`;
   }
-  if (count >= 10) {
+  if (count === 10) {
     return `Awesome`;
   }
 
