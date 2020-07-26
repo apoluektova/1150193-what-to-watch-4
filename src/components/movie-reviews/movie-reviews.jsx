@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Review from "../review/review.jsx";
 
-
 const MovieReviews = (props) => {
   const {reviews} = props;
 

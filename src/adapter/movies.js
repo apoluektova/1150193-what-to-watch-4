@@ -17,7 +17,7 @@ export const createMovie = (movie) => {
     },
     director: movie.director,
     actors: movie.starring,
-    runtime: movie.run_rime,
+    runtime: movie.run_time,
     isFavorite: movie.is_favorite,
   };
 };
