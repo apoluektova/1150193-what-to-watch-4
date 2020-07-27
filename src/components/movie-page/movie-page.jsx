@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import TabsList from "../tabs-list/tabs-list.jsx";
 import MoreLikeThis from "../more-like-this/more-like-this.jsx";
+import Footer from "../footer/footer.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
@@ -21,9 +22,9 @@ const MoviePage = (props) => {
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{background: movie.backgroundColor}}>
         <div className="movie-card__hero">
-          <div className="movie-card__bg" style={{background: movie.backgroundColor}}>
+          <div className="movie-card__bg">
             <img src={movie.backgroundImage} alt={movie.title} />
           </div>
 
@@ -93,19 +94,7 @@ const MoviePage = (props) => {
           />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );

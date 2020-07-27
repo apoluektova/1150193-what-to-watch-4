@@ -18,7 +18,7 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Justin Kurzel
+        Wes Anderson
       </span>
     </p>
     <p
@@ -57,7 +57,7 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        NaNh NaNm
+        1h 39m
       </span>
     </p>
     <p
@@ -85,7 +85,7 @@ exports[`MovieDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        2015
+        2014
       </span>
     </p>
   </div>

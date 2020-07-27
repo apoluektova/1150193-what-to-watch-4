@@ -4,6 +4,11 @@ exports[`App should render correctly 1`] = `
 Array [
   <section
     className="movie-card movie-card--full"
+    style={
+      Object {
+        "background": "#A6B7AC",
+      }
+    }
   >
     <div
       className="movie-card__hero"
@@ -146,7 +151,7 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="Fantastic Beasts: The Crimes of Grindelwald"
+            alt="Fantastic Beasts: The Crimes of Grindelwald poster"
             height="327"
             src="https://loremflickr.com/cache/resized/65535_49824720108_18907b74af_z_273_410_nofilter.jpg"
             width="218"
@@ -202,7 +207,7 @@ Array [
             <div
               className="movie-rating__score"
             >
-              8.9
+              8,9
             </div>
             <p
               className="movie-rating__meta"
@@ -237,7 +242,7 @@ Array [
             >
               <strong>
                 Starring: 
-                Eddie Redmayne, Katherine Waterston, Dan Fogler, Alison Sudol, Ezra Miller, Zoë Kravitz
+                Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris
                  and other
               </strong>
             </p>
@@ -269,7 +274,6 @@ Array [
       >
         <a
           className="logo__link logo__link--light"
-          href="main.html"
         >
           <span
             className="logo__letter logo__letter--1"
@@ -292,7 +296,7 @@ Array [
         className="copyright"
       >
         <p>
-          © 2019 What to watch Ltd.
+          © 2020 What to watch Ltd.
         </p>
       </div>
     </footer>

@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MovieDetails from "./movie-details.jsx";
+import PromoMovie from "./promo-movie.jsx";
 
-const movie = {
+const PROMO_MOVIE = {
   id: 1,
   previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
@@ -24,10 +24,11 @@ const movie = {
   isFavorite: false,
 };
 
-it(`MovieDetails should render correctly`, () => {
+it(`PromoMovie should render correctly`, () => {
   const tree = renderer
-     .create(<MovieDetails
-       movie={movie}
+     .create(<PromoMovie
+       promoMovie={PROMO_MOVIE}
+       onPlayButtonClick={() => {}}
      />)
      .toJSON();
 

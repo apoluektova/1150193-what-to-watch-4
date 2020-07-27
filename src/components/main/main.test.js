@@ -25,7 +25,7 @@ const PROMO_MOVIE = {
   },
   director: `Wes Anderson`,
   actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
-  runtime: `1h 39m`,
+  runtime: 99,
   isFavorite: false,
 };
 
@@ -48,7 +48,7 @@ const movies = [
     },
     director: `David Yates`,
     actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
-    runtime: `1h 39m`,
+    runtime: 99,
     isFavorite: false,
   },
   {
@@ -69,7 +69,7 @@ const movies = [
     },
     director: `Bryan Singer`,
     actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
-    runtime: `1h 39m`,
+    runtime: 99,
     isFavorite: false,
   },
   {
@@ -89,7 +89,7 @@ const movies = [
     },
     director: `Justin Kurzel`,
     actors: [`Michael Fassbender`, `Marion Cotillard`, `Paddy Considine`, `Sean Harris`],
-    runtime: `1h 39m`,
+    runtime: 99,
     isFavorite: false,
   },
 ];

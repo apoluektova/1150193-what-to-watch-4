@@ -16,7 +16,14 @@ class MoviesList extends PureComponent {
   }
 
   render() {
-    const {movies, onMovieCardClick, onActiveCardChange, handleShowMoreButtonClick, shownMovieCards} = this.props;
+    const {
+      movies,
+      onMovieCardClick,
+      onActiveCardChange,
+      handleShowMoreButtonClick,
+      shownMovieCards
+    } = this.props;
+
     const shownMovies = movies.slice(0, shownMovieCards);
 
     return (
