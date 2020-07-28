@@ -11,6 +11,10 @@ import {getPromoMovie, getIsError} from "../../reducer/data/selectors.js";
 import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import ErrorMessage from "../error-message/error-message.jsx";
+import {AuthorizationStatus, Operation as UserOperation} from "../../reducer/user/user.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
+
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -21,6 +25,7 @@ class App extends PureComponent {
 
   _renderApp() {
     const {
+      authorizationStatus,
       promoMovie,
       currentMovieCard,
       handleMovieCardClick,
@@ -55,6 +60,7 @@ class App extends PureComponent {
 
     return (
       <Main
+        authorizationStatus={authorizationStatus}
         promoMovie={promoMovie}
         onMovieCardClick={handleMovieCardClick}
         onPlayButtonClick={handlePlayButtonClick}
@@ -63,7 +69,12 @@ class App extends PureComponent {
   }
 
   render() {
-    const {currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
+    const {
+      currentMovieCard,
+      handleMovieCardClick,
+      handlePlayButtonClick,
+      onFormSubmit
+    } = this.props;
 
     return (
       <BrowserRouter>
@@ -76,6 +87,11 @@ class App extends PureComponent {
               movie={currentMovieCard}
               onMovieCardClick={handleMovieCardClick}
               onPlayButtonClick={handlePlayButtonClick}
+            />
+          </Route>
+          <Route exact path="/dev-sign-in">
+            <SignInScreen
+              onFormSubmit={onFormSubmit}
             />
           </Route>
         </Switch>
@@ -112,6 +128,9 @@ App.propTypes = {
   handleExitButtonClick: PropTypes.func.isRequired,
   isFullScreenOn: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -119,6 +138,7 @@ const mapStateToProps = (state) => ({
   currentMovieCard: getCurrentMovieCard(state),
   isFullScreenOn: getIsFullScreenOn(state),
   isError: getIsError(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -131,7 +151,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleExitButtonClick() {
     dispatch(ActionCreator.toggleFullScreenPlayer(false));
-  }
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
 });
 
 export {App};

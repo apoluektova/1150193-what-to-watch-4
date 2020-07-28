@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const PromoMovie = (props) => {
-  const {promoMovie, onPlayButtonClick} = props;
+  const {authorizationStatus, promoMovie, onPlayButtonClick} = props;
 
   return (
     <section className="movie-card">
@@ -22,9 +23,12 @@ const PromoMovie = (props) => {
         </div>
 
         <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
+          {authorizationStatus === AuthorizationStatus.AUTH ?
+            <div className="user-block__avatar">
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+            </div>
+            : <a href="sign-in.html" className="user-block__link">Sign in</a>
+          }
         </div>
       </header>
 
@@ -88,6 +92,7 @@ PromoMovie.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default PromoMovie;

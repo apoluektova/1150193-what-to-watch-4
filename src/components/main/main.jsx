@@ -16,6 +16,7 @@ class Main extends PureComponent {
 
   render() {
     const {
+      authorizationStatus,
       promoMovie,
       onMovieCardClick,
       onPlayButtonClick,
@@ -25,6 +26,7 @@ class Main extends PureComponent {
       <React.Fragment>
         {Object.keys(promoMovie).length === 0 ? <Loader />
           : <PromoMovie
+            authorizationStatus={authorizationStatus}
             promoMovie={promoMovie}
             onPlayButtonClick={onPlayButtonClick}
           /> }
@@ -67,8 +69,9 @@ Main.propTypes = {
     runtime: PropTypes.number,
     isFavorite: PropTypes.bool,
   }).isRequired,
-  onMovieCardClick: PropTypes.func,
-  onPlayButtonClick: PropTypes.func,
+  onMovieCardClick: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default Main;
