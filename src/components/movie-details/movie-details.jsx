@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {formatRuntime} from "../../utils.js";
 
 const MovieDetails = (props) => {
   const {movie: {genre, releaseDate, director, actors, runtime}} = props;
-  const movieActors = actors.split(`, `);
+  const filmRuntime = formatRuntime(runtime);
 
   return (
     <React.Fragment>
@@ -16,7 +17,7 @@ const MovieDetails = (props) => {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value">
-              {movieActors.map((actor, index) => {
+              {actors.map((actor, index) => {
                 return (
                   <React.Fragment key={`${actor}-${index}`}>
                     {actor}<br />
@@ -30,7 +31,7 @@ const MovieDetails = (props) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{runtime}</span>
+            <span className="movie-card__details-value">{filmRuntime}</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
@@ -48,23 +49,25 @@ const MovieDetails = (props) => {
 
 MovieDetails.propTypes = {
   movie: PropTypes.exact({
+    id: PropTypes.number.isRequired,
     previewImage: PropTypes.string.isRequired,
     previewVideo: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.exact({
       score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
     }).isRequired,
     director: PropTypes.string.isRequired,
-    actors: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
+    runtime: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

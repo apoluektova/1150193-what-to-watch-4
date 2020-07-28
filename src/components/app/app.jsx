@@ -1,12 +1,16 @@
 import React, {PureComponent} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/app/app.js";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
+import {getPromoMovie, getIsError} from "../../reducer/data/selectors.js";
+import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+import ErrorMessage from "../error-message/error-message.jsx";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -18,18 +22,23 @@ class App extends PureComponent {
   _renderApp() {
     const {
       promoMovie,
-      reviews,
       currentMovieCard,
       handleMovieCardClick,
       isFullScreenOn,
       handlePlayButtonClick,
-      handleExitButtonClick
+      handleExitButtonClick,
+      isError
     } = this.props;
+
+    if (isError) {
+      return (
+        <ErrorMessage />
+      );
+    }
 
     if (currentMovieCard && !isFullScreenOn) {
       return <MoviePage
         movie={currentMovieCard}
-        reviews={reviews}
         onMovieCardClick={handleMovieCardClick}
         onPlayButtonClick={handlePlayButtonClick}
       />;
@@ -54,7 +63,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {reviews, currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
+    const {currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -65,7 +74,6 @@ class App extends PureComponent {
           <Route exact path="/movie-page">
             <MoviePage
               movie={currentMovieCard}
-              reviews={reviews}
               onMovieCardClick={handleMovieCardClick}
               onPlayButtonClick={handlePlayButtonClick}
             />
@@ -77,43 +85,46 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  promoMovie: PropTypes.exact({
-    previewImage: PropTypes.string.isRequired,
-    previewVideo: PropTypes.string.isRequired,
-    videoLink: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.exact({
-      score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    }).isRequired,
-    director: PropTypes.string.isRequired,
-    actors: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
+  promoMovie: PropTypes.shape({
+    id: PropTypes.number,
+    previewImage: PropTypes.string,
+    previewVideo: PropTypes.string,
+    videoLink: PropTypes.string,
+    title: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    poster: PropTypes.string,
+    genre: PropTypes.string,
+    releaseDate: PropTypes.number,
+    description: PropTypes.string,
+    rating: PropTypes.shape({
+      score: PropTypes.number,
+      count: PropTypes.number,
+    }),
+    director: PropTypes.string,
+    actors: PropTypes.array,
+    runtime: PropTypes.number,
+    isFavorite: PropTypes.bool,
   }).isRequired,
-  reviews: PropTypes.array.isRequired,
   currentMovieCard: PropTypes.object,
   handleMovieCardClick: PropTypes.func.isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,
   handleExitButtonClick: PropTypes.func.isRequired,
   isFullScreenOn: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  promoMovie: state.promoMovie,
-  reviews: state.reviews,
-  currentMovieCard: state.currentMovieCard,
-  isFullScreenOn: state.isFullScreenOn,
+  promoMovie: getPromoMovie(state),
+  currentMovieCard: getCurrentMovieCard(state),
+  isFullScreenOn: getIsFullScreenOn(state),
+  isError: getIsError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleMovieCardClick(movie) {
     dispatch(ActionCreator.changeMovieCard(movie));
+    dispatch(DataOperation.loadReviews(movie.id));
   },
   handlePlayButtonClick() {
     dispatch(ActionCreator.toggleFullScreenPlayer(true));

@@ -2,24 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 import TabsList from "../tabs-list/tabs-list.jsx";
 import MoreLikeThis from "../more-like-this/more-like-this.jsx";
+import Footer from "../footer/footer.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
+import {getReviews, getMoviesLikeThis} from "../../reducer/data/selectors.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
 
-const SIMILAR_MOVIES_COUNT = 4;
-
 const MoviePage = (props) => {
-  const {movies, movie, reviews, onMovieCardClick, onPlayButtonClick} = props;
-
-  const filteredMovies = movies.filter((currentMovie) => currentMovie.genre === movie.genre && currentMovie.title !== movie.title);
-  const similarMovies = filteredMovies.slice(0, SIMILAR_MOVIES_COUNT);
+  const {
+    movies,
+    movie,
+    reviews,
+    onMovieCardClick,
+    onPlayButtonClick
+  } = props;
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{background: movie.backgroundColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={movie.backgroundImage} alt={movie.title} />
@@ -73,7 +76,7 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={movie.poster} alt={movie.title} width="218" height="327" />
+              <img src={movie.poster} alt={`${movie.title} poster`} width="218" height="327" />
             </div>
 
             {<TabsListWrapped movie={movie} reviews={reviews} />}
@@ -86,24 +89,12 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoreLikeThisWrapped
-            movies={similarMovies}
+            movies={movies}
             onMovieCardClick={onMovieCardClick}
           />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
@@ -111,23 +102,25 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   movie: PropTypes.exact({
+    id: PropTypes.number.isRequired,
     previewImage: PropTypes.string.isRequired,
     previewVideo: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.exact({
       score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
     }).isRequired,
     director: PropTypes.string.isRequired,
-    actors: PropTypes.string.isRequired,
-    runtime: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
+    runtime: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   reviews: PropTypes.array.isRequired,
   movies: PropTypes.array.isRequired,
@@ -136,7 +129,8 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getMoviesLikeThis(state),
+  reviews: getReviews(state),
 });
 
 export {MoviePage};

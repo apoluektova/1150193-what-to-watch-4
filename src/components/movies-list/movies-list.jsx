@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
 import {connect} from "react-redux";
-import {ALL_GENRES} from "../../const.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/app/app.js";
+import {getFilteredMovies} from "../../reducer/data/selectors.js";
+import {getShownMovieCards} from "../../reducer/app/selectors.js";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
-
-const getMoviesListByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre);
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -17,16 +16,23 @@ class MoviesList extends PureComponent {
   }
 
   render() {
-    const {movies, onMovieCardClick, onActiveCardChange, handleShowMoreButtonClick, shownMovieCards} = this.props;
+    const {
+      movies,
+      onMovieCardClick,
+      onActiveCardChange,
+      handleShowMoreButtonClick,
+      shownMovieCards
+    } = this.props;
+
     const shownMovies = movies.slice(0, shownMovieCards);
 
     return (
       <React.Fragment>
         <div className="catalog__movies-list">
-          {shownMovies.map((movie, index) => {
+          {shownMovies.map((movie) => {
             return (
               <MovieCardWrapped
-                key={movie.title + index}
+                key={movie.id}
                 movie={movie}
                 onMovieCardClick={onMovieCardClick}
                 onMovieCardHover={onActiveCardChange}
@@ -53,8 +59,8 @@ MoviesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: (state.genre === ALL_GENRES) ? state.movies : getMoviesListByGenre(state.movies, state.genre),
-  shownMovieCards: state.shownMovieCards,
+  movies: getFilteredMovies(state),
+  shownMovieCards: getShownMovieCards(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

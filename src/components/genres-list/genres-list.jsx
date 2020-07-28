@@ -2,14 +2,11 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import Genre from "../genre/genre.jsx";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
-import {ALL_GENRES} from "../../const.js";
+import {ActionCreator} from "../../reducer/app/app.js";
+import {getGenre} from "../../reducer/app/selectors.js";
+import {getGenresList} from "../../reducer/data/selectors.js";
 
 const MAX_GENRES_AMOUNT = 9;
-
-const getGenresList = (movies) => {
-  return [ALL_GENRES, ...new Set(movies.map((movie) => movie.genre))];
-};
 
 class GenresList extends PureComponent {
   constructor(props) {
@@ -43,8 +40,8 @@ GenresList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeGenre: state.genre,
-  genresList: getGenresList(state.movies),
+  activeGenre: getGenre(state),
+  genresList: getGenresList(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

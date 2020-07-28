@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Review from "../review/review.jsx";
 
-
 const MovieReviews = (props) => {
   const {reviews} = props;
 
@@ -28,8 +27,11 @@ MovieReviews.propTypes = {
   reviews: PropTypes.arrayOf(
       PropTypes.exact({
         id: PropTypes.number.isRequired,
-        text: PropTypes.string.isRequired,
-        author: PropTypes.string.isRequired,
+        comment: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+        }).isRequired,
         date: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired,
       }).isRequired

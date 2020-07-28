@@ -1,17 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 const Review = (props) => {
   const {review} = props;
+  const date = moment(review.date).format(`MMMM D, YYYY`);
+  const dateTime = moment(review.date).format(`YYYY-MM-DD`);
 
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{review.text}</p>
+        <p className="review__text">{review.comment}</p>
 
         <footer className="review__details">
-          <cite className="review__author">{review.author}</cite>
-          <time className="review__date" dateTime="2016-12-20">{review.date}</time>
+          <cite className="review__author">{review.user.name}</cite>
+          <time className="review__date" dateTime={dateTime}>{date}</time>
         </footer>
       </blockquote>
 
@@ -22,8 +25,12 @@ const Review = (props) => {
 
 Review.propTypes = {
   review: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }).isRequired,
     date: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
   }).isRequired,

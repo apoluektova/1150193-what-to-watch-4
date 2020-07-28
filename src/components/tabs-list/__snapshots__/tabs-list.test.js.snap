@@ -51,7 +51,7 @@ exports[`TabsList should render correctly 1`] = `
     <div
       className="movie-rating__score"
     >
-      8.7
+      9,3
     </div>
     <p
       className="movie-rating__meta"
@@ -64,7 +64,7 @@ exports[`TabsList should render correctly 1`] = `
       <span
         className="movie-rating__count"
       >
-        241
+        250
          ratings
       </span>
     </p>
@@ -72,13 +72,13 @@ exports[`TabsList should render correctly 1`] = `
   <div
     className="movie-card__text"
   >
-    Based on the 1993 non-fiction book Howard Hughes: The Secret Life by Charles Higham, the film depicts the life of Howard Hughes, an aviation pioneer and director of Hell's Angels. The film portrays his life from 1927–1947 during which time Hughes became a successful film producer and an aviation magnate while simultaneously growing more unstable due to severe obsessive–compulsive disorder (OCD).
+    The Grand Budapest Hotel is a 2014 comedy-drama film written and directed by Wes Anderson, which explores tragedy, war, fascism, nostalgia, friendship, and loyalty.
     <p
       className="movie-card__director"
     >
       <strong>
         Director: 
-        Martin Scorsese
+        Wes Anderson
       </strong>
     </p>
     <p
@@ -86,7 +86,7 @@ exports[`TabsList should render correctly 1`] = `
     >
       <strong>
         Starring: 
-        Leonardo DiCaprio, Cate Blanchett, and Kate Beckinsale
+        Michael Fassbender, Marion Cotillard, Paddy Considine, Sean Harris
          and other
       </strong>
     </p>

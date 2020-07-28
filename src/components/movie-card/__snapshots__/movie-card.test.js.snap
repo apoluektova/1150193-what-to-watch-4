@@ -22,7 +22,7 @@ exports[`MovieCard should render correctly 1`] = `
       href="movie-page.html"
       onClick={[Function]}
     >
-      Moonrise Kingdom
+      The Grand Budapest Hotel
     </a>
   </h3>
 </article>

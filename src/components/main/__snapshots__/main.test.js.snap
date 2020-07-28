@@ -7,6 +7,11 @@ Array [
   >
     <div
       className="movie-card__bg"
+      style={
+        Object {
+          "background": "#A6B7AC",
+        }
+      }
     >
       <img
         alt="The Grand Budapest Hotel"
@@ -71,7 +76,7 @@ Array [
           <img
             alt="The Grand Budapest Hotel poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="https://loremflickr.com/cache/resized/65535_49824720108_18907b74af_z_273_410_nofilter.jpg"
             width="218"
           />
         </div>
@@ -301,7 +306,7 @@ Array [
         className="copyright"
       >
         <p>
-          © 2019 What to watch Ltd.
+          © 2020 What to watch Ltd.
         </p>
       </div>
     </footer>
