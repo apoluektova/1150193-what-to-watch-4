@@ -9,10 +9,10 @@ class SignInScreen extends PureComponent {
     this.loginRef = createRef();
     this.passwordRef = createRef();
 
-    this.handleSubmit = this._handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  _handleSubmit(evt) {
+  handleSubmit(evt) {
     const {onSubmit} = this.props;
 
     evt.preventDefault();
@@ -40,7 +40,7 @@ class SignInScreen extends PureComponent {
           </header>
 
           <div className="sign-in user-page__content">
-            <form action="#" className="sign-in__form">
+            <form action="#" className="sign-in__form" onSubmit={this.handleSubmit}>
               <div className="sign-in__fields">
                 <div className="sign-in__field">
                   <input
@@ -56,8 +56,8 @@ class SignInScreen extends PureComponent {
                 <div className="sign-in__field">
                   <input
                     className="sign-in__input"
-                    type="password" p
-                    laceholder="Password"
+                    type="password"
+                    placeholder="Password"
                     name="user-password"
                     id="user-password"
                     ref={this.passwordRef}
@@ -66,7 +66,7 @@ class SignInScreen extends PureComponent {
                 </div>
               </div>
               <div className="sign-in__submit">
-                <button className="sign-in__btn" type="submit" onSubmit={this.handleSubmit}>Sign in</button>
+                <button className="sign-in__btn" type="submit">Sign in</button>
               </div>
             </form>
           </div>

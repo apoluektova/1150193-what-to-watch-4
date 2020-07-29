@@ -20,6 +20,8 @@ class Main extends PureComponent {
       promoMovie,
       onMovieCardClick,
       onPlayButtonClick,
+      authInfo,
+      onSignInClick
     } = this. props;
 
     return (
@@ -29,6 +31,8 @@ class Main extends PureComponent {
             authorizationStatus={authorizationStatus}
             promoMovie={promoMovie}
             onPlayButtonClick={onPlayButtonClick}
+            authInfo={authInfo}
+            onSignInClick={onSignInClick}
           /> }
 
         <div className="page-content">
@@ -72,6 +76,8 @@ Main.propTypes = {
   onMovieCardClick: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  authInfo: PropTypes.object.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
 };
 
 export default Main;

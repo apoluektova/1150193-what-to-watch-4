@@ -1,4 +1,5 @@
 import {extend} from "../../utils.js";
+import {createAuthorizationInfo} from "../../adapter/authInfo.js";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -7,10 +8,19 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationInfo: {
+    id: 0,
+    email: ``,
+    name: ``,
+    avatarUrl: ``,
+  },
+  isSignedIn: false,
 };
 
 const ActionType = {
   REQIURE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
+  GET_AUTHORIZATION_INFO: `GET_AUTHORIZATION_INFO`,
+  SIGN_IN: `SIGN_IN`,
 };
 
 const ActionCreator = {
@@ -20,6 +30,18 @@ const ActionCreator = {
       payload: status,
     };
   },
+  getAuthorizationInfo: (authInfo) => {
+    return {
+      type: ActionType.GET_AUTHORIZATION_INFO,
+      payload: authInfo,
+    };
+  },
+  signIn: (bool) => {
+    return {
+      type: ActionType.SIGN_IN,
+      payload: bool,
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +49,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQIURE_AUTHORIZATION:
       return extend(state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.GET_AUTHORIZATION_INFO:
+      return extend(state, {
+        authorizationInfo: action.payload,
+      });
+    case ActionType.SIGN_IN:
+      return extend(state, {
+        isSignedIn: action.payload,
       });
   }
 
@@ -36,8 +66,9 @@ const reducer = (state = initialState, action) => {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
-    .then(() => {
+    .then((response) => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.getAuthorizationInfo(createAuthorizationInfo(response.data)));
     })
     .catch((error) => {
       throw error;
@@ -49,8 +80,10 @@ const Operation = {
       email: authData.login,
       password: authData.password,
     })
-    .then(() => {
+    .then((response) => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.signIn(false));
+      dispatch(ActionCreator.getAuthorizationInfo(createAuthorizationInfo(response.data)));
     });
   }
 };
