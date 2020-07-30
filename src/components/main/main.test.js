@@ -103,7 +103,17 @@ it(`Main renders correctly`, () => {
       shownMovieCards: 8,
       genre: `All genres`,
     },
+    [NameSpace.USER]: {
+      authorizationStatus: `AUTH`,
+    }
   });
+
+  const userInfo = {
+    id: 1,
+    email: `ben@mail.ru`,
+    name: `Ben`,
+    avatarUrl: `/wtw/static/avatar/5.jpg`,
+  };
 
   const tree = renderer
      .create(<Provider store={store}>
@@ -111,6 +121,9 @@ it(`Main renders correctly`, () => {
          promoMovie={PROMO_MOVIE}
          onMovieCardClick={() => {}}
          onPlayButtonClick={() => {}}
+         authInfo={userInfo}
+         onSignInClick={() => {}}
+         authorizationStatus={`AUTH`}
        />
      </Provider>, {
        createNodeMock: () => {

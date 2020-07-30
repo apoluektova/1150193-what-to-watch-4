@@ -6,6 +6,7 @@ it(`SignInScreen should render correctly`, () => {
   const tree = renderer.create(
       <SignInScreen
         onSubmit={() => {}}
+        isSignInError={false}
       />
   ).toJSON();
 

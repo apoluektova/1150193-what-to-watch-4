@@ -34,7 +34,6 @@ Array [
         >
           <a
             className="logo__link"
-            href="main.html"
           >
             <span
               className="logo__letter logo__letter--1"
@@ -60,9 +59,9 @@ Array [
             className="user-block__avatar"
           >
             <img
-              alt="User avatar"
+              alt="Ben avatar"
               height="63"
-              src="img/avatar.jpg"
+              src="/wtw/static/avatar/5.jpg"
               width="63"
             />
           </div>

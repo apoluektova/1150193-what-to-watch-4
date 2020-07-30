@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const ActionType = {
-  REQIURE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
+  REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   GET_AUTHORIZATION_INFO: `GET_AUTHORIZATION_INFO`,
   SIGN_IN: `SIGN_IN`,
   GET_SIGN_IN_ERROR: `GET_SIGN_IN_ERROR`,
@@ -28,7 +28,7 @@ const ActionType = {
 const ActionCreator = {
   requireAuthorization: (status) => {
     return {
-      type: ActionType.REQIURE_AUTHORIZATION,
+      type: ActionType.REQUIRE_AUTHORIZATION,
       payload: status,
     };
   },
@@ -54,7 +54,7 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.REQIURE_AUTHORIZATION:
+    case ActionType.REQUIRE_AUTHORIZATION:
       return extend(state, {
         authorizationStatus: action.payload,
       });
@@ -103,4 +103,4 @@ const Operation = {
   }
 };
 
-export {AuthorizationStatus, ActionType, ActionCreator, Operation, reducer};
+export {AuthorizationStatus, ActionType, ActionCreator, Operation, reducer, initialState};

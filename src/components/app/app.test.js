@@ -117,6 +117,13 @@ const reviews = [
   },
 ];
 
+const userInfo = {
+  id: 1,
+  email: `ben@mail.ru`,
+  name: `Ben`,
+  avatarUrl: `/wtw/static/avatar/5.jpg`,
+};
+
 it(`App should render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
@@ -129,6 +136,12 @@ it(`App should render correctly`, () => {
       isFullScreenOn: false,
       isError: false,
     },
+    [NameSpace.USER]: {
+      authorizationStatus: `AUTH`,
+      authInfo: {userInfo},
+      isSignedIn: false,
+      isSignInError: false,
+    }
   });
 
   const tree = renderer
@@ -142,6 +155,12 @@ it(`App should render correctly`, () => {
              handleExitButtonClick={() => {}}
              isFullScreenOn={false}
              isError={false}
+             authorizationStatus={`AUTH`}
+             login={() => {}}
+             authInfo={userInfo}
+             onSignInClick={() => {}}
+             isSignedIn={false}
+             isSignInError={false}
            />
          </Provider>, {
            createNodeMock: () => {
