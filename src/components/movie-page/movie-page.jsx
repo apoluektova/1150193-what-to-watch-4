@@ -8,6 +8,10 @@ import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
 import {getReviews, getMoviesLikeThis} from "../../reducer/data/selectors.js";
 import Header from "../header/header.jsx";
+import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
+import {getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
+import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -21,8 +25,20 @@ const MoviePage = (props) => {
     onPlayButtonClick,
     authInfo,
     authorizationStatus,
-    onSignInClick
+    onSignInClick,
+    isSignedIn,
+    login,
+    isSignInError
   } = props;
+
+  if (isSignedIn) {
+    return (
+      <SignInScreen
+        onSubmit={login}
+        isSignInError={isSignInError}
+      />
+    );
+  }
 
   return (
     <React.Fragment>
@@ -128,12 +144,26 @@ MoviePage.propTypes = {
   }).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onSignInClick: PropTypes.func.isRequired,
+  isSignedIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+  isSignInError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMoviesLikeThis(state),
   reviews: getReviews(state),
+  isSignedIn: getIsSignedIn(state),
+  isSignInError: getIsSignInError(state),
 });
 
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+  onSignInClick() {
+    dispatch(UserActionCreator.signIn(true));
+  }
+});
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

@@ -15,12 +15,14 @@ const initialState = {
     avatarUrl: ``,
   },
   isSignedIn: false,
+  isSignInError: false,
 };
 
 const ActionType = {
   REQIURE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   GET_AUTHORIZATION_INFO: `GET_AUTHORIZATION_INFO`,
   SIGN_IN: `SIGN_IN`,
+  GET_SIGN_IN_ERROR: `GET_SIGN_IN_ERROR`,
 };
 
 const ActionCreator = {
@@ -41,6 +43,12 @@ const ActionCreator = {
       type: ActionType.SIGN_IN,
       payload: bool,
     };
+  },
+  getSignInError: () => {
+    return {
+      type: ActionType.GET_SIGN_IN_ERROR,
+      payload: true,
+    };
   }
 };
 
@@ -58,6 +66,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         isSignedIn: action.payload,
       });
+    case ActionType.GET_SIGN_IN_ERROR:
+      return extend(state, {
+        isSignInError: action.payload,
+      });
   }
 
   return state;
@@ -70,8 +82,8 @@ const Operation = {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.getAuthorizationInfo(createAuthorizationInfo(response.data)));
     })
-    .catch((error) => {
-      throw error;
+    .catch(() => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
     });
   },
 
@@ -84,6 +96,9 @@ const Operation = {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.signIn(false));
       dispatch(ActionCreator.getAuthorizationInfo(createAuthorizationInfo(response.data)));
+    })
+    .catch(() => {
+      dispatch(ActionCreator.getSignInError());
     });
   }
 };

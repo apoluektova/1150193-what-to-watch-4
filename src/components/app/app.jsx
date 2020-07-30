@@ -12,9 +12,9 @@ import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selector
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import ErrorMessage from "../error-message/error-message.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {getAuthorizationStatus, getAuthorizationInfo, getIsSignedIn} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getAuthorizationInfo, getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
-import {ActionCreator as UserCreator} from "../../reducer/user/user.js";
+import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -36,7 +36,8 @@ class App extends PureComponent {
       authInfo,
       login,
       onSignInClick,
-      isSignedIn
+      isSignedIn,
+      isSignInError
     } = this.props;
 
     if (isError) {
@@ -71,6 +72,7 @@ class App extends PureComponent {
       return (
         <SignInScreen
           onSubmit={login}
+          isSignInError={isSignInError}
         />
       );
     }
@@ -92,7 +94,8 @@ class App extends PureComponent {
       currentMovieCard,
       handleMovieCardClick,
       handlePlayButtonClick,
-      login
+      login,
+      isSignInError
     } = this.props;
 
     return (
@@ -111,6 +114,7 @@ class App extends PureComponent {
           <Route exact path="/login">
             <SignInScreen
               onSubmit={login}
+              isSignInError={isSignInError}
             />
           </Route>
         </Switch>
@@ -152,6 +156,7 @@ App.propTypes = {
   authInfo: PropTypes.object.isRequired,
   onSignInClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
+  isSignInError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -162,6 +167,7 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
   isSignedIn: getIsSignedIn(state),
+  isSignInError: getIsSignInError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -179,7 +185,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UserOperation.login(authData));
   },
   onSignInClick() {
-    dispatch(UserCreator.signIn(true));
+    dispatch(UserActionCreator.signIn(true));
   }
 });
 

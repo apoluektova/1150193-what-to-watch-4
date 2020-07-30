@@ -14,4 +14,8 @@ export const getIsSignedIn = (state) => {
   return state[NAME_SPACE].isSignedIn;
 };
 
+export const getIsSignInError = (state) => {
+  return state[NAME_SPACE].isSignInError;
+};
+
 

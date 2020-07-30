@@ -24,6 +24,8 @@ class SignInScreen extends PureComponent {
   }
 
   render() {
+    const {isSignInError} = this.props;
+
     return (
       <React.Fragment>
         <div className="user-page">
@@ -41,8 +43,14 @@ class SignInScreen extends PureComponent {
 
           <div className="sign-in user-page__content">
             <form action="#" className="sign-in__form" onSubmit={this.handleSubmit}>
+              {isSignInError &&
+              <React.Fragment>
+                <div className="sign-in__message">
+                  <p>Please enter a valid email address</p>
+                </div>
+              </React.Fragment>}
               <div className="sign-in__fields">
-                <div className="sign-in__field">
+                <div className={`sign-in__field ${isSignInError && `sign-in__field--error`}`}>
                   <input
                     className="sign-in__input"
                     type="email"
@@ -50,6 +58,7 @@ class SignInScreen extends PureComponent {
                     name="user-email"
                     id="user-email"
                     ref={this.loginRef}
+                    required
                   />
                   <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
                 </div>
@@ -61,6 +70,7 @@ class SignInScreen extends PureComponent {
                     name="user-password"
                     id="user-password"
                     ref={this.passwordRef}
+                    required
                   />
                   <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
                 </div>
@@ -80,6 +90,7 @@ class SignInScreen extends PureComponent {
 
 SignInScreen.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isSignInError: PropTypes.bool.isRequired,
 };
 
 export default SignInScreen;
