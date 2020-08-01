@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withReview should render correctly 1`] = `
+<div
+  isSubmitButtonDisabled={true}
+  onRatingChange={[Function]}
+  onReviewChange={[Function]}
+  onReviewFormSubmit={[Function]}
+  onReviewSubmit={[Function]}
+/>
+`;

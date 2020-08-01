@@ -161,6 +161,7 @@ it(`App should render correctly`, () => {
              onSignInClick={() => {}}
              isSignedIn={false}
              isSignInError={false}
+             onReviewSubmit={() => {}}
            />
          </Provider>, {
            createNodeMock: () => {
