@@ -16,17 +16,23 @@ class Main extends PureComponent {
 
   render() {
     const {
+      authorizationStatus,
       promoMovie,
       onMovieCardClick,
       onPlayButtonClick,
+      authInfo,
+      onSignInClick
     } = this. props;
 
     return (
       <React.Fragment>
         {Object.keys(promoMovie).length === 0 ? <Loader />
           : <PromoMovie
+            authorizationStatus={authorizationStatus}
             promoMovie={promoMovie}
             onPlayButtonClick={onPlayButtonClick}
+            authInfo={authInfo}
+            onSignInClick={onSignInClick}
           /> }
 
         <div className="page-content">
@@ -67,8 +73,11 @@ Main.propTypes = {
     runtime: PropTypes.number,
     isFavorite: PropTypes.bool,
   }).isRequired,
-  onMovieCardClick: PropTypes.func,
-  onPlayButtonClick: PropTypes.func,
+  onMovieCardClick: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  authInfo: PropTypes.object.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
 };
 
 export default Main;

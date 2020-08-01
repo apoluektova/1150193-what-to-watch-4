@@ -11,6 +11,10 @@ import {getPromoMovie, getIsError} from "../../reducer/data/selectors.js";
 import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import ErrorMessage from "../error-message/error-message.jsx";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {getAuthorizationStatus, getAuthorizationInfo, getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
+import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
+import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
@@ -21,13 +25,19 @@ class App extends PureComponent {
 
   _renderApp() {
     const {
+      authorizationStatus,
       promoMovie,
       currentMovieCard,
       handleMovieCardClick,
       isFullScreenOn,
       handlePlayButtonClick,
       handleExitButtonClick,
-      isError
+      isError,
+      authInfo,
+      login,
+      onSignInClick,
+      isSignedIn,
+      isSignInError
     } = this.props;
 
     if (isError) {
@@ -37,11 +47,16 @@ class App extends PureComponent {
     }
 
     if (currentMovieCard && !isFullScreenOn) {
-      return <MoviePage
-        movie={currentMovieCard}
-        onMovieCardClick={handleMovieCardClick}
-        onPlayButtonClick={handlePlayButtonClick}
-      />;
+      return (
+        <MoviePage
+          movie={currentMovieCard}
+          onMovieCardClick={handleMovieCardClick}
+          onPlayButtonClick={handlePlayButtonClick}
+          authInfo={authInfo}
+          authorizationStatus={authorizationStatus}
+          onSignInClick={onSignInClick}
+        />
+      );
     }
 
     if (isFullScreenOn) {
@@ -53,17 +68,35 @@ class App extends PureComponent {
       );
     }
 
+    if (isSignedIn) {
+      return (
+        <SignInScreen
+          onSubmit={login}
+          isSignInError={isSignInError}
+        />
+      );
+    }
+
     return (
       <Main
+        authorizationStatus={authorizationStatus}
         promoMovie={promoMovie}
         onMovieCardClick={handleMovieCardClick}
         onPlayButtonClick={handlePlayButtonClick}
+        authInfo={authInfo}
+        onSignInClick={onSignInClick}
       />
     );
   }
 
   render() {
-    const {currentMovieCard, handleMovieCardClick, handlePlayButtonClick} = this.props;
+    const {
+      currentMovieCard,
+      handleMovieCardClick,
+      handlePlayButtonClick,
+      login,
+      isSignInError
+    } = this.props;
 
     return (
       <BrowserRouter>
@@ -76,6 +109,12 @@ class App extends PureComponent {
               movie={currentMovieCard}
               onMovieCardClick={handleMovieCardClick}
               onPlayButtonClick={handlePlayButtonClick}
+            />
+          </Route>
+          <Route exact path="/login">
+            <SignInScreen
+              onSubmit={login}
+              isSignInError={isSignInError}
             />
           </Route>
         </Switch>
@@ -112,6 +151,12 @@ App.propTypes = {
   handleExitButtonClick: PropTypes.func.isRequired,
   isFullScreenOn: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  authInfo: PropTypes.object.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
+  isSignedIn: PropTypes.bool.isRequired,
+  isSignInError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -119,6 +164,10 @@ const mapStateToProps = (state) => ({
   currentMovieCard: getCurrentMovieCard(state),
   isFullScreenOn: getIsFullScreenOn(state),
   isError: getIsError(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  authInfo: getAuthorizationInfo(state),
+  isSignedIn: getIsSignedIn(state),
+  isSignInError: getIsSignInError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -131,6 +180,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleExitButtonClick() {
     dispatch(ActionCreator.toggleFullScreenPlayer(false));
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+  onSignInClick() {
+    dispatch(UserActionCreator.signIn(true));
   }
 });
 

@@ -95,11 +95,22 @@ const testReviews = [
   },
 ];
 
+const userInfo = {
+  id: 1,
+  email: `ben@mail.ru`,
+  name: `Ben`,
+  avatarUrl: `/wtw/static/avatar/5.jpg`,
+};
+
 it(`MoviePage should render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
       movies: testMovies,
       reviews: testReviews,
+    },
+    [NameSpace.USER]: {
+      isSignedIn: false,
+      isSignInError: false,
     },
   });
 
@@ -112,6 +123,12 @@ it(`MoviePage should render correctly`, () => {
              reviews={testReviews}
              onMovieCardClick={() => {}}
              onPlayButtonClick={() => {}}
+             authInfo={userInfo}
+             authorizationStatus={`AUTH`}
+             onSignInClick={() => {}}
+             isSignedIn={false}
+             login={() => {}}
+             isSignInError={false}
            />
          </Provider>, {
            createNodeMock: () => {

@@ -24,11 +24,21 @@ const PROMO_MOVIE = {
   isFavorite: false,
 };
 
+const userInfo = {
+  id: 1,
+  email: `ben@mail.ru`,
+  name: `Ben`,
+  avatarUrl: `/wtw/static/avatar/5.jpg`,
+};
+
 it(`PromoMovie should render correctly`, () => {
   const tree = renderer
      .create(<PromoMovie
        promoMovie={PROMO_MOVIE}
        onPlayButtonClick={() => {}}
+       authorizationStatus={`AUTH`}
+       authInfo={userInfo}
+       onSignInClick={() => {}}
      />)
      .toJSON();
 
