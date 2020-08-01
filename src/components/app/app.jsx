@@ -15,8 +15,11 @@ import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {getAuthorizationStatus, getAuthorizationInfo, getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
 import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
+import AddReview from "../add-review/add-review.jsx";
+import withReview from "../../hocs/with-review/with-review.js";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
+const AddReviewWrapped = withReview(AddReview);
 
 class App extends PureComponent {
   constructor(props) {
@@ -40,7 +43,7 @@ class App extends PureComponent {
       isSignInError
     } = this.props;
 
-    if (isError) {
+    if (isError && !currentMovieCard) {
       return (
         <ErrorMessage />
       );
@@ -95,7 +98,12 @@ class App extends PureComponent {
       handleMovieCardClick,
       handlePlayButtonClick,
       login,
-      isSignInError
+      isSignInError,
+      authorizationStatus,
+      authInfo,
+      onSignInClick,
+      onReviewSubmit,
+      promoMovie
     } = this.props;
 
     return (
@@ -115,6 +123,15 @@ class App extends PureComponent {
             <SignInScreen
               onSubmit={login}
               isSignInError={isSignInError}
+            />
+          </Route>
+          <Route exact path="/dev-review">
+            <AddReviewWrapped
+              authorizationStatus={authorizationStatus}
+              authInfo={authInfo}
+              onSignInClick={onSignInClick}
+              movie={promoMovie}
+              onReviewSubmit={onReviewSubmit}
             />
           </Route>
         </Switch>
@@ -157,6 +174,7 @@ App.propTypes = {
   onSignInClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
   isSignInError: PropTypes.bool.isRequired,
+  onReviewSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -186,7 +204,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSignInClick() {
     dispatch(UserActionCreator.signIn(true));
-  }
+  },
+  onReviewSubmit(movieId, review) {
+    dispatch(DataOperation.postReview(movieId, review));
+  },
 });
 
 export {App};

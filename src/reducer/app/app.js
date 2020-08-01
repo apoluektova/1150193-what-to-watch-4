@@ -11,6 +11,8 @@ const initialState = {
   shownMovieCards: MovieCards.SHOWN,
   currentMovieCard: null,
   isFullScreenOn: false,
+  isReviewOpen: false,
+  isFormDisabled: false,
 };
 
 const ActionType = {
@@ -19,6 +21,8 @@ const ActionType = {
   RESET_SHOWN_MOVIE_CARDS_COUNT: `RESET_SHOWN_MOVIE_CARDS_COUNT`,
   CHANGE_MOVIE_CARD: `CHANGE_MOVIE_CARD`,
   TOGGLE_FULL_SCREEN_PLAYER: `TOGGLE_FULL_SCREEN_PLAYER`,
+  ADD_REVIEW: `ADD_REVIEW`,
+  TOGGLE_FORM_STATE: `TOGGLE_FORM_STATE`,
 };
 
 const ActionCreator = {
@@ -42,6 +46,14 @@ const ActionCreator = {
     type: ActionType.TOGGLE_FULL_SCREEN_PLAYER,
     payload: flag,
   }),
+  addReview: (bool) => ({
+    type: ActionType.ADD_REVIEW,
+    payload: bool,
+  }),
+  toggleFormState: (bool) => ({
+    type: ActionType.TOGGLE_FORM_STATE,
+    payload: bool,
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -66,6 +78,14 @@ const reducer = (state = initialState, action) => {
     case (ActionType.TOGGLE_FULL_SCREEN_PLAYER):
       return extend(state, {
         isFullScreenOn: action.payload,
+      });
+    case (ActionType.ADD_REVIEW):
+      return extend(state, {
+        isReviewOpen: action.payload,
+      });
+    case (ActionType.TOGGLE_FORM_STATE):
+      return extend(state, {
+        isFormDisabled: action.payload,
       });
   }
   return state;

@@ -8,13 +8,19 @@ import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
 import {getReviews, getMoviesLikeThis} from "../../reducer/data/selectors.js";
 import Header from "../header/header.jsx";
-import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
+import {ActionCreator as UserActionCreator, AuthorizationStatus} from "../../reducer/user/user.js";
 import {getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {getIsReviewOpen} from "../../reducer/app/selectors.js";
+import {ActionCreator as AppActionCreator} from "../../reducer/app/app.js";
+import AddReview from "../add-review/add-review.jsx";
+import withReview from "../../hocs/with-review/with-review.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
+const AddReviewWrapped = withReview(AddReview);
 
 const MoviePage = (props) => {
   const {
@@ -28,7 +34,10 @@ const MoviePage = (props) => {
     onSignInClick,
     isSignedIn,
     login,
-    isSignInError
+    isSignInError,
+    isReviewOpen,
+    onAddReviewClick,
+    onReviewSubmit
   } = props;
 
   if (isSignedIn) {
@@ -36,6 +45,18 @@ const MoviePage = (props) => {
       <SignInScreen
         onSubmit={login}
         isSignInError={isSignInError}
+      />
+    );
+  }
+
+  if (isReviewOpen) {
+    return (
+      <AddReviewWrapped
+        authorizationStatus={authorizationStatus}
+        authInfo={authInfo}
+        onSignInClick={onSignInClick}
+        movie={movie}
+        onReviewSubmit={onReviewSubmit}
       />
     );
   }
@@ -77,7 +98,16 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                <a
+                  href="add-review.html"
+                  className="btn movie-card__button"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    onAddReviewClick();
+                  }}
+                >Add review</a>
+                }
               </div>
             </div>
           </div>
@@ -147,6 +177,9 @@ MoviePage.propTypes = {
   isSignedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   isSignInError: PropTypes.bool.isRequired,
+  onAddReviewClick: PropTypes.func.isRequired,
+  isReviewOpen: PropTypes.bool.isRequired,
+  onReviewSubmit: PropTypes.func.isReqruied,
 };
 
 const mapStateToProps = (state) => ({
@@ -154,6 +187,7 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   isSignedIn: getIsSignedIn(state),
   isSignInError: getIsSignInError(state),
+  isReviewOpen: getIsReviewOpen(state),
 });
 
 
@@ -163,7 +197,14 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSignInClick() {
     dispatch(UserActionCreator.signIn(true));
-  }
+  },
+  onAddReviewClick() {
+    dispatch(AppActionCreator.addReview(true));
+  },
+  onReviewSubmit(movieId, review) {
+    dispatch(DataOperation.postReview(movieId, review));
+  },
 });
+
 export {MoviePage};
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
