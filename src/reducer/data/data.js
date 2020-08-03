@@ -87,8 +87,10 @@ const Operation = {
       dispatch(ActionCreator.postReview(review));
       dispatch(AppActionCreator.toggleFormState(true));
       dispatch(Operation.loadReviews(movieId));
-      dispatch(AppActionCreator.toggleFormState(false));
+    }).
+    then(() => {
       dispatch(AppActionCreator.addReview(false));
+      dispatch(AppActionCreator.toggleFormState(false));
     })
     .catch(() => {
       dispatch(ActionCreator.catchError());

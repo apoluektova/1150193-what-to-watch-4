@@ -179,7 +179,7 @@ MoviePage.propTypes = {
   isSignInError: PropTypes.bool.isRequired,
   onAddReviewClick: PropTypes.func.isRequired,
   isReviewOpen: PropTypes.bool.isRequired,
-  onReviewSubmit: PropTypes.func.isReqruied,
+  onReviewSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

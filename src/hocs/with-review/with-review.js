@@ -33,6 +33,7 @@ const withReview = (Component) => {
 
     _handleReviewFormSubmit(evt) {
       const {movie, onReviewSubmit} = this.props;
+
       const review = {
         rating: this.state.rating,
         comment: this.state.comment,
@@ -58,7 +59,7 @@ const withReview = (Component) => {
 
   WithReview.propTypes = {
     movie: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.number,
     }).isRequired,
     onReviewSubmit: PropTypes.func.isRequired,
   };

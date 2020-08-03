@@ -120,7 +120,10 @@ AddReview.propTypes = {
   onSignInClick: PropTypes.func.isRequired,
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
-  }).isReqruied,
+    poster: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+  }).isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onReviewChange: PropTypes.func.isRequired,
   onReviewFormSubmit: PropTypes.func.isRequired,
