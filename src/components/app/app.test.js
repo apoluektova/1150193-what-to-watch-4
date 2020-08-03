@@ -135,6 +135,7 @@ it(`App should render correctly`, () => {
       currentMovieCard: movies[0],
       isFullScreenOn: false,
       isError: false,
+      isReviewOpen: false,
     },
     [NameSpace.USER]: {
       authorizationStatus: `AUTH`,
