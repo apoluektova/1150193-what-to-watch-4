@@ -38,6 +38,13 @@ export const getFilteredMovies = createSelector(
     }
 );
 
+// export const getCurrentMovieCard = createSelector(
+//     getMovies,
+//     (movies, props) => {
+//       return (movies.find((movie) => movie.id === parseInt(props.routeProps.match.params.id, 10)));
+//     }
+// );
+
 export const getMoviesLikeThis = createSelector(
     getFilteredMovies,
     getCurrentMovieCard,

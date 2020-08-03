@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
+import {AppRoute} from "../../const.js";
+import {Link} from "react-router-dom";
 
 const PromoMovie = (props) => {
-  const {authorizationStatus, promoMovie, onPlayButtonClick, authInfo, onSignInClick} = props;
+  const {authorizationStatus, promoMovie, onPlayButtonClick, authInfo} = props;
 
   return (
     <section className="movie-card">
@@ -16,7 +18,6 @@ const PromoMovie = (props) => {
       <Header
         authorizationStatus={authorizationStatus}
         authInfo={authInfo}
-        onSignInClick={onSignInClick}
       />
 
       <div className="movie-card__wrap">
@@ -42,12 +43,14 @@ const PromoMovie = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <Link
+                className="btn btn--list movie-card__button"
+                to={AppRoute.MY_LIST}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
                 </svg>
                 <span>My list</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -86,7 +89,6 @@ PromoMovie.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
-  onSignInClick: PropTypes.func.isRequired,
 };
 
 export default PromoMovie;

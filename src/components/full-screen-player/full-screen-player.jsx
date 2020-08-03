@@ -4,14 +4,15 @@ import {getTimeLeft} from "../../utils.js";
 
 const FullScreenPlayer = (props) => {
   const {
+    movie,
     isPlaying,
     progress,
     duration,
     onPlayButtonClick,
     onFullScreenButtonClick,
     onExitButtonClick,
-    movie: {title},
-    children} = props;
+    children
+  } = props;
 
   const timeLeft = getTimeLeft(duration - progress);
 
@@ -48,7 +49,7 @@ const FullScreenPlayer = (props) => {
                   <span>Play</span>
                 </React.Fragment>}
             </button>
-            <div className="player__name">{title}</div>
+            <div className="player__name">{movie.title}</div>
 
             <button onClick={onFullScreenButtonClick} type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">

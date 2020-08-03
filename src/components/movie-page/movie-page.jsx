@@ -17,6 +17,8 @@ import {ActionCreator as AppActionCreator} from "../../reducer/app/app.js";
 import AddReview from "../add-review/add-review.jsx";
 import withReview from "../../hocs/with-review/with-review.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../const.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -31,13 +33,12 @@ const MoviePage = (props) => {
     onPlayButtonClick,
     authInfo,
     authorizationStatus,
-    onSignInClick,
     isSignedIn,
     login,
     isSignInError,
     isReviewOpen,
     onAddReviewClick,
-    onReviewSubmit
+    onReviewSubmit,
   } = props;
 
   if (isSignedIn) {
@@ -54,7 +55,6 @@ const MoviePage = (props) => {
       <AddReviewWrapped
         authorizationStatus={authorizationStatus}
         authInfo={authInfo}
-        onSignInClick={onSignInClick}
         movie={movie}
         onReviewSubmit={onReviewSubmit}
       />
@@ -74,7 +74,6 @@ const MoviePage = (props) => {
           <Header
             authorizationStatus={authorizationStatus}
             authInfo={authInfo}
-            onSignInClick={onSignInClick}
           />
 
           <div className="movie-card__wrap">
@@ -92,21 +91,25 @@ const MoviePage = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <Link
+                  className="btn btn--list movie-card__button"
+                  to={AppRoute.MY_LIST}
+                >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                </button>
+                </Link>
                 {authorizationStatus === AuthorizationStatus.AUTH &&
-                <a
-                  href="add-review.html"
+                <Link
+                  to={`${AppRoute.MOVIE}/:id/review`}
                   className="btn movie-card__button"
                   onClick={(evt) => {
                     evt.preventDefault();
                     onAddReviewClick();
                   }}
-                >Add review</a>
+                >Add review
+                </Link>
                 }
               </div>
             </div>
@@ -173,7 +176,6 @@ MoviePage.propTypes = {
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   isSignInError: PropTypes.bool.isRequired,

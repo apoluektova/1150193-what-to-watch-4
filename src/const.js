@@ -12,3 +12,11 @@ export const Review = {
   MIN_LENGTH: 50,
   MAX_LENGTH: 400,
 };
+
+export const AppRoute = {
+  MAIN: `/`,
+  SIGN_IN: `/login`,
+  MY_LIST: `/mylist`,
+  MOVIE: `/films`,
+  PLAYER: `/player`,
+};

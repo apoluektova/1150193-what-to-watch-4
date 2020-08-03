@@ -12,7 +12,6 @@ const AddReview = (props) => {
   const {
     authorizationStatus,
     authInfo,
-    onSignInClick,
     movie,
     onRatingChange,
     onReviewChange,
@@ -33,8 +32,7 @@ const AddReview = (props) => {
 
           <Header
             authorizationStatus={authorizationStatus}
-            authInfo={authInfo}
-            onSignInClick={onSignInClick}>
+            authInfo={authInfo}>
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">

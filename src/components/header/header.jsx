@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../const.js";
 
 const Header = (props) => {
-  const {authorizationStatus, authInfo, onSignInClick} = props;
+  const {authorizationStatus, authInfo} = props;
 
   return (
     <header className="page-header movie-card__head">
@@ -20,14 +22,15 @@ const Header = (props) => {
           <div className="user-block__avatar">
             <img src={authInfo.avatarUrl} alt={`${authInfo.name} avatar`} width="63" height="63" />
           </div>
-          : <a
-            href="sign-in.html"
+          : <Link
+            to={AppRoute.SIGN_IN}
             className="user-block__link"
-            onClick={(evt) => {
-              evt.preventDefault();
-              onSignInClick();
-            }}
-          >Sign in</a>
+            // onClick={(evt) => {
+            //   evt.preventDefault();
+            //   onSignInClick();
+            // }}
+          >Sign in
+          </Link>
         }
       </div>
     </header>
@@ -42,7 +45,6 @@ Header.propTypes = {
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
 };
 
 export default Header;

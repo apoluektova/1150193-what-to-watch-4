@@ -40,8 +40,7 @@ class Main extends PureComponent {
             <h2 className="catalog__title visually-hidden">Catalog</h2>
             <GenresList/>
 
-            <MoviesListWrapped onMovieCardClick={onMovieCardClick}
-            />
+            <MoviesListWrapped onMovieCardClick={onMovieCardClick} />
           </section>
 
           <Footer />
