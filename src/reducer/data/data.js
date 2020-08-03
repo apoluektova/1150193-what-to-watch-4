@@ -1,5 +1,6 @@
 import {extend} from "../../utils.js";
 import {createMovie, createMovies} from "../../adapter/movies.js";
+import {ActionCreator as AppActionCreator} from "../app/app.js";
 
 const initialState = {
   promoMovie: {},
@@ -13,6 +14,7 @@ const ActionType = {
   LOAD_PROMO_MOVIE: `LOAD_PROMO_MOVIE`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   CATCH_ERROR: `CATCH_ERROR`,
+  POST_REVIEW: `POST_REVIEW`,
 };
 
 const ActionCreator = {
@@ -40,6 +42,12 @@ const ActionCreator = {
       payload: true,
     };
   },
+  postReview: (review) => {
+    return {
+      type: ActionType.POST_REVIEW,
+      payload: review,
+    };
+  }
 };
 
 const Operation = {
@@ -70,6 +78,24 @@ const Operation = {
       dispatch(ActionCreator.catchError());
     });
   },
+  postReview: (movieId, review) => (dispatch, getState, api) => {
+    return api.post(`comments/${movieId}`, {
+      rating: review.rating,
+      comment: review.comment,
+    })
+    .then(() => {
+      dispatch(ActionCreator.postReview(review));
+      dispatch(AppActionCreator.toggleFormState(true));
+      dispatch(Operation.loadReviews(movieId));
+    }).
+    then(() => {
+      dispatch(AppActionCreator.addReview(false));
+      dispatch(AppActionCreator.toggleFormState(false));
+    })
+    .catch(() => {
+      dispatch(ActionCreator.catchError());
+    });
+  }
 };
 
 const reducer = (state = initialState, action) => {

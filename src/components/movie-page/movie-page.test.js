@@ -112,6 +112,9 @@ it(`MoviePage should render correctly`, () => {
       isSignedIn: false,
       isSignInError: false,
     },
+    [NameSpace.APP]: {
+      isReviewOpen: false,
+    },
   });
 
   const tree = renderer
@@ -129,6 +132,9 @@ it(`MoviePage should render correctly`, () => {
              isSignedIn={false}
              login={() => {}}
              isSignInError={false}
+             onAddReviewClick={() => {}}
+             isReviewOpen={false}
+             onReviewSubmit={() => {}}
            />
          </Provider>, {
            createNodeMock: () => {

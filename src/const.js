@@ -7,3 +7,8 @@ export const Tabs = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`,
 };
+
+export const Review = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 400,
+};
