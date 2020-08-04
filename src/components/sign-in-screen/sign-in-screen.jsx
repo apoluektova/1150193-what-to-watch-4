@@ -3,6 +3,7 @@ import Footer from "../footer/footer.jsx";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
+import Header from "../header/header.jsx";
 
 class SignInScreen extends PureComponent {
   constructor(props) {

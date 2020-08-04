@@ -6,6 +6,7 @@ const initialState = {
   promoMovie: {},
   movies: [],
   reviews: [],
+  favoriteMovies: [],
   isError: false,
 };
 
@@ -15,6 +16,7 @@ const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   CATCH_ERROR: `CATCH_ERROR`,
   POST_REVIEW: `POST_REVIEW`,
+  LOAD_FAVORITE_MOVIES: `LOAD_FAVORITE_MOVIES`,
 };
 
 const ActionCreator = {
@@ -46,6 +48,12 @@ const ActionCreator = {
     return {
       type: ActionType.POST_REVIEW,
       payload: review,
+    };
+  },
+  loadFavoriteMovies: (favoriteMovies) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_MOVIES,
+      payload: favoriteMovies,
     };
   }
 };
@@ -91,6 +99,15 @@ const Operation = {
     then(() => {
       dispatch(AppActionCreator.addReview(false));
       dispatch(AppActionCreator.toggleFormState(false));
+    })
+    .catch(() => {
+      dispatch(ActionCreator.catchError());
+    });
+  },
+  loadFavoriteMovies: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+    .then((response) => {
+      dispatch(ActionCreator.loadFavoriteMovies(createMovies(response.data)));
     })
     .catch(() => {
       dispatch(ActionCreator.catchError());

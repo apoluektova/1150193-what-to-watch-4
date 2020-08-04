@@ -7,7 +7,7 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
-import {getPromoMovie, getIsError, getMovies} from "../../reducer/data/selectors.js";
+import {getPromoMovie, getIsError, getMovies, getFavoriteMovies} from "../../reducer/data/selectors.js";
 import {getIsFullScreenOn} from "../../reducer/app/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import ErrorMessage from "../error-message/error-message.jsx";
@@ -20,9 +20,12 @@ import withReview from "../../hocs/with-review/with-review.js";
 import PrivateRoute from "../private-route/private-route.jsx";
 import history from "../../history.js";
 import {AppRoute} from "../../const.js";
+import MyList from "../my-list/my-list.jsx";
+import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 const AddReviewWrapped = withReview(AddReview);
+const MyListWrapped = withActiveCard(MyList);
 
 const getCurrentMovieCard = (movies, params) => {
   return movies.find((movie) => movie.id === parseInt(params, 10));
@@ -54,11 +57,11 @@ class App extends PureComponent {
       isSignInError,
       authorizationStatus,
       authInfo,
-      onSignInClick,
       onReviewSubmit,
       promoMovie,
       handleExitButtonClick,
-      movies
+      movies,
+      favoriteMovies
     } = this.props;
 
     return (
@@ -75,7 +78,7 @@ class App extends PureComponent {
                   onMovieCardClick={onMovieCardClick}
                   onPlayButtonClick={handlePlayButtonClick}
                   authInfo={authInfo}
-                  onSignInClick={onSignInClick}
+                  // onSignInClick={onSignInClick}
                 />
               );
             }}
@@ -115,7 +118,7 @@ class App extends PureComponent {
             path={`${AppRoute.PLAYER}/:id/`}
             render={(props) => {
               const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
-              
+
               return (
                 <FullScreenPlayerWrapped
                   {...props}
@@ -134,9 +137,24 @@ class App extends PureComponent {
                   {...props}
                   authorizationStatus={authorizationStatus}
                   authInfo={authInfo}
-                  onSignInClick={onSignInClick}
+                  // onSignInClick={onSignInClick}
                   movie={promoMovie}
                   onReviewSubmit={onReviewSubmit}
+                />
+              );
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.MY_LIST}
+            render={(props) => {
+              return (
+                <MyListWrapped
+                  {...props}
+                  authorizationStatus={authorizationStatus}
+                  authInfo={authInfo}
+                  onMovieCardClick={onMovieCardClick}
+                  favoriteMovies={favoriteMovies}
                 />
               );
             }}
@@ -178,11 +196,12 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   authInfo: PropTypes.object.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
+  // onSignInClick: PropTypes.func.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
   isSignInError: PropTypes.bool.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
   movies: PropTypes.array.isRequired,
+  favoriteMovies: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -194,6 +213,7 @@ const mapStateToProps = (state) => ({
   isSignedIn: getIsSignedIn(state),
   isSignInError: getIsSignInError(state),
   movies: getMovies(state),
+  favoriteMovies: getFavoriteMovies(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -210,9 +230,9 @@ const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  onSignInClick() {
-    dispatch(UserActionCreator.signIn(true));
-  },
+  // onSignInClick() {
+  //   dispatch(UserActionCreator.signIn(true));
+  // },
   onReviewSubmit(movieId, review) {
     dispatch(DataOperation.postReview(movieId, review));
   },

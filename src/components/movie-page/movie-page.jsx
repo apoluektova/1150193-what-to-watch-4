@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import {getReviews, getMoviesLikeThis} from "../../reducer/data/selectors.js";
 import Header from "../header/header.jsx";
 import {ActionCreator as UserActionCreator, AuthorizationStatus} from "../../reducer/user/user.js";
-import {getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
+import {getIsSignedIn, getIsSignInError, getAuthorizationStatus, getAuthorizationInfo} from "../../reducer/user/selectors.js";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {getIsReviewOpen} from "../../reducer/app/selectors.js";
@@ -74,6 +74,7 @@ const MoviePage = (props) => {
           <Header
             authorizationStatus={authorizationStatus}
             authInfo={authInfo}
+            extraClassName={`movie-card`}
           />
 
           <div className="movie-card__wrap">
@@ -190,6 +191,8 @@ const mapStateToProps = (state) => ({
   isSignedIn: getIsSignedIn(state),
   isSignInError: getIsSignInError(state),
   isReviewOpen: getIsReviewOpen(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  authInfo: getAuthorizationInfo(state),
 });
 
 

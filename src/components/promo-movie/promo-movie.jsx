@@ -18,6 +18,7 @@ const PromoMovie = (props) => {
       <Header
         authorizationStatus={authorizationStatus}
         authInfo={authInfo}
+        extraClassName={`movie-card`}
       />
 
       <div className="movie-card__wrap">

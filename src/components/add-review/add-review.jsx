@@ -32,7 +32,8 @@ const AddReview = (props) => {
 
           <Header
             authorizationStatus={authorizationStatus}
-            authInfo={authInfo}>
+            authInfo={authInfo}
+            extraClassName={``}>
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
