@@ -5,7 +5,7 @@ import {AppRoute} from "../../const.js";
 import {Link} from "react-router-dom";
 
 const PromoMovie = (props) => {
-  const {authorizationStatus, promoMovie, onPlayButtonClick, authInfo} = props;
+  const {authorizationStatus, promoMovie, addMovieToFavorites, authInfo} = props;
 
   return (
     <section className="movie-card">
@@ -35,23 +35,31 @@ const PromoMovie = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button
-                onClick={onPlayButtonClick}
+              <Link
                 className="btn btn--play movie-card__button"
-                type="button">
+                to={`${AppRoute.PLAYER}/${promoMovie.id}`}
+              >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
-              </button>
-              <Link
-                className="btn btn--list movie-card__button"
-                to={AppRoute.MY_LIST}>
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
               </Link>
+              <button
+                className="btn btn--list movie-card__button"
+                type="button"
+                onClick={() => {
+                  addMovieToFavorites(promoMovie);
+                }}
+              >
+                {promoMovie.isFavorite ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg> :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>}
+                <span>My list</span>
+              </button>
             </div>
           </div>
         </div>
@@ -82,7 +90,6 @@ PromoMovie.propTypes = {
     runtime: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   authInfo: PropTypes.exact({
     id: PropTypes.number.isRequired,
@@ -90,6 +97,7 @@ PromoMovie.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
+  addMovieToFavorites: PropTypes.func.isRequired,
 };
 
 export default PromoMovie;

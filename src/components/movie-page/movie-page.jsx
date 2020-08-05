@@ -8,21 +8,14 @@ import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import {connect} from "react-redux";
 import {getReviews, getMoviesLikeThis} from "../../reducer/data/selectors.js";
 import Header from "../header/header.jsx";
-import {ActionCreator as UserActionCreator, AuthorizationStatus} from "../../reducer/user/user.js";
-import {getIsSignedIn, getIsSignInError, getAuthorizationStatus, getAuthorizationInfo} from "../../reducer/user/selectors.js";
-import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {getIsReviewOpen} from "../../reducer/app/selectors.js";
-import {ActionCreator as AppActionCreator} from "../../reducer/app/app.js";
-import AddReview from "../add-review/add-review.jsx";
-import withReview from "../../hocs/with-review/with-review.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getIsSignInError, getAuthorizationStatus, getAuthorizationInfo} from "../../reducer/user/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
-const AddReviewWrapped = withReview(AddReview);
 
 const MoviePage = (props) => {
   const {
@@ -30,37 +23,10 @@ const MoviePage = (props) => {
     movie,
     reviews,
     onMovieCardClick,
-    onPlayButtonClick,
     authInfo,
     authorizationStatus,
-    isSignedIn,
-    login,
-    isSignInError,
-    isReviewOpen,
-    onAddReviewClick,
-    onReviewSubmit,
     addMovieToFavorites
   } = props;
-
-  if (isSignedIn) {
-    return (
-      <SignInScreen
-        onSubmit={login}
-        isSignInError={isSignInError}
-      />
-    );
-  }
-
-  if (isReviewOpen) {
-    return (
-      <AddReviewWrapped
-        authorizationStatus={authorizationStatus}
-        authInfo={authInfo}
-        movie={movie}
-        onReviewSubmit={onReviewSubmit}
-      />
-    );
-  }
 
   return (
     <React.Fragment>
@@ -87,12 +53,15 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button onClick={onPlayButtonClick} className="btn btn--play movie-card__button" type="button">
+                <Link
+                  to={`${AppRoute.PLAYER}/${movie.id}`}
+                  className="btn btn--play movie-card__button"
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
 
                 <button
                   className="btn btn--list movie-card__button"
@@ -113,12 +82,8 @@ const MoviePage = (props) => {
 
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                 <Link
-                  to={`${AppRoute.MOVIE}/:id/review`}
+                  to={`${AppRoute.MOVIE}/${movie.id}/review`}
                   className="btn movie-card__button"
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    onAddReviewClick();
-                  }}
                 >Add review
                 </Link>
                 }
@@ -179,7 +144,6 @@ MoviePage.propTypes = {
   reviews: PropTypes.array.isRequired,
   movies: PropTypes.array.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
   authInfo: PropTypes.exact({
     id: PropTypes.number.isRequired,
     email: PropTypes.string.isRequired,
@@ -187,39 +151,19 @@ MoviePage.propTypes = {
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  isSignedIn: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-  isSignInError: PropTypes.bool.isRequired,
-  onAddReviewClick: PropTypes.func.isRequired,
-  isReviewOpen: PropTypes.bool.isRequired,
-  onReviewSubmit: PropTypes.func.isRequired,
   addMovieToFavorites: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movies: getMoviesLikeThis(state),
   reviews: getReviews(state),
-  isSignedIn: getIsSignedIn(state),
   isSignInError: getIsSignInError(state),
-  isReviewOpen: getIsReviewOpen(state),
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
-  login(authData) {
-    dispatch(UserOperation.login(authData));
-  },
-  onSignInClick() {
-    dispatch(UserActionCreator.signIn(true));
-  },
-  onAddReviewClick() {
-    dispatch(AppActionCreator.addReview(true));
-  },
-  onReviewSubmit(movieId, review) {
-    dispatch(DataOperation.postReview(movieId, review));
-  },
   addMovieToFavorites(movie) {
     dispatch(DataOperation.addMovieToFavorites(movie));
   }

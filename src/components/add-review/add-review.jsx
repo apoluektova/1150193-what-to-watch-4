@@ -7,6 +7,7 @@ import {getIsError} from "../../reducer/data/selectors.js";
 import {getIsFormDisabled} from "../../reducer/app/selectors.js";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
 const STARS_AMOUNT = 5;
 
@@ -142,5 +143,11 @@ const mapStateToProps = (state) => ({
   isFormDisabled: getIsFormDisabled(state),
 });
 
-export default connect(mapStateToProps)(AddReview);
+const mapDispatchToProps = (dispatch) => ({
+  onReviewSubmit(movieId, review) {
+    dispatch(DataOperation.postReview(movieId, review));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
 

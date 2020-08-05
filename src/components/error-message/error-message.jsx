@@ -21,7 +21,7 @@ const ErrorMessage = () => {
 
         <div className="sign-in user-page__content">
           <div className="sign-in__message">
-            <p>Server unavailable. Please try again later.</p>
+            <p>Something went wrong. Please try again later.</p>
           </div>
         </div>
 

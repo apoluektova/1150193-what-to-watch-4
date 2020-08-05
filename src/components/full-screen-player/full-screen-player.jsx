@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {getTimeLeft} from "../../utils.js";
+import history from './../../history';
 
 const FullScreenPlayer = (props) => {
   const {
@@ -10,7 +11,6 @@ const FullScreenPlayer = (props) => {
     duration,
     onPlayButtonClick,
     onFullScreenButtonClick,
-    onExitButtonClick,
     children
   } = props;
 
@@ -21,7 +21,7 @@ const FullScreenPlayer = (props) => {
       <div className="player">
         {children}
 
-        <button onClick={onExitButtonClick} type="button" className="player__exit">Exit</button>
+        <button onClick={() => history.goBack()} type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
@@ -70,7 +70,6 @@ FullScreenPlayer.propTypes = {
   duration: PropTypes.number.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
-  onExitButtonClick: PropTypes.func.isRequired,
   movie: PropTypes.exact({
     id: PropTypes.number.isRequired,
     previewImage: PropTypes.string.isRequired,

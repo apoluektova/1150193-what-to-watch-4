@@ -7,14 +7,12 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
-import {getPromoMovie, getIsError, getMovies, getFavoriteMovies} from "../../reducer/data/selectors.js";
-import {getIsFullScreenOn} from "../../reducer/app/selectors.js";
+import {getPromoMovie, getMovies, getFavoriteMovies} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import ErrorMessage from "../error-message/error-message.jsx";
 import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
-import {getAuthorizationStatus, getAuthorizationInfo, getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getAuthorizationInfo, getIsSignInError} from "../../reducer/user/selectors.js";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
-import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
 import AddReview from "../add-review/add-review.jsx";
 import withReview from "../../hocs/with-review/with-review.js";
 import PrivateRoute from "../private-route/private-route.jsx";
@@ -36,35 +34,19 @@ class App extends PureComponent {
     super(props);
   }
 
-  // _renderApp() {
-  //   const {
-  //     currentMovieCard,
-  //     isError
-  //   } = this.props;
-
-  //   if (isError && !currentMovieCard) {
-  //     return (
-  //       <ErrorMessage />
-  //     );
-  //   }
-  // }
-
   render() {
     const {
       onMovieCardClick,
-      handlePlayButtonClick,
       login,
       isSignInError,
       authorizationStatus,
       authInfo,
       onReviewSubmit,
       promoMovie,
-      handleExitButtonClick,
       movies,
-      favoriteMovies
+      favoriteMovies,
+      addMovieToFavorites
     } = this.props;
-
-    console.log(`favorite movies`, favoriteMovies);
 
     return (
       <Router history={history}>
@@ -78,9 +60,8 @@ class App extends PureComponent {
                   authorizationStatus={authorizationStatus}
                   promoMovie={promoMovie}
                   onMovieCardClick={onMovieCardClick}
-                  onPlayButtonClick={handlePlayButtonClick}
                   authInfo={authInfo}
-                  // onSignInClick={onSignInClick}
+                  addMovieToFavorites={addMovieToFavorites}
                 />
               );
             }}
@@ -110,7 +91,6 @@ class App extends PureComponent {
                   {...props}
                   movie={currentMovieCard}
                   onMovieCardClick={onMovieCardClick}
-                  onPlayButtonClick={handlePlayButtonClick}
                 />
               );
             }}
@@ -125,7 +105,6 @@ class App extends PureComponent {
                 <FullScreenPlayerWrapped
                   {...props}
                   movie={currentMovieCard ? currentMovieCard : promoMovie}
-                  onExitButtonClick={handleExitButtonClick}
                 />
               );
             }}
@@ -139,7 +118,6 @@ class App extends PureComponent {
                   {...props}
                   authorizationStatus={authorizationStatus}
                   authInfo={authInfo}
-                  // onSignInClick={onSignInClick}
                   movie={promoMovie}
                   onReviewSubmit={onReviewSubmit}
                 />
@@ -160,6 +138,8 @@ class App extends PureComponent {
                 />
               );
             }}
+          />
+          <Route component={ErrorMessage}
           />
         </Switch>
       </Router>
@@ -191,15 +171,9 @@ App.propTypes = {
   }).isRequired,
   currentMovieCard: PropTypes.object,
   onMovieCardClick: PropTypes.func.isRequired,
-  handlePlayButtonClick: PropTypes.func.isRequired,
-  handleExitButtonClick: PropTypes.func.isRequired,
-  isFullScreenOn: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   authInfo: PropTypes.object.isRequired,
-  // onSignInClick: PropTypes.func.isRequired,
-  isSignedIn: PropTypes.bool.isRequired,
   isSignInError: PropTypes.bool.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
   movies: PropTypes.array.isRequired,
@@ -208,11 +182,8 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
-  isFullScreenOn: getIsFullScreenOn(state),
-  isError: getIsError(state),
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
-  isSignedIn: getIsSignedIn(state),
   isSignInError: getIsSignInError(state),
   movies: getMovies(state),
   favoriteMovies: getFavoriteMovies(state),
@@ -223,21 +194,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeMovieCard(movie));
     dispatch(DataOperation.loadReviews(movie.id));
   },
-  handlePlayButtonClick() {
-    dispatch(ActionCreator.toggleFullScreenPlayer(true));
-  },
-  handleExitButtonClick() {
-    dispatch(ActionCreator.toggleFullScreenPlayer(false));
-  },
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  // onSignInClick() {
-  //   dispatch(UserActionCreator.signIn(true));
-  // },
   onReviewSubmit(movieId, review) {
     dispatch(DataOperation.postReview(movieId, review));
   },
+  addMovieToFavorites(movie) {
+    dispatch(DataOperation.addMovieToFavorites(movie));
+  }
 });
 
 export {App};
