@@ -10,6 +10,8 @@ const MovieCardWrapped = withVideoPlayer(MovieCard);
 const MyList = (props) => {
   const {authorizationStatus, authInfo, favoriteMovies, onMovieCardClick, onActiveCardChange} = props;
 
+  console.log(`favorite movies`, favoriteMovies);
+
   return (
     <React.Fragment>
       <div className="user-page">
@@ -54,3 +56,4 @@ MyList.propTypes = ({
 });
 
 export default MyList;
+

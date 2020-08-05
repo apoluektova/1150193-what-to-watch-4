@@ -87,7 +87,7 @@ const Operation = {
     });
   },
   postReview: (movieId, review) => (dispatch, getState, api) => {
-    return api.post(`comments/${movieId}`, {
+    return api.post(`/comments/${movieId}`, {
       rating: review.rating,
       comment: review.comment,
     })
@@ -112,6 +112,17 @@ const Operation = {
     .catch(() => {
       dispatch(ActionCreator.catchError());
     });
+  },
+  addMovieToFavorites: (movie) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${movie.id}/${movie.isFavorite ? 0 : 1}`)
+    .then(() => {
+      dispatch(Operation.loadMovies());
+      dispatch(Operation.loadPromoMovie());
+      dispatch(Operation.loadFavoriteMovies());
+    })
+    .catch(() => {
+      dispatch(ActionCreator.catchError());
+    });
   }
 };
 
@@ -132,6 +143,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CATCH_ERROR:
       return extend(state, {
         isError: action.payload,
+      });
+    case ActionType.LOAD_FAVORITE_MOVIES:
+      return extend(state, {
+        favoriteMovies: action.payload,
       });
   }
 

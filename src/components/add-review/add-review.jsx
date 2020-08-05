@@ -5,6 +5,8 @@ import {Review} from "../../const.js";
 import {connect} from "react-redux";
 import {getIsError} from "../../reducer/data/selectors.js";
 import {getIsFormDisabled} from "../../reducer/app/selectors.js";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../const.js";
 
 const STARS_AMOUNT = 5;
 
@@ -38,7 +40,10 @@ const AddReview = (props) => {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">{movie.title}</a>
+                  <Link
+                    to={`${AppRoute.MOVIE}/${movie.id}`}
+                    className="breadcrumbs__link">{movie.title}
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -122,6 +127,7 @@ AddReview.propTypes = {
     poster: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onReviewChange: PropTypes.func.isRequired,

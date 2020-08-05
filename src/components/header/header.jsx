@@ -23,16 +23,16 @@ const Header = (props) => {
 
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH ?
-          <div className="user-block__avatar">
-            <img src={authInfo.avatarUrl} alt={`${authInfo.name} avatar`} width="63" height="63"/>
-          </div> :
-          <div className="user-block">
-            <Link
-              to={AppRoute.SIGN_IN}
-              className="user-block__link">
+          <Link to={AppRoute.MY_LIST}>
+            <div className="user-block__avatar">
+              <img src={authInfo.avatarUrl} alt={`${authInfo.name} avatar`} width="63" height="63"/>
+            </div>
+          </Link> :
+          <Link
+            to={AppRoute.SIGN_IN}
+            className="user-block__link">
               Sign in
-            </Link>
-          </div>}
+          </Link>}
       </div>
     </header>
   );

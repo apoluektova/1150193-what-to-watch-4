@@ -64,6 +64,8 @@ class App extends PureComponent {
       favoriteMovies
     } = this.props;
 
+    console.log(`favorite movies`, favoriteMovies);
+
     return (
       <Router history={history}>
         <Switch>

@@ -39,6 +39,7 @@ const MoviePage = (props) => {
     isReviewOpen,
     onAddReviewClick,
     onReviewSubmit,
+    addMovieToFavorites
   } = props;
 
   if (isSignedIn) {
@@ -92,15 +93,24 @@ const MoviePage = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <Link
+
+                <button
                   className="btn btn--list movie-card__button"
-                  to={AppRoute.MY_LIST}
+                  type="button"
+                  onClick={() => {
+                    addMovieToFavorites(movie);
+                  }}
                 >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                  {movie.isFavorite ?
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg> :
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>}
                   <span>My list</span>
-                </Link>
+                </button>
+
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                 <Link
                   to={`${AppRoute.MOVIE}/:id/review`}
@@ -183,6 +193,7 @@ MoviePage.propTypes = {
   onAddReviewClick: PropTypes.func.isRequired,
   isReviewOpen: PropTypes.bool.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
+  addMovieToFavorites: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -209,6 +220,9 @@ const mapDispatchToProps = (dispatch) => ({
   onReviewSubmit(movieId, review) {
     dispatch(DataOperation.postReview(movieId, review));
   },
+  addMovieToFavorites(movie) {
+    dispatch(DataOperation.addMovieToFavorites(movie));
+  }
 });
 
 export {MoviePage};
