@@ -3,9 +3,17 @@ import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
 import {AppRoute} from "../../const.js";
 import {Link} from "react-router-dom";
+import history from "../../history.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const PromoMovie = (props) => {
   const {authorizationStatus, promoMovie, addMovieToFavorites, authInfo} = props;
+
+  const handleMyListClick = () => {
+    return authorizationStatus === AuthorizationStatus.AUTH ?
+      addMovieToFavorites(promoMovie) :
+      history.push(AppRoute.SIGN_IN);
+  };
 
   return (
     <section className="movie-card">
@@ -47,9 +55,7 @@ const PromoMovie = (props) => {
               <button
                 className="btn btn--list movie-card__button"
                 type="button"
-                onClick={() => {
-                  addMovieToFavorites(promoMovie);
-                }}
+                onClick={handleMyListClick}
               >
                 {promoMovie.isFavorite ?
                   <svg viewBox="0 0 18 14" width="18" height="14">

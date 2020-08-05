@@ -13,6 +13,7 @@ import {getIsSignInError, getAuthorizationStatus, getAuthorizationInfo} from "..
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
+import history from "../../history.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -27,6 +28,12 @@ const MoviePage = (props) => {
     authorizationStatus,
     addMovieToFavorites
   } = props;
+
+  const handleMyListClick = () => {
+    return authorizationStatus === AuthorizationStatus.AUTH ?
+      addMovieToFavorites(movie) :
+      history.push(AppRoute.SIGN_IN);
+  };
 
   return (
     <React.Fragment>
@@ -66,9 +73,7 @@ const MoviePage = (props) => {
                 <button
                   className="btn btn--list movie-card__button"
                   type="button"
-                  onClick={() => {
-                    addMovieToFavorites(movie);
-                  }}
+                  onClick={handleMyListClick}
                 >
                   {movie.isFavorite ?
                     <svg viewBox="0 0 18 14" width="18" height="14">

@@ -178,6 +178,7 @@ App.propTypes = {
   onReviewSubmit: PropTypes.func.isRequired,
   movies: PropTypes.array.isRequired,
   favoriteMovies: PropTypes.array.isRequired,
+  addMovieToFavorites: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
