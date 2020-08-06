@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PromoMovie from "./promo-movie.jsx";
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 const PROMO_MOVIE = {
   id: 1,
@@ -33,14 +35,19 @@ const userInfo = {
 
 it(`PromoMovie should render correctly`, () => {
   const tree = renderer
-     .create(<PromoMovie
-       promoMovie={PROMO_MOVIE}
-       onPlayButtonClick={() => {}}
-       authorizationStatus={`AUTH`}
-       authInfo={userInfo}
-       onSignInClick={() => {}}
-     />)
-     .toJSON();
+     .create(
+         <Router history={history}>
+           <PromoMovie
+             promoMovie={PROMO_MOVIE}
+             authorizationStatus={`AUTH`}
+             authInfo={userInfo}
+             addMovieToFavorites={() => {}}
+           />
+         </Router>, {
+           createNodeMock: () => {
+             return {};
+           }
+         }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

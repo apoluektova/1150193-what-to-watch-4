@@ -4,10 +4,12 @@ import {MoviePage} from "./movie-page.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from '../../reducer/name-space.js';
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
-const testMovies = [
+const movies = [
   {
     id: 1,
     previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -105,38 +107,30 @@ const userInfo = {
 it(`MoviePage should render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
-      movies: testMovies,
+      movies,
+      movie: movies[0],
       reviews: testReviews,
     },
-    [NameSpace.USER]: {
-      isSignedIn: false,
-      isSignInError: false,
-    },
     [NameSpace.APP]: {
-      isReviewOpen: false,
-    },
+      genre: `ALL_GENRES`,
+    }
   });
 
   const tree = renderer
      .create(
-         <Provider store={store}>
-           <MoviePage
-             movie={testMovies[0]}
-             movies={testMovies}
-             reviews={testReviews}
-             onMovieCardClick={() => {}}
-             onPlayButtonClick={() => {}}
-             authInfo={userInfo}
-             authorizationStatus={`AUTH`}
-             onSignInClick={() => {}}
-             isSignedIn={false}
-             login={() => {}}
-             isSignInError={false}
-             onAddReviewClick={() => {}}
-             isReviewOpen={false}
-             onReviewSubmit={() => {}}
-           />
-         </Provider>, {
+         <Router history={history}>
+           <Provider store={store}>
+             <MoviePage
+               movie={movies[0]}
+               reviews={testReviews}
+               onMovieCardClick={() => {}}
+               authInfo={userInfo}
+               authorizationStatus={`AUTH`}
+               addMovieToFavorites={() => {}}
+               loadMovieData={() => {}}
+             />
+           </Provider>
+         </Router>, {
            createNodeMock: () => {
              return {};
            }

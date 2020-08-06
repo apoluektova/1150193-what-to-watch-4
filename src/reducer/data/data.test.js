@@ -558,6 +558,17 @@ it(`Reducer should catch errors`, () => {
   });
 });
 
+it(`Reducer should load favorite movies`, () => {
+  expect(reducer({
+    favoriteMovies: [],
+  }, {
+    type: ActionType.LOAD_FAVORITE_MOVIES,
+    payload: testMovies,
+  })).toEqual({
+    favoriteMovies: testMovies
+  });
+});
+
 describe(`Operation works correctly`, () => {
   it(`Should make a correct API call to /films`, function () {
     const apiMock = new MockAdapter(api);
@@ -570,7 +581,7 @@ describe(`Operation works correctly`, () => {
 
     return moviesLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.LOAD_MOVIES,
           payload: createMovies([{fake: true}]),
@@ -578,42 +589,60 @@ describe(`Operation works correctly`, () => {
       });
   });
 
-  it(`Should make a correct API call to /films/promo`, function () {
+  it(`Should make a correct API call to /films/promo`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const moviesLoader = Operation.loadPromoMovie();
+    const promoMovieLoader = Operation.loadPromoMovie();
 
     apiMock
-    .onGet(`/films/promo`)
-    .reply(200, [{fake: true}]);
+      .onGet(`/films/promo`)
+      .reply(200, [{fake: true}]);
 
-    return moviesLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenCalledWith({
-          type: ActionType.LOAD_PROMO_MOVIE,
-          payload: createMovie([{fake: true}]),
-        });
-      });
+    return promoMovieLoader(dispatch, () => {}, api)
+          .then(() => {
+            expect(dispatch).toHaveBeenCalledTimes(2);
+            expect(dispatch).toHaveBeenCalledWith({
+              type: ActionType.LOAD_PROMO_MOVIE,
+              payload: createMovie({fake: true}),
+            });
+          });
   });
 
-  it(`Should make a correct API call to /comments/1`, function () {
+  it(`Should make a correct API call to /comments/1`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const moviesLoader = Operation.loadReviews(1);
+    const reviewsLoader = Operation.loadReviews(1);
 
     apiMock
-    .onGet(`/comments/1`)
-    .reply(200, [{fake: true}]);
+      .onGet(`/comments/1`)
+      .reply(200, [{fake: true}]);
 
-    return moviesLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenCalledWith({
-          type: ActionType.LOAD_REVIEWS,
-          payload: [{fake: true}],
-        });
-      });
+    return reviewsLoader(dispatch, () => {}, api)
+          .then(() => {
+            expect(dispatch).toHaveBeenCalledTimes(1);
+            expect(dispatch).toHaveBeenCalledWith({
+              type: ActionType.LOAD_REVIEWS,
+              payload: [{fake: true}],
+            });
+          });
+  });
+
+  it(`Should make a correct API call to /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteMoviesLoader = Operation.loadFavoriteMovies();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{fake: true}]);
+
+    return favoriteMoviesLoader(dispatch, () => {}, api)
+          .then(() => {
+            expect(dispatch).toHaveBeenCalledTimes(1);
+            expect(dispatch).toHaveBeenCalledWith({
+              type: ActionType.LOAD_FAVORITE_MOVIES,
+              payload: [createMovie({fake: true})],
+            });
+          });
   });
 });
-

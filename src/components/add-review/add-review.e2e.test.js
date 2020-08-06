@@ -1,13 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import AddReview from "./add-review.jsx";
 import {Provider} from "react-redux";
+import NameSpace from "../../reducer/name-space.js";
 import configureStore from "redux-mock-store";
-import NameSpace from '../../reducer/name-space.js';
 import {Router} from "react-router-dom";
 import history from "../../history.js";
-
-const mockStore = configureStore([]);
 
 const userInfo = {
   id: 1,
@@ -38,34 +37,45 @@ const movie = {
   isFavorite: false,
 };
 
-it(`AddReview should render correctly`, () => {
-  const store = mockStore({
-    [NameSpace.DATA]: {
-      isError: false,
-    },
-    [NameSpace.APP]: {
-      isFormDisabled: false,
-    },
-  });
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
-  const tree = renderer
-     .create(
-         <Router history={history}>
-           <Provider store={store}>
-             <AddReview
-               authorizationStatus={`AUTH`}
-               authInfo={userInfo}
-               movie={movie}
-               onRatingChange={() => {}}
-               onReviewChange={() => {}}
-               onReviewFormSubmit={() => {}}
-               isSubmitButtonDisabled={false}
-               isError={false}
-               isFormDisabled={false}
-             />
-           </Provider>
-         </Router>)
-     .toJSON();
+const mockStore = configureStore([]);
 
-  expect(tree).toMatchSnapshot();
+const store = mockStore({
+  [NameSpace.DATA]: {
+    isError: false,
+  },
+  [NameSpace.APP]: {
+    isFormDisabled: false,
+  },
+});
+
+it(`Review should be submitted`, () => {
+  const onReviewFormSubmit = jest.fn();
+
+  const addReview = mount(
+      <Router history={history}>
+        <Provider store={store}>
+          <AddReview
+            authorizationStatus={`AUTH`}
+            authInfo={userInfo}
+            movie={movie}
+            onRatingChange={() => {}}
+            onReviewChange={() => {}}
+            onReviewFormSubmit={onReviewFormSubmit}
+            isSubmitButtonDisabled={false}
+            isError={false}
+            isFormDisabled={false}
+          />
+        </Provider>
+      </Router>
+  );
+
+  const reviewForm = addReview.find(`form`);
+
+  reviewForm.simulate(`submit`);
+
+  expect(onReviewFormSubmit).toHaveBeenCalledTimes(1);
 });

@@ -87,28 +87,6 @@ it(`Reducer should change current movie card`, () => {
   });
 });
 
-it(`Reducer should toggle full screen player`, () => {
-  expect(reducer({
-    isFullScreenOn: false,
-  }, {
-    type: ActionType.TOGGLE_FULL_SCREEN_PLAYER,
-    payload: true,
-  })).toEqual({
-    isFullScreenOn: true,
-  });
-});
-
-it(`Reducer should open Add Review page`, () => {
-  expect(reducer({
-    isReviewOpen: false,
-  }, {
-    type: ActionType.ADD_REVIEW,
-    payload: true,
-  })).toEqual({
-    isReviewOpen: true,
-  });
-});
-
 it(`Reducer should toggle form state`, () => {
   expect(reducer({
     isFormDisabled: false,
@@ -117,6 +95,17 @@ it(`Reducer should toggle form state`, () => {
     payload: true,
   })).toEqual({
     isFormDisabled: true,
+  });
+});
+
+it(`Reducer should toggle loading state`, () => {
+  expect(reducer({
+    isLoading: false,
+  }, {
+    type: ActionType.TOGGLE_LOADING_STATE,
+    payload: true,
+  })).toEqual({
+    isLoading: true,
   });
 });
 
@@ -145,21 +134,15 @@ describe(`Action creators work correctly`, () => {
       payload: movieCard,
     });
   });
-  it(`Action creator for toggling full screen player returns correct state`, () => {
-    expect(ActionCreator.toggleFullScreenPlayer(false)).toEqual({
-      type: ActionType.TOGGLE_FULL_SCREEN_PLAYER,
-      payload: false,
-    });
-  });
-  it(`Action creator for opening Add review page opens correct page`, () => {
-    expect(ActionCreator.addReview(false)).toEqual({
-      type: ActionType.ADD_REVIEW,
-      payload: false,
-    });
-  });
   it(`Action creator for toggling form state returns correct state`, () => {
     expect(ActionCreator.toggleFormState(false)).toEqual({
       type: ActionType.TOGGLE_FORM_STATE,
+      payload: false,
+    });
+  });
+  it(`Action creator for toggling loading state returns correct state`, () => {
+    expect(ActionCreator.toggleLoadingState(false)).toEqual({
+      type: ActionType.TOGGLE_LOADING_STATE,
       payload: false,
     });
   });
