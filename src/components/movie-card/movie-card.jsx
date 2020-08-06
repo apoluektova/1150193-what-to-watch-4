@@ -12,17 +12,9 @@ class MovieCard extends PureComponent {
 
     this._timeout = null;
 
-    // this._handleMoviecardElementClick = this._handleMoviecardElementClick.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
   }
-
-  // _handleMoviecardElementClick(evt) {
-  //   const {onMovieCardClick, movie} = this.props;
-
-  //   evt.preventDefault();
-  //   onMovieCardClick(movie);
-  // }
 
   _handleMouseEnter() {
     const {onMovieCardHover, movie, onVideoPlay} = this.props;

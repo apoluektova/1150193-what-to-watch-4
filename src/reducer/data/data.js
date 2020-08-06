@@ -1,6 +1,7 @@
 import {extend} from "../../utils.js";
 import {createMovie, createMovies} from "../../adapter/movies.js";
 import {ActionCreator as AppActionCreator} from "../app/app.js";
+import history from "../../history.js";
 
 const initialState = {
   promoMovie: {},
@@ -64,6 +65,9 @@ const Operation = {
     .then((response) => {
       dispatch(ActionCreator.loadMovies(createMovies(response.data)));
     })
+    .then(() => {
+      dispatch(AppActionCreator.toggleLoadingState(false));
+    })
     .catch(() => {
       dispatch(ActionCreator.catchError());
     });
@@ -72,6 +76,9 @@ const Operation = {
     return api.get(`/films/promo`)
     .then((response) => {
       dispatch(ActionCreator.loadPromoMovie(createMovie(response.data)));
+    })
+    .then(() => {
+      dispatch(AppActionCreator.toggleLoadingState(false));
     })
     .catch(() => {
       dispatch(ActionCreator.catchError());
@@ -97,7 +104,7 @@ const Operation = {
       dispatch(Operation.loadReviews(movieId));
     }).
     then(() => {
-      dispatch(AppActionCreator.addReview(false));
+      history.goBack();
       dispatch(AppActionCreator.toggleFormState(false));
     })
     .catch(() => {

@@ -2,6 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
+import {connect} from "react-redux";
+import {getMovies} from "../../reducer/data/selectors.js";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
@@ -36,4 +38,9 @@ MoreLikeThis.propTypes = {
   onActiveCardChange: PropTypes.func.isRequired,
 };
 
-export default MoreLikeThis;
+const mapStateToProps = (state) => ({
+  movies: getMovies(state),
+});
+
+export {MoreLikeThis};
+export default connect(mapStateToProps)(MoreLikeThis);

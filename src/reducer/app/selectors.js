@@ -16,4 +16,8 @@ export const getIsFormDisabled = (state) => {
   return state[NameSpace.APP].isFormDisabled;
 };
 
+export const getIsLoading = (state) => {
+  return state[NameSpace.APP].isLoading;
+};
+
 

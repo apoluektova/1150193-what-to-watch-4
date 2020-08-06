@@ -20,6 +20,8 @@ import history from "../../history.js";
 import {AppRoute} from "../../const.js";
 import MyList from "../my-list/my-list.jsx";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
+import {getIsLoading} from "../../reducer/app/selectors.js";
+import Loader from "../loader/loader.jsx";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 const AddReviewWrapped = withReview(AddReview);
@@ -45,7 +47,8 @@ class App extends PureComponent {
       promoMovie,
       movies,
       favoriteMovies,
-      addMovieToFavorites
+      addMovieToFavorites,
+      isLoading,
     } = this.props;
 
     return (
@@ -56,13 +59,14 @@ class App extends PureComponent {
             path={AppRoute.MAIN}
             render={() => {
               return (
-                <Main
-                  authorizationStatus={authorizationStatus}
-                  promoMovie={promoMovie}
-                  onMovieCardClick={onMovieCardClick}
-                  authInfo={authInfo}
-                  addMovieToFavorites={addMovieToFavorites}
-                />
+                isLoading ? <Loader /> :
+                  <Main
+                    authorizationStatus={authorizationStatus}
+                    promoMovie={promoMovie}
+                    onMovieCardClick={onMovieCardClick}
+                    authInfo={authInfo}
+                    addMovieToFavorites={addMovieToFavorites}
+                  />
               );
             }}
           />
@@ -87,11 +91,12 @@ class App extends PureComponent {
               const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
 
               return (
-                <MoviePage
-                  {...props}
-                  movie={currentMovieCard}
-                  onMovieCardClick={onMovieCardClick}
-                />
+                isLoading ? <Loader /> :
+                  <MoviePage
+                    props={props}
+                    movie={currentMovieCard}
+                    onMovieCardClick={onMovieCardClick}
+                  />
               );
             }}
           />
@@ -102,10 +107,11 @@ class App extends PureComponent {
               const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
 
               return (
-                <FullScreenPlayerWrapped
-                  {...props}
-                  movie={currentMovieCard ? currentMovieCard : promoMovie}
-                />
+                isLoading ? <Loader /> :
+                  <FullScreenPlayerWrapped
+                    {...props}
+                    movie={currentMovieCard ? currentMovieCard : promoMovie}
+                  />
               );
             }}
           />
@@ -113,14 +119,17 @@ class App extends PureComponent {
             exact
             path={`${AppRoute.MOVIE}/:id/review`}
             render={(props) => {
+              const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
+
               return (
-                <AddReviewWrapped
-                  {...props}
-                  authorizationStatus={authorizationStatus}
-                  authInfo={authInfo}
-                  movie={promoMovie}
-                  onReviewSubmit={onReviewSubmit}
-                />
+                isLoading ? <Loader /> :
+                  <AddReviewWrapped
+                    props={props}
+                    authorizationStatus={authorizationStatus}
+                    authInfo={authInfo}
+                    movie={currentMovieCard}
+                    onReviewSubmit={onReviewSubmit}
+                  />
               );
             }}
           />
@@ -179,6 +188,7 @@ App.propTypes = {
   movies: PropTypes.array.isRequired,
   favoriteMovies: PropTypes.array.isRequired,
   addMovieToFavorites: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -188,6 +198,7 @@ const mapStateToProps = (state) => ({
   isSignInError: getIsSignInError(state),
   movies: getMovies(state),
   favoriteMovies: getFavoriteMovies(state),
+  isLoading: getIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

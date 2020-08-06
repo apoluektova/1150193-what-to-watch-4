@@ -11,6 +11,7 @@ const initialState = {
   shownMovieCards: MovieCards.SHOWN,
   currentMovieCard: null,
   isFormDisabled: false,
+  isLoading: true,
 };
 
 const ActionType = {
@@ -19,6 +20,7 @@ const ActionType = {
   RESET_SHOWN_MOVIE_CARDS_COUNT: `RESET_SHOWN_MOVIE_CARDS_COUNT`,
   CHANGE_MOVIE_CARD: `CHANGE_MOVIE_CARD`,
   TOGGLE_FORM_STATE: `TOGGLE_FORM_STATE`,
+  TOGGLE_LOADING_STATE: `TOGGLE_LOADING_STATE`,
 };
 
 const ActionCreator = {
@@ -41,7 +43,11 @@ const ActionCreator = {
   toggleFormState: (bool) => ({
     type: ActionType.TOGGLE_FORM_STATE,
     payload: bool,
-  })
+  }),
+  toggleLoadingState: (bool) => ({
+    type: ActionType.TOGGLE_LOADING_STATE,
+    payload: bool,
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -66,6 +72,10 @@ const reducer = (state = initialState, action) => {
     case (ActionType.TOGGLE_FORM_STATE):
       return extend(state, {
         isFormDisabled: action.payload,
+      });
+    case (ActionType.TOGGLE_LOADING_STATE):
+      return extend(state, {
+        isLoading: action.payload,
       });
   }
   return state;
