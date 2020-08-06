@@ -122,14 +122,13 @@ class App extends PureComponent {
               const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
 
               return (
-                isLoading ? <Loader /> :
-                  <AddReviewWrapped
-                    {...props}
-                    authorizationStatus={authorizationStatus}
-                    authInfo={authInfo}
-                    movie={currentMovieCard}
-                    onReviewSubmit={onReviewSubmit}
-                  />
+                <AddReviewWrapped
+                  {...props}
+                  authorizationStatus={authorizationStatus}
+                  authInfo={authInfo}
+                  movie={currentMovieCard}
+                  onReviewSubmit={onReviewSubmit}
+                />
               );
             }}
           />

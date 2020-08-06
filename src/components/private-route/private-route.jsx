@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {AppRoute} from "../../const.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-
+import Loader from "../loader/loader.jsx";
 
 const PrivateRoute = (props) => {
   const {render, path, exact, authorizationStatus} = props;
@@ -15,11 +15,17 @@ const PrivateRoute = (props) => {
       path={path}
       exact={exact}
       render={(routeProps) => {
-        return (
-          authorizationStatus === AuthorizationStatus.AUTH
-            ? render(routeProps)
-            : <Redirect to={AppRoute.SIGN_IN} />
-        );
+        const componentScreen = render(routeProps);
+
+        switch (authorizationStatus) {
+          case (authorizationStatus === AuthorizationStatus.UNKNOWN):
+            return <Loader />;
+          case (authorizationStatus === AuthorizationStatus.NO_AUTH):
+            return <Redirect to={AppRoute.SIGN_IN} />;
+          case (authorizationStatus === AuthorizationStatus.AUTH):
+            return componentScreen;
+        }
+        return componentScreen;
       }}
     />
   );

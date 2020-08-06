@@ -4,10 +4,11 @@ import {createAuthorizationInfo} from "../../adapter/authInfo.js";
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
+  UNKNOWN: `UNKNOWN`,
 };
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
   authorizationInfo: {
     id: 0,
     email: ``,
