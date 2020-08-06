@@ -14,6 +14,8 @@ import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
 import history from "../../history.js";
+import {ActionCreator as AppActionCreator} from "../../reducer/app/app.js";
+import { getCurrentMovieCard } from "../../reducer/app/selectors.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -26,13 +28,13 @@ class MoviePage extends PureComponent {
   }
 
   componentDidMount() {
-    const {movie, loadReviews} = this.props;
-    loadReviews(movie);
+    const {movie, loadMovieData} = this.props;
+    loadMovieData(movie);
   }
 
   componentDidUpdate() {
-    const {movie, loadReviews} = this.props;
-    loadReviews(movie);
+    const {movie, loadMovieData} = this.props;
+    loadMovieData(movie);
   }
 
   _handleMyListClick() {
@@ -49,9 +51,11 @@ class MoviePage extends PureComponent {
       reviews,
       onMovieCardClick,
       authInfo,
-      authorizationStatus
+      authorizationStatus,
+      currentMovieCard
     } = this.props;
 
+    console.log(`movie`, movie);
 
     return (
       <React.Fragment>
@@ -132,6 +136,7 @@ class MoviePage extends PureComponent {
             <h2 className="catalog__title">More like this</h2>
             <MoreLikeThisWrapped
               onMovieCardClick={onMovieCardClick}
+              currentMovieCard={movie}
             />
           </section>
 
@@ -174,7 +179,7 @@ MoviePage.propTypes = {
   }).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   addMovieToFavorites: PropTypes.func.isRequired,
-  loadReviews: PropTypes.func.isRequired,
+  loadMovieData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -182,6 +187,7 @@ const mapStateToProps = (state) => ({
   isSignInError: getIsSignInError(state),
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
+  currentMovieCard: getCurrentMovieCard(state),
 });
 
 
@@ -189,8 +195,10 @@ const mapDispatchToProps = (dispatch) => ({
   addMovieToFavorites(movie) {
     dispatch(DataOperation.addMovieToFavorites(movie));
   },
-  loadReviews(movie) {
+  loadMovieData(movie) {
     dispatch(DataOperation.loadReviews(movie.id));
+    dispatch(AppActionCreator.changeMovieCard(movie));
+    dispatch(AppActionCreator.changeGenre(movie.genre));
   }
 });
 
