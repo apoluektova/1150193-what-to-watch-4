@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.js";
@@ -15,32 +15,26 @@ const getMoviesLikeThis = (movies, currentMovieCard) => {
   );
 };
 
-class MoreLikeThis extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const MoreLikeThis = (props) => {
+  const {movies, onMovieCardClick, onActiveCardChange, currentMovieCard} = props;
 
-  render() {
-    const {movies, onMovieCardClick, onActiveCardChange, currentMovieCard} = this.props;
+  const moviesLikeThis = getMoviesLikeThis(movies, currentMovieCard);
 
-    const moviesLikeThis = getMoviesLikeThis(movies, currentMovieCard);
-
-    return (
-      <div className="catalog__movies-list">
-        {moviesLikeThis.map((movie) => {
-          return (
-            <MovieCardWrapped
-              key={movie.id}
-              movie={movie}
-              onMovieCardClick={onMovieCardClick}
-              onMovieCardHover={onActiveCardChange}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {moviesLikeThis.map((movie) => {
+        return (
+          <MovieCardWrapped
+            key={movie.id}
+            movie={movie}
+            onMovieCardClick={onMovieCardClick}
+            onMovieCardHover={onActiveCardChange}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 MoreLikeThis.propTypes = {
   movies: PropTypes.array.isRequired,

@@ -15,7 +15,7 @@ const MoviesList = (props) => {
     movies,
     onMovieCardClick,
     onActiveCardChange,
-    handleShowMoreButtonClick,
+    onShowMoreButtonClick,
     shownMovieCards
   } = props;
 
@@ -37,7 +37,7 @@ const MoviesList = (props) => {
       </div>
       <div className="catalog__more">
         {shownMovieCards < movies.length && <ShowMoreButton
-          handleShowMoreButtonClick={handleShowMoreButtonClick}
+          onShowMoreButtonClick={onShowMoreButtonClick}
         />}
       </div>
     </React.Fragment>
@@ -48,7 +48,7 @@ MoviesList.propTypes = {
   movies: PropTypes.array.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
   onActiveCardChange: PropTypes.func.isRequired,
-  handleShowMoreButtonClick: PropTypes.func.isRequired,
+  onShowMoreButtonClick: PropTypes.func.isRequired,
   shownMovieCards: PropTypes.number.isRequired,
 };
 
@@ -58,7 +58,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleShowMoreButtonClick() {
+  onShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
   }
 });
