@@ -124,7 +124,7 @@ class App extends PureComponent {
               return (
                 isLoading ? <Loader /> :
                   <AddReviewWrapped
-                    props={props}
+                    {...props}
                     authorizationStatus={authorizationStatus}
                     authInfo={authInfo}
                     movie={currentMovieCard}
