@@ -65,17 +65,6 @@ it(`Reducer should get authorization info`, () => {
   });
 });
 
-it(`Reducer should change sign in state`, () => {
-  expect(reducer({
-    isSignedIn: false,
-  }, {
-    type: ActionType.SIGN_IN,
-    payload: true
-  })).toEqual({
-    isSignedIn: true
-  });
-});
-
 it(`Reducer should get sign in error`, () => {
   expect(reducer({
     isSignInError: false,
@@ -104,13 +93,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.getAuthorizationInfo(userInfo)).toEqual({
       type: ActionType.GET_AUTHORIZATION_INFO,
       payload: userInfo,
-    });
-  });
-
-  it(`Action creator for signing in returns correct action`, () => {
-    expect(ActionCreator.signIn(true)).toEqual({
-      type: ActionType.SIGN_IN,
-      payload: true,
     });
   });
 
