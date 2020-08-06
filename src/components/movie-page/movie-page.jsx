@@ -193,8 +193,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(DataOperation.addMovieToFavorites(movie));
   },
   loadMovieData(movie) {
-    dispatch(DataOperation.loadReviews(movie.id));
     dispatch(AppActionCreator.changeMovieCard(movie));
+    dispatch(DataOperation.loadReviews(movie.id));
     dispatch(AppActionCreator.changeGenre(movie.genre));
   }
 });

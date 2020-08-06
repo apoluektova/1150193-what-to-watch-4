@@ -89,7 +89,7 @@ it(`MoviesList should render correctly`, () => {
              movies={movies}
              onMovieCardClick={() => {}}
              onActiveCardChange={() => {}}
-             handleShowMoreButtonClick={() => {}}
+             onShowMoreButtonClick={() => {}}
              shownMovieCards={8}
            />
          </Provider>, {

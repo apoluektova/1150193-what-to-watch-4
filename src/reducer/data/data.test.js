@@ -645,4 +645,43 @@ describe(`Operation works correctly`, () => {
             });
           });
   });
+
+  it(`Should send review to /comments/1`, () => {
+    const review = {
+      rating: 3,
+      comment: `Hey`,
+    };
+
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const postReview = Operation.postReview(1, review);
+
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return postReview(dispatch, () => {}, api)
+          .then(() => {
+            expect(dispatch).toHaveBeenCalledTimes(4);
+            expect(dispatch).toHaveBeenCalledWith({
+              type: ActionType.POST_REVIEW,
+              payload: review,
+            });
+          });
+  });
+
+  it(`Should add movie to favorites with call to favorite/1/1`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const movieFavoritesStatusToggler = Operation.addMovieToFavorites(testMovies[0]);
+
+    apiMock
+      .onPost(`favorite/1/1`)
+      .reply(200, [{fake: true}]);
+
+    return movieFavoritesStatusToggler(dispatch, () => {}, api)
+          .then(() => {
+            expect(dispatch).toHaveBeenCalledTimes(3);
+          });
+  });
 });

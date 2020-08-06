@@ -16,6 +16,12 @@ class MovieCard extends PureComponent {
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
   }
 
+  componentWillUnmount() {
+    if (this._timeout) {
+      clearTimeout(this._timeout);
+    }
+  }
+
   _handleMouseEnter() {
     const {onMovieCardHover, movie, onVideoPlay} = this.props;
 
@@ -65,12 +71,6 @@ class MovieCard extends PureComponent {
         </h3>
       </article>
     );
-  }
-
-  componentWillUnmount() {
-    if (this._timeout) {
-      clearTimeout(this._timeout);
-    }
   }
 }
 
