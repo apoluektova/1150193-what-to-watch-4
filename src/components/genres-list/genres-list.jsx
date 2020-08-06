@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Genre from "../genre/genre.jsx";
 import {connect} from "react-redux";
@@ -8,30 +8,24 @@ import {getGenresList} from "../../reducer/data/selectors.js";
 
 const MAX_GENRES_AMOUNT = 9;
 
-class GenresList extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const GenresList = (props) => {
+  const {onGenreClick, activeGenre, genresList} = props;
 
-  render() {
-    const {onGenreClick, activeGenre, genresList} = this.props;
-
-    return (
-      <ul className="catalog__genres-list">
-        {genresList.slice(0, MAX_GENRES_AMOUNT).map((genre, index) => {
-          return (
-            <Genre
-              key={`${genre}-${index}`}
-              genreName={genre}
-              onGenreClick={onGenreClick}
-              activeGenre={activeGenre}
-            />
-          );
-        })}
-      </ul>
-    );
-  }
-}
+  return (
+    <ul className="catalog__genres-list">
+      {genresList.slice(0, MAX_GENRES_AMOUNT).map((genre, index) => {
+        return (
+          <Genre
+            key={`${genre}-${index}`}
+            genreName={genre}
+            onGenreClick={onGenreClick}
+            activeGenre={activeGenre}
+          />
+        );
+      })}
+    </ul>
+  );
+};
 
 GenresList.propTypes = {
   genresList: PropTypes.array.isRequired,

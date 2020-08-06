@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import {Redirect, Router, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
@@ -31,130 +31,124 @@ const getCurrentMovieCard = (movies, params) => {
   return movies.find((movie) => movie.id === parseInt(params, 10));
 };
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const App = (props) => {
+  const {
+    onMovieCardClick,
+    login,
+    isSignInError,
+    authorizationStatus,
+    authInfo,
+    onReviewSubmit,
+    promoMovie,
+    movies,
+    favoriteMovies,
+    addMovieToFavorites,
+    isLoading,
+  } = props;
 
-  render() {
-    const {
-      onMovieCardClick,
-      login,
-      isSignInError,
-      authorizationStatus,
-      authInfo,
-      onReviewSubmit,
-      promoMovie,
-      movies,
-      favoriteMovies,
-      addMovieToFavorites,
-      isLoading,
-    } = this.props;
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route
+          exact
+          path={AppRoute.MAIN}
+          render={() => {
+            return (
+              isLoading ? <Loader /> :
+                <Main
+                  authorizationStatus={authorizationStatus}
+                  promoMovie={promoMovie}
+                  onMovieCardClick={onMovieCardClick}
+                  authInfo={authInfo}
+                  addMovieToFavorites={addMovieToFavorites}
+                />
+            );
+          }}
+        />
+        <Route
+          exact
+          path={AppRoute.SIGN_IN}
+          render={() => {
+            return (
+              authorizationStatus === AuthorizationStatus.AUTH ?
+                <Redirect to={AppRoute.MAIN} /> :
+                <SignInScreen
+                  onSubmit={login}
+                  isSignInError={isSignInError}
+                />
+            );
+          }}
+        />
+        <Route
+          exact
+          path={`${AppRoute.MOVIE}/:id`}
+          render={(routeProps) => {
+            const currentMovieCard = getCurrentMovieCard(movies, routeProps.match.params.id);
 
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route
-            exact
-            path={AppRoute.MAIN}
-            render={() => {
-              return (
-                isLoading ? <Loader /> :
-                  <Main
-                    authorizationStatus={authorizationStatus}
-                    promoMovie={promoMovie}
-                    onMovieCardClick={onMovieCardClick}
-                    authInfo={authInfo}
-                    addMovieToFavorites={addMovieToFavorites}
-                  />
-              );
-            }}
-          />
-          <Route
-            exact
-            path={AppRoute.SIGN_IN}
-            render={() => {
-              return (
-                authorizationStatus === AuthorizationStatus.AUTH ?
-                  <Redirect to={AppRoute.MAIN} /> :
-                  <SignInScreen
-                    onSubmit={login}
-                    isSignInError={isSignInError}
-                  />
-              );
-            }}
-          />
-          <Route
-            exact
-            path={`${AppRoute.MOVIE}/:id`}
-            render={(props) => {
-              const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
+            return (
+              isLoading ? <Loader /> :
+                <MoviePage
+                  routeProps={routeProps}
+                  movie={currentMovieCard}
+                  onMovieCardClick={onMovieCardClick}
+                />
+            );
+          }}
+        />
+        <Route
+          exact
+          path={`${AppRoute.PLAYER}/:id/`}
+          render={(routeProps) => {
+            const currentMovieCard = getCurrentMovieCard(movies, routeProps.match.params.id);
 
-              return (
-                isLoading ? <Loader /> :
-                  <MoviePage
-                    props={props}
-                    movie={currentMovieCard}
-                    onMovieCardClick={onMovieCardClick}
-                  />
-              );
-            }}
-          />
-          <Route
-            exact
-            path={`${AppRoute.PLAYER}/:id/`}
-            render={(props) => {
-              const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
+            return (
+              isLoading ? <Loader /> :
+                <FullScreenPlayerWrapped
+                  {...routeProps}
+                  movie={currentMovieCard ? currentMovieCard : promoMovie}
+                />
+            );
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={`${AppRoute.MOVIE}/:id/review`}
+          render={(routeProps) => {
+            const currentMovieCard = getCurrentMovieCard(movies, routeProps.match.params.id);
 
-              return (
-                isLoading ? <Loader /> :
-                  <FullScreenPlayerWrapped
-                    {...props}
-                    movie={currentMovieCard ? currentMovieCard : promoMovie}
-                  />
-              );
-            }}
-          />
-          <PrivateRoute
-            exact
-            path={`${AppRoute.MOVIE}/:id/review`}
-            render={(props) => {
-              const currentMovieCard = getCurrentMovieCard(movies, props.match.params.id);
-
-              return (
-                isLoading ? <Loader /> :
-                  <AddReviewWrapped
-                    {...props}
-                    authorizationStatus={authorizationStatus}
-                    authInfo={authInfo}
-                    movie={currentMovieCard}
-                    onReviewSubmit={onReviewSubmit}
-                  />
-              );
-            }}
-          />
-          <PrivateRoute
-            exact
-            path={AppRoute.MY_LIST}
-            render={(props) => {
-              return (
-                <MyListWrapped
-                  {...props}
+            return (
+              isLoading ? <Loader /> :
+                <AddReviewWrapped
+                  {...routeProps}
                   authorizationStatus={authorizationStatus}
                   authInfo={authInfo}
-                  onMovieCardClick={onMovieCardClick}
-                  favoriteMovies={favoriteMovies}
+                  movie={currentMovieCard}
+                  onReviewSubmit={onReviewSubmit}
                 />
-              );
-            }}
-          />
-          <Route component={ErrorMessage}
-          />
-        </Switch>
-      </Router>
-    );
-  }
-}
+            );
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.MY_LIST}
+          render={(routeProps) => {
+            return (
+              <MyListWrapped
+                {...routeProps}
+                authorizationStatus={authorizationStatus}
+                authInfo={authInfo}
+                onMovieCardClick={onMovieCardClick}
+                favoriteMovies={favoriteMovies}
+              />
+            );
+          }}
+        />
+        <Route component={ErrorMessage}
+        />
+      </Switch>
+    </Router>
+  );
+};
 
 App.propTypes = {
   promoMovie: PropTypes.shape({
