@@ -15,7 +15,6 @@ import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
 import history from "../../history.js";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app.js";
-import { getCurrentMovieCard } from "../../reducer/app/selectors.js";
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);
@@ -51,11 +50,8 @@ class MoviePage extends PureComponent {
       reviews,
       onMovieCardClick,
       authInfo,
-      authorizationStatus,
-      currentMovieCard
+      authorizationStatus
     } = this.props;
-
-    console.log(`movie`, movie);
 
     return (
       <React.Fragment>
@@ -187,7 +183,6 @@ const mapStateToProps = (state) => ({
   isSignInError: getIsSignInError(state),
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
-  currentMovieCard: getCurrentMovieCard(state),
 });
 
 
