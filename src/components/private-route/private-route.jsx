@@ -15,17 +15,16 @@ const PrivateRoute = (props) => {
       path={path}
       exact={exact}
       render={(routeProps) => {
-        const componentScreen = render(routeProps);
 
         switch (authorizationStatus) {
-          case (authorizationStatus === AuthorizationStatus.UNKNOWN):
+          case (AuthorizationStatus.UNKNOWN):
             return <Loader />;
-          case (authorizationStatus === AuthorizationStatus.NO_AUTH):
+          case (AuthorizationStatus.NO_AUTH):
             return <Redirect to={AppRoute.SIGN_IN} />;
-          case (authorizationStatus === AuthorizationStatus.AUTH):
-            return componentScreen;
+          case (AuthorizationStatus.AUTH):
+            return render(routeProps);
         }
-        return componentScreen;
+        return render(routeProps);
       }}
     />
   );

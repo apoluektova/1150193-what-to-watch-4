@@ -662,7 +662,7 @@ describe(`Operation works correctly`, () => {
 
     return postReview(dispatch, () => {}, api)
           .then(() => {
-            expect(dispatch).toHaveBeenCalledTimes(4);
+            expect(dispatch).toHaveBeenCalledTimes(5);
             expect(dispatch).toHaveBeenCalledWith({
               type: ActionType.POST_REVIEW,
               payload: review,

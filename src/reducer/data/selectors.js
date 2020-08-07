@@ -23,6 +23,10 @@ export const getFavoriteMovies = (state) => {
   return state[NameSpace.DATA].favoriteMovies;
 };
 
+export const getIsReviewError = (state) => {
+  return state[NameSpace.DATA].isReviewError;
+};
+
 export const getGenresList = createSelector(
     getMovies,
     (movies) => {

@@ -17,12 +17,6 @@ const Loader = () => {
             <span className="logo__letter logo__letter--3">W</span>
           </a>
         </div>
-
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
-        </div>
       </header>
 
       <div className="movie-card__wrap">

@@ -39,10 +39,10 @@ const ActionCreator = {
       payload: reviews,
     };
   },
-  catchError: () => {
+  catchError: (bool) => {
     return {
       type: ActionType.CATCH_ERROR,
-      payload: true,
+      payload: bool,
     };
   },
   postReview: (review) => {
@@ -69,7 +69,7 @@ const Operation = {
       dispatch(AppActionCreator.toggleLoadingState(false));
     })
     .catch(() => {
-      dispatch(ActionCreator.catchError());
+      dispatch(ActionCreator.catchError(true));
     });
   },
   loadPromoMovie: () => (dispatch, getState, api) => {
@@ -90,7 +90,7 @@ const Operation = {
       dispatch(ActionCreator.loadReviews(response.data));
     })
     .catch(() => {
-      dispatch(ActionCreator.catchError());
+      dispatch(ActionCreator.catchError(true));
     });
   },
   postReview: (movieId, review) => (dispatch, getState, api) => {
@@ -99,6 +99,7 @@ const Operation = {
       comment: review.comment,
     })
     .then(() => {
+      dispatch(ActionCreator.catchError(false));
       dispatch(ActionCreator.postReview(review));
       dispatch(AppActionCreator.toggleFormState(true));
       dispatch(Operation.loadReviews(movieId));
@@ -108,7 +109,7 @@ const Operation = {
       dispatch(AppActionCreator.toggleFormState(false));
     })
     .catch(() => {
-      dispatch(ActionCreator.catchError());
+      dispatch(ActionCreator.catchError(true));
     });
   },
   loadFavoriteMovies: () => (dispatch, getState, api) => {
@@ -117,7 +118,7 @@ const Operation = {
       dispatch(ActionCreator.loadFavoriteMovies(createMovies(response.data)));
     })
     .catch(() => {
-      dispatch(ActionCreator.catchError());
+      dispatch(ActionCreator.catchError(true));
     });
   },
   addMovieToFavorites: (movie) => (dispatch, getState, api) => {
@@ -128,7 +129,7 @@ const Operation = {
       dispatch(Operation.loadFavoriteMovies());
     })
     .catch(() => {
-      dispatch(ActionCreator.catchError());
+      dispatch(ActionCreator.catchError(true));
     });
   }
 };

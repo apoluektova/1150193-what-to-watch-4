@@ -46,6 +46,10 @@ const App = (props) => {
     isLoading,
   } = props;
 
+  if (movies.length === 0) {
+    return <Loader />;
+  }
+
   return (
     <Router history={history}>
       <Switch>
