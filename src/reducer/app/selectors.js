@@ -12,16 +12,12 @@ export const getCurrentMovieCard = (state) => {
   return state[NameSpace.APP].currentMovieCard;
 };
 
-export const getIsFullScreenOn = (state) => {
-  return state[NameSpace.APP].isFullScreenOn;
-};
-
-export const getIsReviewOpen = (state) => {
-  return state[NameSpace.APP].isReviewOpen;
-};
-
 export const getIsFormDisabled = (state) => {
   return state[NameSpace.APP].isFormDisabled;
+};
+
+export const getIsLoading = (state) => {
+  return state[NameSpace.APP].isLoading;
 };
 
 

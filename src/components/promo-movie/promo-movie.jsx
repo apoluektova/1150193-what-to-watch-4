@@ -1,9 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
+import {AppRoute} from "../../const.js";
+import {Link} from "react-router-dom";
+import history from "../../history.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const PromoMovie = (props) => {
-  const {authorizationStatus, promoMovie, onPlayButtonClick, authInfo, onSignInClick} = props;
+  const {authorizationStatus, promoMovie, addMovieToFavorites, authInfo} = props;
+
+  const handleMyListClick = () => {
+    return authorizationStatus === AuthorizationStatus.AUTH ?
+      addMovieToFavorites(promoMovie) :
+      history.push(AppRoute.SIGN_IN);
+  };
 
   return (
     <section className="movie-card">
@@ -16,7 +26,7 @@ const PromoMovie = (props) => {
       <Header
         authorizationStatus={authorizationStatus}
         authInfo={authInfo}
-        onSignInClick={onSignInClick}
+        extraClassName={`movie-card`}
       />
 
       <div className="movie-card__wrap">
@@ -33,19 +43,27 @@ const PromoMovie = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button
-                onClick={onPlayButtonClick}
+              <Link
                 className="btn btn--play movie-card__button"
-                type="button">
+                to={`${AppRoute.PLAYER}/${promoMovie.id}`}
+              >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
-              </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+              </Link>
+              <button
+                className="btn btn--list movie-card__button"
+                type="button"
+                onClick={handleMyListClick}
+              >
+                {promoMovie.isFavorite ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg> :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>}
                 <span>My list</span>
               </button>
             </div>
@@ -78,7 +96,6 @@ PromoMovie.propTypes = {
     runtime: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   authInfo: PropTypes.exact({
     id: PropTypes.number.isRequired,
@@ -86,7 +103,7 @@ PromoMovie.propTypes = {
     name: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
-  onSignInClick: PropTypes.func.isRequired,
+  addMovieToFavorites: PropTypes.func.isRequired,
 };
 
 export default PromoMovie;

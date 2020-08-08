@@ -1,7 +1,7 @@
 import NameSpace from "../name-space.js";
 import {createSelector} from 'reselect';
-import {ALL_GENRES, SIMILAR_MOVIES_COUNT} from "../../const.js";
-import {getGenre, getCurrentMovieCard} from "../app/selectors.js";
+import {ALL_GENRES} from "../../const.js";
+import {getGenre} from "../app/selectors.js";
 
 export const getMovies = (state) => {
   return state[NameSpace.DATA].movies;
@@ -17,6 +17,14 @@ export const getReviews = (state) => {
 
 export const getIsError = (state) => {
   return state[NameSpace.DATA].isError;
+};
+
+export const getFavoriteMovies = (state) => {
+  return state[NameSpace.DATA].favoriteMovies;
+};
+
+export const getIsReviewError = (state) => {
+  return state[NameSpace.DATA].isReviewError;
 };
 
 export const getGenresList = createSelector(
@@ -35,16 +43,5 @@ export const getFilteredMovies = createSelector(
       } else {
         return movies.filter((movie) => movie.genre === genre);
       }
-    }
-);
-
-export const getMoviesLikeThis = createSelector(
-    getFilteredMovies,
-    getCurrentMovieCard,
-    (filteredMovies, currentMovieCard) => {
-      return (filteredMovies
-        .filter((movie) => movie.id !== currentMovieCard.id)
-        .slice(0, SIMILAR_MOVIES_COUNT)
-      );
     }
 );

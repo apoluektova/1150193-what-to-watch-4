@@ -1,17 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {getTimeLeft} from "../../utils.js";
+import history from './../../history';
 
 const FullScreenPlayer = (props) => {
   const {
+    movie,
     isPlaying,
     progress,
     duration,
     onPlayButtonClick,
     onFullScreenButtonClick,
-    onExitButtonClick,
-    movie: {title},
-    children} = props;
+    children
+  } = props;
 
   const timeLeft = getTimeLeft(duration - progress);
 
@@ -20,7 +21,7 @@ const FullScreenPlayer = (props) => {
       <div className="player">
         {children}
 
-        <button onClick={onExitButtonClick} type="button" className="player__exit">Exit</button>
+        <button onClick={() => history.goBack()} type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
@@ -48,7 +49,7 @@ const FullScreenPlayer = (props) => {
                   <span>Play</span>
                 </React.Fragment>}
             </button>
-            <div className="player__name">{title}</div>
+            <div className="player__name">{movie.title}</div>
 
             <button onClick={onFullScreenButtonClick} type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
@@ -69,7 +70,6 @@ FullScreenPlayer.propTypes = {
   duration: PropTypes.number.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
-  onExitButtonClick: PropTypes.func.isRequired,
   movie: PropTypes.exact({
     id: PropTypes.number.isRequired,
     previewImage: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
@@ -9,47 +9,39 @@ import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
-class Main extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const Main = (props) => {
+  const {
+    authorizationStatus,
+    promoMovie,
+    onMovieCardClick,
+    authInfo,
+    addMovieToFavorites
+  } = props;
 
-  render() {
-    const {
-      authorizationStatus,
-      promoMovie,
-      onMovieCardClick,
-      onPlayButtonClick,
-      authInfo,
-      onSignInClick
-    } = this. props;
+  return (
+    <React.Fragment>
+      {Object.keys(promoMovie).length === 0 ? <Loader />
+        : <PromoMovie
+          authorizationStatus={authorizationStatus}
+          promoMovie={promoMovie}
+          authInfo={authInfo}
+          addMovieToFavorites={addMovieToFavorites}
+        /> }
 
-    return (
-      <React.Fragment>
-        {Object.keys(promoMovie).length === 0 ? <Loader />
-          : <PromoMovie
-            authorizationStatus={authorizationStatus}
-            promoMovie={promoMovie}
-            onPlayButtonClick={onPlayButtonClick}
-            authInfo={authInfo}
-            onSignInClick={onSignInClick}
-          /> }
+      <div className="page-content">
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <GenresList/>
 
-        <div className="page-content">
-          <section className="catalog">
-            <h2 className="catalog__title visually-hidden">Catalog</h2>
-            <GenresList/>
+          <MoviesListWrapped onMovieCardClick={onMovieCardClick} />
+        </section>
 
-            <MoviesListWrapped onMovieCardClick={onMovieCardClick}
-            />
-          </section>
+        <Footer />
+      </div>
+    </React.Fragment>
+  );
+};
 
-          <Footer />
-        </div>
-      </React.Fragment>
-    );
-  }
-}
 
 Main.propTypes = {
   promoMovie: PropTypes.shape({
@@ -74,10 +66,9 @@ Main.propTypes = {
     isFavorite: PropTypes.bool,
   }).isRequired,
   onMovieCardClick: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   authInfo: PropTypes.object.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
+  addMovieToFavorites: PropTypes.func.isRequired,
 };
 
 export default Main;

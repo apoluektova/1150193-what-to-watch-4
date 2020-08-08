@@ -5,7 +5,7 @@ import ShowMoreButton from "./show-more-button.jsx";
 it(`Show More button should render correctly`, () => {
   const tree = renderer
      .create(<ShowMoreButton
-       handleShowMoreButtonClick={() => {}}
+       onShowMoreButtonClick={() => {}}
      />)
      .toJSON();
 

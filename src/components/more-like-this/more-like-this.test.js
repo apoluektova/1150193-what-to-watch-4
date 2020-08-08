@@ -1,6 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MoreLikeThis from "./more-like-this.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import NameSpace from '../../reducer/name-space.js';
 
 const movies = [
   {
@@ -67,14 +70,28 @@ const movies = [
   },
 ];
 
+const mockStore = configureStore([]);
+
 it(`MoreLikeThis should render correctly`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      movies
+    },
+    [NameSpace.APP]: {
+      genre: `ALL_GENRES`,
+    }
+  });
+
   const tree = renderer
      .create(
-         <MoreLikeThis
-           movies={movies}
-           onMovieCardClick={() => {}}
-           onActiveCardChange={() => {}}
-         />, {
+         <Provider store={store}>
+           <MoreLikeThis
+             movies={movies}
+             onMovieCardClick={() => {}}
+             onActiveCardChange={() => {}}
+             currentMovieCard={movies[0]}
+           />
+         </Provider>, {
            createNodeMock: () => {
              return {};
            }

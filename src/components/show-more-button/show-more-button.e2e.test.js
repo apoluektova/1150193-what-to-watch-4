@@ -12,7 +12,7 @@ it(`Show More button should be clicked`, () => {
 
   const buttonComponent = mount(
       <ShowMoreButton
-        handleShowMoreButtonClick={onButtonClick}
+        onShowMoreButtonClick={onButtonClick}
       />
   );
 

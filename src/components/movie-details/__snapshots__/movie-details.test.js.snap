@@ -33,13 +33,17 @@ exports[`MovieDetails should render correctly 1`] = `
         className="movie-card__details-value"
       >
         Michael Fassbender
+        ,
         <br />
         Marion Cotillard
+        ,
         <br />
         Paddy Considine
+        ,
         <br />
         Sean Harris
-        <br />
+        
+        
       </span>
     </p>
   </div>

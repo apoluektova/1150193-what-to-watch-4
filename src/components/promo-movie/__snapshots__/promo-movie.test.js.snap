@@ -30,6 +30,8 @@ exports[`PromoMovie should render correctly 1`] = `
     >
       <a
         className="logo__link"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -51,16 +53,21 @@ exports[`PromoMovie should render correctly 1`] = `
     <div
       className="user-block"
     >
-      <div
-        className="user-block__avatar"
+      <a
+        href="/mylist"
+        onClick={[Function]}
       >
-        <img
-          alt="Ben avatar"
-          height="63"
-          src="/wtw/static/avatar/5.jpg"
-          width="63"
-        />
-      </div>
+        <div
+          className="user-block__avatar"
+        >
+          <img
+            alt="Ben avatar"
+            height="63"
+            src="/wtw/static/avatar/5.jpg"
+            width="63"
+          />
+        </div>
+      </a>
     </div>
   </header>
   <div
@@ -104,10 +111,10 @@ exports[`PromoMovie should render correctly 1`] = `
         <div
           className="movie-card__buttons"
         >
-          <button
+          <a
             className="btn btn--play movie-card__button"
+            href="/player/1"
             onClick={[Function]}
-            type="button"
           >
             <svg
               height="19"
@@ -121,9 +128,10 @@ exports[`PromoMovie should render correctly 1`] = `
             <span>
               Play
             </span>
-          </button>
+          </a>
           <button
             className="btn btn--list movie-card__button"
+            onClick={[Function]}
             type="button"
           >
             <svg

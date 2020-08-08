@@ -1,5 +1,5 @@
-import React, {PureComponent} from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import React from "react";
+import {Redirect, Router, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
 import PropTypes from "prop-types";
@@ -7,138 +7,152 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player/with-full-screen-player.js";
-import {getPromoMovie, getIsError} from "../../reducer/data/selectors.js";
-import {getCurrentMovieCard, getIsFullScreenOn} from "../../reducer/app/selectors.js";
+import {getPromoMovie, getMovies, getFavoriteMovies} from "../../reducer/data/selectors.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
 import ErrorMessage from "../error-message/error-message.jsx";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {getAuthorizationStatus, getAuthorizationInfo, getIsSignedIn, getIsSignInError} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation, AuthorizationStatus} from "../../reducer/user/user.js";
+import {getAuthorizationStatus, getAuthorizationInfo, getIsSignInError} from "../../reducer/user/selectors.js";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
-import {ActionCreator as UserActionCreator} from "../../reducer/user/user.js";
 import AddReview from "../add-review/add-review.jsx";
 import withReview from "../../hocs/with-review/with-review.js";
+import PrivateRoute from "../private-route/private-route.jsx";
+import history from "../../history.js";
+import {AppRoute} from "../../const.js";
+import MyList from "../my-list/my-list.jsx";
+import withActiveCard from "../../hocs/with-active-card/with-active-card.js";
+import {getIsLoading} from "../../reducer/app/selectors.js";
+import Loader from "../loader/loader.jsx";
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 const AddReviewWrapped = withReview(AddReview);
+const MyListWrapped = withActiveCard(MyList);
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
+const getCurrentMovieCard = (movies, params) => {
+  return movies.find((movie) => movie.id === parseInt(params, 10));
+};
+
+const App = (props) => {
+  const {
+    onMovieCardClick,
+    login,
+    isSignInError,
+    authorizationStatus,
+    authInfo,
+    onReviewSubmit,
+    promoMovie,
+    movies,
+    favoriteMovies,
+    addMovieToFavorites,
+    isLoading,
+  } = props;
+
+  if (movies.length === 0) {
+    return <Loader />;
   }
 
-  _renderApp() {
-    const {
-      authorizationStatus,
-      promoMovie,
-      currentMovieCard,
-      handleMovieCardClick,
-      isFullScreenOn,
-      handlePlayButtonClick,
-      handleExitButtonClick,
-      isError,
-      authInfo,
-      login,
-      onSignInClick,
-      isSignedIn,
-      isSignInError
-    } = this.props;
-
-    if (isError && !currentMovieCard) {
-      return (
-        <ErrorMessage />
-      );
-    }
-
-    if (currentMovieCard && !isFullScreenOn) {
-      return (
-        <MoviePage
-          movie={currentMovieCard}
-          onMovieCardClick={handleMovieCardClick}
-          onPlayButtonClick={handlePlayButtonClick}
-          authInfo={authInfo}
-          authorizationStatus={authorizationStatus}
-          onSignInClick={onSignInClick}
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route
+          exact
+          path={AppRoute.MAIN}
+          render={() => {
+            return (
+              isLoading ? <Loader /> :
+                <Main
+                  authorizationStatus={authorizationStatus}
+                  promoMovie={promoMovie}
+                  onMovieCardClick={onMovieCardClick}
+                  authInfo={authInfo}
+                  addMovieToFavorites={addMovieToFavorites}
+                />
+            );
+          }}
         />
-      );
-    }
-
-    if (isFullScreenOn) {
-      return (
-        <FullScreenPlayerWrapped
-          movie={currentMovieCard ? currentMovieCard : promoMovie}
-          onExitButtonClick={handleExitButtonClick}
+        <Route
+          exact
+          path={AppRoute.SIGN_IN}
+          render={() => {
+            return (
+              authorizationStatus === AuthorizationStatus.AUTH ?
+                <Redirect to={AppRoute.MAIN} /> :
+                <SignInScreen
+                  onSubmit={login}
+                  isSignInError={isSignInError}
+                />
+            );
+          }}
         />
-      );
-    }
+        <Route
+          exact
+          path={`${AppRoute.MOVIE}/:id`}
+          render={(routeProps) => {
+            const currentMovieCard = getCurrentMovieCard(movies, routeProps.match.params.id);
 
-    if (isSignedIn) {
-      return (
-        <SignInScreen
-          onSubmit={login}
-          isSignInError={isSignInError}
+            return (
+              isLoading ? <Loader /> :
+                <MoviePage
+                  routeProps={routeProps}
+                  movie={currentMovieCard}
+                  onMovieCardClick={onMovieCardClick}
+                />
+            );
+          }}
         />
-      );
-    }
+        <Route
+          exact
+          path={`${AppRoute.PLAYER}/:id/`}
+          render={(routeProps) => {
+            const currentMovieCard = getCurrentMovieCard(movies, routeProps.match.params.id);
 
-    return (
-      <Main
-        authorizationStatus={authorizationStatus}
-        promoMovie={promoMovie}
-        onMovieCardClick={handleMovieCardClick}
-        onPlayButtonClick={handlePlayButtonClick}
-        authInfo={authInfo}
-        onSignInClick={onSignInClick}
-      />
-    );
-  }
+            return (
+              isLoading ? <Loader /> :
+                <FullScreenPlayerWrapped
+                  {...routeProps}
+                  movie={currentMovieCard ? currentMovieCard : promoMovie}
+                />
+            );
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={`${AppRoute.MOVIE}/:id/review`}
+          render={(routeProps) => {
+            const currentMovieCard = getCurrentMovieCard(movies, routeProps.match.params.id);
 
-  render() {
-    const {
-      currentMovieCard,
-      handleMovieCardClick,
-      handlePlayButtonClick,
-      login,
-      isSignInError,
-      authorizationStatus,
-      authInfo,
-      onSignInClick,
-      onReviewSubmit,
-      promoMovie
-    } = this.props;
-
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/movie-page">
-            <MoviePage
-              movie={currentMovieCard}
-              onMovieCardClick={handleMovieCardClick}
-              onPlayButtonClick={handlePlayButtonClick}
-            />
-          </Route>
-          <Route exact path="/login">
-            <SignInScreen
-              onSubmit={login}
-              isSignInError={isSignInError}
-            />
-          </Route>
-          <Route exact path="/dev-review">
-            <AddReviewWrapped
-              authorizationStatus={authorizationStatus}
-              authInfo={authInfo}
-              onSignInClick={onSignInClick}
-              movie={promoMovie}
-              onReviewSubmit={onReviewSubmit}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+            return (
+              isLoading ? <Loader /> :
+                <AddReviewWrapped
+                  {...routeProps}
+                  authorizationStatus={authorizationStatus}
+                  authInfo={authInfo}
+                  movie={currentMovieCard}
+                  onReviewSubmit={onReviewSubmit}
+                />
+            );
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.MY_LIST}
+          render={(routeProps) => {
+            return (
+              <MyListWrapped
+                {...routeProps}
+                authorizationStatus={authorizationStatus}
+                authInfo={authInfo}
+                onMovieCardClick={onMovieCardClick}
+                favoriteMovies={favoriteMovies}
+              />
+            );
+          }}
+        />
+        <Route component={ErrorMessage}
+        />
+      </Switch>
+    </Router>
+  );
+};
 
 App.propTypes = {
   promoMovie: PropTypes.shape({
@@ -163,51 +177,42 @@ App.propTypes = {
     isFavorite: PropTypes.bool,
   }).isRequired,
   currentMovieCard: PropTypes.object,
-  handleMovieCardClick: PropTypes.func.isRequired,
-  handlePlayButtonClick: PropTypes.func.isRequired,
-  handleExitButtonClick: PropTypes.func.isRequired,
-  isFullScreenOn: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+  onMovieCardClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   authInfo: PropTypes.object.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
-  isSignedIn: PropTypes.bool.isRequired,
   isSignInError: PropTypes.bool.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
+  movies: PropTypes.array.isRequired,
+  favoriteMovies: PropTypes.array.isRequired,
+  addMovieToFavorites: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
-  currentMovieCard: getCurrentMovieCard(state),
-  isFullScreenOn: getIsFullScreenOn(state),
-  isError: getIsError(state),
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
-  isSignedIn: getIsSignedIn(state),
   isSignInError: getIsSignInError(state),
+  movies: getMovies(state),
+  favoriteMovies: getFavoriteMovies(state),
+  isLoading: getIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleMovieCardClick(movie) {
+  onMovieCardClick(movie) {
     dispatch(ActionCreator.changeMovieCard(movie));
     dispatch(DataOperation.loadReviews(movie.id));
-  },
-  handlePlayButtonClick() {
-    dispatch(ActionCreator.toggleFullScreenPlayer(true));
-  },
-  handleExitButtonClick() {
-    dispatch(ActionCreator.toggleFullScreenPlayer(false));
   },
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  onSignInClick() {
-    dispatch(UserActionCreator.signIn(true));
-  },
   onReviewSubmit(movieId, review) {
     dispatch(DataOperation.postReview(movieId, review));
   },
+  addMovieToFavorites(movie) {
+    dispatch(DataOperation.addMovieToFavorites(movie));
+  }
 });
 
 export {App};

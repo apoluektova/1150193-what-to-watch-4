@@ -23,10 +23,12 @@ const store = createStore(
     )
 );
 
-store.dispatch(DataOperation.loadPromoMovie());
 store.dispatch(DataOperation.loadMovies());
+store.dispatch(DataOperation.loadPromoMovie());
+store.dispatch(DataOperation.loadFavoriteMovies());
 
 store.dispatch(UserOperation.checkAuth());
+
 
 ReactDOM.render(
     <Provider store={store}>

@@ -20,7 +20,9 @@ const MovieDetails = (props) => {
               {actors.map((actor, index) => {
                 return (
                   <React.Fragment key={`${actor}-${index}`}>
-                    {actor}<br />
+                    {actor}
+                    {index !== actors.length - 1 ? `,` : ``}
+                    {index !== actors.length - 1 ? <br/> : ``}
                   </React.Fragment>
                 );
               })}

@@ -4,6 +4,8 @@ import Main from "./main.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from '../../reducer/name-space.js';
+import {Router} from "react-router-dom";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -116,20 +118,22 @@ it(`Main renders correctly`, () => {
   };
 
   const tree = renderer
-     .create(<Provider store={store}>
-       <Main
-         promoMovie={PROMO_MOVIE}
-         onMovieCardClick={() => {}}
-         onPlayButtonClick={() => {}}
-         authInfo={userInfo}
-         onSignInClick={() => {}}
-         authorizationStatus={`AUTH`}
-       />
-     </Provider>, {
-       createNodeMock: () => {
-         return {};
-       }
-     })
+     .create(
+         <Router history={history}>
+           <Provider store={store}>
+             <Main
+               promoMovie={PROMO_MOVIE}
+               onMovieCardClick={() => {}}
+               authInfo={userInfo}
+               authorizationStatus={`AUTH`}
+               addMovieToFavorites={() => {}}
+             />
+           </Provider>
+         </Router>, {
+           createNodeMock: () => {
+             return {};
+           }
+         })
      .toJSON();
 
   expect(tree).toMatchSnapshot();

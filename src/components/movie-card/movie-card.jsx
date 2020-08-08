@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
+import history from "../../history.js";
+import {AppRoute} from "../../const.js";
 
 const TIMEOUT_DELAY = 1000;
 
@@ -10,16 +12,14 @@ class MovieCard extends PureComponent {
 
     this._timeout = null;
 
-    this._handleMoviecardElementClick = this._handleMoviecardElementClick.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
   }
 
-  _handleMoviecardElementClick(evt) {
-    const {onMovieCardClick, movie} = this.props;
-
-    evt.preventDefault();
-    onMovieCardClick(movie);
+  componentWillUnmount() {
+    if (this._timeout) {
+      clearTimeout(this._timeout);
+    }
   }
 
   _handleMouseEnter() {
@@ -38,7 +38,7 @@ class MovieCard extends PureComponent {
   }
 
   render() {
-    const {movie, isPlaying} = this.props;
+    const {movie, isPlaying, onMovieCardClick} = this.props;
 
     return (
       <article
@@ -48,7 +48,10 @@ class MovieCard extends PureComponent {
       >
         <div
           className="small-movie-card__image"
-          onClick={this._handleMoviecardElementClick}>
+          onClick={() => {
+            onMovieCardClick(movie);
+            history.push(`${AppRoute.MOVIE}/${movie.id}`);
+          }}>
           <VideoPlayer
             isPlaying={isPlaying}
             poster={movie.previewImage}
@@ -58,18 +61,16 @@ class MovieCard extends PureComponent {
         </div>
         <h3 className="small-movie-card__title">
           <a
-            onClick={this._handleMoviecardElementClick}
+            onClick={(evt) => {
+              evt.preventDefault();
+              onMovieCardClick(movie);
+              history.push(`${AppRoute.MOVIE}/${movie.id}`);
+            }}
             className="small-movie-card__link"
             href="movie-page.html">{movie.title}</a>
         </h3>
       </article>
     );
-  }
-
-  componentWillUnmount() {
-    if (this._timeout) {
-      clearTimeout(this._timeout);
-    }
   }
 }
 
@@ -79,6 +80,7 @@ MovieCard.propTypes = {
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
     previewVideo: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   onMovieCardHover: PropTypes.func.isRequired,
   onMovieCardClick: PropTypes.func.isRequired,

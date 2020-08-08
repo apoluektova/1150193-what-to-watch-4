@@ -89,7 +89,6 @@ const withFullScreenPlayer = (Component) => {
 
     render() {
       const {isPlaying, progress, duration} = this.state;
-      const {onExitButtonClick} = this.props;
 
       return (
         <Component
@@ -101,7 +100,6 @@ const withFullScreenPlayer = (Component) => {
             this._handlePlayButtonClick();
           }}
           onFullScreenButtonClick={this._handleFullScreenButtonClick}
-          onExitButtonClick={onExitButtonClick}
         >
           <video
             className="player__video"
@@ -114,25 +112,26 @@ const withFullScreenPlayer = (Component) => {
 
   WithFullScreenPlayer.propTypes = {
     movie: PropTypes.exact({
-      previewImage: PropTypes.string.isRequired,
-      previewVideo: PropTypes.string.isRequired,
-      videoLink: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      backgroundImage: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseDate: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      rating: PropTypes.exact({
-        score: PropTypes.number.isRequired,
-        level: PropTypes.string.isRequired,
-        count: PropTypes.number.isRequired,
-      }).isRequired,
-      director: PropTypes.string.isRequired,
-      actors: PropTypes.string.isRequired,
-      runtime: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      previewImage: PropTypes.string,
+      previewVideo: PropTypes.string,
+      videoLink: PropTypes.string,
+      title: PropTypes.string,
+      backgroundImage: PropTypes.string,
+      backgroundColor: PropTypes.string,
+      poster: PropTypes.string,
+      genre: PropTypes.string,
+      releaseDate: PropTypes.number,
+      description: PropTypes.string,
+      rating: PropTypes.shape({
+        score: PropTypes.number,
+        count: PropTypes.number,
+      }),
+      director: PropTypes.string,
+      actors: PropTypes.array,
+      runtime: PropTypes.number,
+      isFavorite: PropTypes.bool,
     }).isRequired,
-    onExitButtonClick: PropTypes.func.isRequired,
   };
 
   return WithFullScreenPlayer;
