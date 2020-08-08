@@ -1,7 +1,7 @@
-import {createAPI} from "../../api.js";
+import {createAPI} from "../../api";
 import MockAdapter from "axios-mock-adapter";
-import {AuthorizationStatus, ActionType, ActionCreator, reducer, initialState, Operation} from "./user.js";
-import {createAuthorizationInfo} from "../../adapter/authInfo.js";
+import {AuthorizationStatus, ActionType, ActionCreator, reducer, initialState, Operation} from "./user";
+import {createAuthorizationInfo} from "../../adapter/authInfo";
 
 const userInfo = {
   id: 1,

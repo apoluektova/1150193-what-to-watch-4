@@ -41,4 +41,8 @@ export const formatRuntime = (runtime) => {
   return filmRuntime;
 };
 
+export const noop = () => {
+  // do nothing
+};
+
 

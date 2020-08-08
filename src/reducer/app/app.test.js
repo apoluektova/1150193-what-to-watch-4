@@ -1,5 +1,5 @@
-import {initialState, reducer, ActionType, ActionCreator} from "./app.js";
-import {ALL_GENRES} from "../../const.js";
+import {initialState, reducer, ActionType, ActionCreator} from "./app";
+import {ALL_GENRES} from "../../const";
 
 const movieCard =
   {

@@ -1,7 +1,7 @@
-import {extend} from "../../utils.js";
-import {createMovie, createMovies} from "../../adapter/movies.js";
-import {ActionCreator as AppActionCreator} from "../app/app.js";
-import history from "../../history.js";
+import {extend} from "../../utils";
+import {createMovie, createMovies} from "../../adapter/movies";
+import {ActionCreator as AppActionCreator} from "../app/app";
+import history from "../../history";
 
 const initialState = {
   promoMovie: {},
