@@ -94,6 +94,7 @@ const Operation = {
     });
   },
   postReview: (movieId, review) => (dispatch, getState, api) => {
+    dispatch(AppActionCreator.toggleFormState(true));
     return api.post(`/comments/${movieId}`, {
       rating: review.rating,
       comment: review.comment,
@@ -101,18 +102,13 @@ const Operation = {
     .then(() => {
       dispatch(ActionCreator.catchError(false));
       dispatch(ActionCreator.postReview(review));
-      dispatch(AppActionCreator.toggleFormState(true));
-
+      dispatch(Operation.loadReviews(movieId));
     }).
     then(() => {
       history.goBack();
       dispatch(AppActionCreator.toggleFormState(false));
-    }).
-    then(() => {
-      dispatch(Operation.loadReviews(movieId));
     })
     .catch(() => {
-      dispatch(AppActionCreator.toggleFormState(false));
       dispatch(ActionCreator.catchError(true));
     });
   },

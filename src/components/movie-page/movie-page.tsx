@@ -114,14 +114,11 @@ class MoviePage extends React.PureComponent<Props, {}> {
                       </svg>}
                     <span>My list</span>
                   </button>
-
-                  {authorizationStatus === AuthorizationStatus.AUTH &&
                   <Link
                     to={`${AppRoute.MOVIE}/${movie.id}/review`}
                     className="btn movie-card__button"
                   >Add review
                   </Link>
-                  }
                 </div>
               </div>
             </div>

@@ -117,7 +117,7 @@ const AddReview: React.FunctionComponent<Props> = (props: Props) => {
                   <button
                     className="add-review__btn"
                     type="submit"
-                    disabled={isSubmitButtonDisabled}
+                    disabled={isSubmitButtonDisabled || isFormDisabled}
                     style={{cursor: `${isSubmitButtonDisabled ? `default` : `pointer`}`}}
                   >Post</button>
                 </div>
