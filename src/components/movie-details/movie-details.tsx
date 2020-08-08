@@ -4,7 +4,7 @@ import {Movie} from "../../types";
 
 interface Props {
   movie: Movie;
-};
+}
 
 const MovieDetails: React.FunctionComponent<Props> = (props: Props) => {
   const {movie: {genre, releaseDate, director, actors, runtime}} = props;

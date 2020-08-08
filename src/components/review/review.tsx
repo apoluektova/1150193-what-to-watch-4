@@ -4,7 +4,7 @@ import {ReviewInfo} from "../../types";
 
 interface Props {
   review: ReviewInfo;
-};
+}
 
 const Review: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;

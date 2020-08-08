@@ -4,7 +4,7 @@ interface Props {
   genreName: string;
   onGenreClick: (genreName) => void;
   activeGenre: string;
-};
+}
 
 const Genre: React.FunctionComponent<Props> = (props: Props) => {
   const {genreName, onGenreClick, activeGenre} = props;

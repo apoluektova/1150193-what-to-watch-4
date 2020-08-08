@@ -4,7 +4,7 @@ interface Props {
   tabTitle: string;
   onTabClick: (tabTitle) => void;
   activeTab: string;
-};
+}
 
 const Tab: React.FunctionComponent<Props> = (props: Props) => {
   const {tabTitle, onTabClick, activeTab} = props;

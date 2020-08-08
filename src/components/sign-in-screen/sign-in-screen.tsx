@@ -9,7 +9,7 @@ interface Props {
     password: string;
   }) => void;
   isSignInError: boolean;
-};
+}
 
 class SignInScreen extends React.PureComponent<Props, {}> {
   private loginRef: React.RefObject<HTMLInputElement>;

@@ -24,7 +24,7 @@ interface Props {
   authorizationStatus: string;
   addMovieToFavorites: (movie: Movie) => void;
   loadMovieData: (movie: Movie) => void;
-};
+}
 
 const MoreLikeThisWrapped = withActiveCard(MoreLikeThis);
 const TabsListWrapped = withActiveTab(TabsList);

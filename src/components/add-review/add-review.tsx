@@ -19,7 +19,7 @@ interface Props {
   isSubmitButtonDisabled: boolean;
   isError: boolean;
   isFormDisabled: boolean;
-};
+}
 
 const STARS_AMOUNT = 5;
 

@@ -11,7 +11,7 @@ interface Props {
   onMovieCardClick: () => void;
   onActiveCardChange: () => void;
   currentMovieCard: Movie;
-};
+}
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 

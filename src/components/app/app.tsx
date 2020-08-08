@@ -37,9 +37,9 @@ interface Props {
   onReviewSubmit: (movieId: number, review: ReviewInfo) => void;
   movies: Array<Movie>;
   favoriteMovies: Array<Movie>;
-  addMovieToFavorites: () => void,
-  isLoading: boolean,
-};
+  addMovieToFavorites: () => void;
+  isLoading: boolean;
+}
 
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 const AddReviewWrapped = withReview(AddReview);

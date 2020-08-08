@@ -11,7 +11,7 @@ interface Props {
   onFullScreenButtonClick: () => void;
   movie: Movie;
   children: React.ReactNode;
-};
+}
 
 const FullScreenPlayer: React.FunctionComponent<Props> = (props: Props) => {
   const {

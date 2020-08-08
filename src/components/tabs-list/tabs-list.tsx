@@ -11,7 +11,7 @@ interface Props {
   reviews: Array<ReviewInfo>;
   activeTab: string;
   onTabClick: () => void;
-};
+}
 
 class TabsList extends React.PureComponent<Props, {}> {
   constructor(props) {

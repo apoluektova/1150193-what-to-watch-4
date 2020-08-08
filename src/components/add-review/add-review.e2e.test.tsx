@@ -1,6 +1,6 @@
-import React from "react";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as React from "react";
+import {configure, mount} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
 import AddReview from "./add-review";
 import {Provider} from "react-redux";
 import NameSpace from "../../reducer/name-space";
@@ -10,14 +10,14 @@ import history from "../../history";
 import {noop} from "../../utils";
 import {AuthInfo, Movie} from "../../types";
 
-const userInfo = {
+const userInfo: AuthInfo = {
   id: 1,
   email: `ben@mail.ru`,
   name: `Ben`,
   avatarUrl: `/wtw/static/avatar/5.jpg`,
 };
 
-const movie = {
+const movie: Movie = {
   id: 1,
   previewImage: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   previewVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
@@ -39,7 +39,7 @@ const movie = {
   isFavorite: false,
 };
 
-Enzyme.configure({
+configure({
   adapter: new Adapter(),
 });
 
@@ -64,8 +64,8 @@ it(`Review should be submitted`, () => {
             authorizationStatus={`AUTH`}
             authInfo={userInfo}
             movie={movie}
-            onRatingChange={() => {}}
-            onReviewChange={() => {}}
+            onRatingChange={noop}
+            onReviewChange={noop}
             onReviewFormSubmit={onReviewFormSubmit}
             isSubmitButtonDisabled={false}
             isError={false}

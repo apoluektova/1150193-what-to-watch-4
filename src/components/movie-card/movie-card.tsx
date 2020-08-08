@@ -11,7 +11,7 @@ interface Props {
   isPlaying: boolean;
   onVideoPlay: () => void;
   onVideoStop: () => void;
-};
+}
 
 const TIMEOUT_DELAY = 1000;
 

@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Subtract} from "utility-types";
 import {Review} from "../../const";
-import {Movie} from "../../types";
 
 interface State {
   rating: number;

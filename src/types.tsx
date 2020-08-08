@@ -6,7 +6,7 @@ export interface AuthInfo {
 }
 
 export interface Movie {
-  id: number,
+  id: number;
   previewImage: string;
   previewVideo: string;
   videoLink: string;
@@ -20,7 +20,7 @@ export interface Movie {
   rating: {
     score: number;
     count: number;
-  },
+  };
   director: string;
   actors: Array<string>;
   runtime: number;

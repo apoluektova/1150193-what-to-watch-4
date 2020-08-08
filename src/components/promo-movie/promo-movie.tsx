@@ -11,7 +11,7 @@ interface Props {
   authorizationStatus: string;
   authInfo: AuthInfo;
   addMovieToFavorites: (promoMovie: Movie) => void;
-};
+}
 
 const PromoMovie: React.FunctionComponent<Props> = (props: Props) => {
   const {authorizationStatus, promoMovie, addMovieToFavorites, authInfo} = props;

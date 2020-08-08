@@ -13,7 +13,7 @@ interface Props {
   authorizationStatus: string;
   authInfo: AuthInfo;
   addMovieToFavorites: () => void;
-};
+}
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 

@@ -1,4 +1,4 @@
-import * as  React from "react";
+import * as React from "react";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../const";
@@ -9,7 +9,7 @@ interface Props {
   authorizationStatus: string;
   extraClassName: string;
   children?: React.ReactNode;
-};
+}
 
 const Header: React.FunctionComponent<Props> = (props: Props) => {
   const {authorizationStatus, authInfo, extraClassName, children} = props;

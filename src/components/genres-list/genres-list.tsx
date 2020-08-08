@@ -9,7 +9,7 @@ interface Props {
   genresList: Array<string>;
   onGenreClick: () => void;
   activeGenre: string;
-};
+}
 
 const MAX_GENRES_AMOUNT = 9;
 

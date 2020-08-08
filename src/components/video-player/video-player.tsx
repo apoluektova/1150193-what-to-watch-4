@@ -5,7 +5,7 @@ interface Props {
   poster: string;
   muted: boolean;
   isPlaying: boolean;
-};
+}
 
 class VideoPlayer extends React.PureComponent<Props, {}> {
   private videoRef: React.RefObject<HTMLVideoElement>
