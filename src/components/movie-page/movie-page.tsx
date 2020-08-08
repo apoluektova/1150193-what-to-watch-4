@@ -41,9 +41,11 @@ class MoviePage extends React.PureComponent<Props, {}> {
     loadMovieData(movie);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const {movie, loadMovieData} = this.props;
-    loadMovieData(movie);
+    if (movie !== prevProps.movie) {
+      loadMovieData(movie);
+    }
   }
 
   _handleMyListClick() {
@@ -158,7 +160,6 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   authInfo: getAuthorizationInfo(state),
 });
-
 
 const mapDispatchToProps = (dispatch) => ({
   addMovieToFavorites(movie) {
